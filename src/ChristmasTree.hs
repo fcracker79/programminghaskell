@@ -1,4 +1,4 @@
-module Tree where
+module ChristmasTree where
 
 treeLayer :: (Eq a, Num a) => a -> a -> [a]
 

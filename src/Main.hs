@@ -1,7 +1,7 @@
 module Main where
 import Chapter1
 import Chapter2
-import Tree
+import ChristmasTree
 main :: IO ()
 main = do {
   putStr "Quick sort: "
