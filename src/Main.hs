@@ -2,6 +2,7 @@ module Main where
 import Chapter1
 import Chapter2
 import Chapter4
+import Chapter5
 import ChristmasTree
 main :: IO ()
 main = do {
@@ -39,4 +40,10 @@ main = do {
   ; print $ luhnDouble 6
   ; print $ luhn ([1, 7, 8, 4])
   ; print $ luhn ([4, 7, 8, 3])
+  ; print $ factors 15
+  ; print $ prime 15
+  ; print $ prime 7
+  ; putStrLn "Prime detection should be fast because of lazy evaluation"
+  ; print $ prime 18446744073709551614
+  -- ; print $ factors 18446744073709551614
 }
