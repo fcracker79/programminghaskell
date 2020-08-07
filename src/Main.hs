@@ -4,6 +4,7 @@ import Chapter2
 import Chapter4
 import Chapter5
 import Chapter7
+import Chapter8
 import ChristmasTree
 main :: IO ()
 main = do {
@@ -27,4 +28,6 @@ main = do {
     ; print $ altmap (+10) (+100) [0,1,2,3,4]
     ; print $ luhnaltmap [1,7,8,4]
     ; print $ luhnaltmap [4,7,8,3]
+    ; print $ distance (3,4)
+    ; print $ move [North, East, East] (3,4)
 }
