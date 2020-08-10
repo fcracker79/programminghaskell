@@ -14,3 +14,27 @@ onemove West (x,y) = (x - 1, y)
 move :: [Movement] -> Position -> Position
 move [] p = p
 move (x:xs) p = move xs (onemove x p)
+
+data Nat = Zero | Succ Nat  deriving Show
+
+int2nat :: Int -> Nat
+int2nat 0 = Zero
+int2nat n = Succ (int2nat (n - 1))
+
+nat2int :: Nat -> Int
+nat2int Zero = 0
+nat2int (Succ n) = 1 + nat2int n
+
+addnat :: Nat -> Nat -> Nat
+addnat x y = int2nat ( nat2int x + nat2int y)
+
+
+data Tree a = Leaf a | Node (Tree a) a (Tree a) deriving Show
+
+occurs :: Eq a => Tree a -> a -> Bool
+occurs (Leaf x) y = x == y
+occurs (Node l x r) y = x == y || (occurs l y) || (occurs r y)
+
+leaves :: Tree a -> [Tree a]
+leaves (Leaf x) = [Leaf x]
+leaves (Node l x r) = (leaves l) ++ (leaves r)

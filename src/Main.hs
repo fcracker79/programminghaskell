@@ -30,4 +30,9 @@ main = do {
     ; print $ luhnaltmap [4,7,8,3]
     ; print $ distance (3,4)
     ; print $ move [North, East, East] (3,4)
+    ; print $ Succ (Succ ( Succ ( Succ (Zero))))
+    ; print $ Succ (Succ ( Succ ( Succ ( Succ ( Succ(Zero))))))
+    ; print (addnat (Succ Zero) (Succ Zero))
+    ; print $ Node (Node (Leaf 3) 1 (Leaf 4)) 0 (Node (Leaf 5) 2 (Leaf 6))
+    ; print $ leaves (Node (Node (Leaf 3) 1 (Leaf 4)) 0 (Node (Leaf 5) 2 (Leaf 6)))
 }
