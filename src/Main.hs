@@ -35,4 +35,7 @@ main = do {
     ; print (addnat (Succ Zero) (Succ Zero))
     ; print $ Node (Node (Leaf 3) 1 (Leaf 4)) 0 (Node (Leaf 5) 2 (Leaf 6))
     ; print $ leaves (Node (Node (Leaf 3) 1 (Leaf 4)) 0 (Node (Leaf 5) 2 (Leaf 6)))
+    ; print $ hello "This is a normal string"
+    ; print $ hello (12345::Int)
+    ; print $ hello True
 }

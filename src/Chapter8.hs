@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances #-}
+
 module Chapter8 where
 
 type Position = (Double, Double)
@@ -38,3 +40,16 @@ occurs (Node l x r) y = x == y || (occurs l y) || (occurs r y)
 leaves :: Tree a -> [Tree a]
 leaves (Leaf x) = [Leaf x]
 leaves (Node l x r) = (leaves l) ++ (leaves r)
+
+class HelloWorld a where
+    hello :: a -> String
+
+instance HelloWorld Bool where
+    hello x = "hello bool " ++ show x
+
+instance HelloWorld Int where
+    hello x = "hello int " ++ show x
+
+-- This requires Flexible Instances as String is not a primitive type
+instance HelloWorld String where
+    hello x = "hello string " ++ x
