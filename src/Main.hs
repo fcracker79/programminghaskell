@@ -38,4 +38,8 @@ main = do {
     ; print $ hello "This is a normal string"
     ; print $ hello (12345::Int)
     ; print $ hello True
+    ; print $ nat2int (mulnat (int2nat 3) (int2nat 4))
+    ; print $ balanced (Node2 (Node2 (Leaf2 3) (Leaf2 4)) (Node2 (Leaf2 5) (Leaf2 6)))
+    ; print $ balanced (Node2 (Node2 (Leaf2 3) (Leaf2 4)) (Node2 (Leaf2 5) (Node2 (Leaf2 6) (Leaf2 7))))
+    ; print $ balanced (Node2 (Node2 (Leaf2 3) (Leaf2 4)) (Node2 (Leaf2 5) (Node2 (Leaf2 6) (Node2 (Leaf2 7) (Leaf2 8)))))
 }

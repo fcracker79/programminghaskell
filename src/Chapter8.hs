@@ -37,6 +37,27 @@ occurs :: Eq a => Tree a -> a -> Bool
 occurs (Leaf x) y = x == y
 occurs (Node l x r) y = x == y || (occurs l y) || (occurs r y)
 
+
+occursOrdered :: (Ord a, Eq a) => Tree a -> a -> Bool
+occursOrdered (Leaf x) y = x == y
+occursOrdered (Node l x r) y | x == y = True
+                      | x < y = occurs r y
+                      | otherwise = occurs l y
+
+
+data Tree2 a = Leaf2 a | Node2 (Tree2 a) (Tree2 a)
+
+leaves2 :: Tree2 a -> Int
+leaves2 (Leaf2 _) = 1
+leaves2 (Node2 l r) = (leaves2 l) + (leaves2 r)
+
+balanced :: Tree2 a -> Bool
+balanced (Leaf2 _) = True
+balanced (Node2 l r) = leaves_left - leaves_right <= 1 && leaves_left - leaves_right >= -1 && balanced l && balanced r
+             where leaves_left = leaves2 l
+                   leaves_right = leaves2 r
+
+
 leaves :: Tree a -> [Tree a]
 leaves (Leaf x) = [Leaf x]
 leaves (Node l x r) = (leaves l) ++ (leaves r)
@@ -53,3 +74,7 @@ instance HelloWorld Int where
 -- This requires Flexible Instances as String is not a primitive type
 instance HelloWorld String where
     hello x = "hello string " ++ x
+
+mulnat :: Nat -> Nat -> Nat
+mulnat _ Zero = Zero
+mulnat x (Succ y) = addnat (mulnat x y) x
