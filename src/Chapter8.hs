@@ -17,7 +17,7 @@ move :: [Movement] -> Position -> Position
 move [] p = p
 move (x:xs) p = move xs (onemove x p)
 
-data Nat = Zero | Succ Nat  deriving Show
+data Nat = Zero | Succ Nat deriving Show
 
 int2nat :: Int -> Nat
 int2nat 0 = Zero
@@ -45,7 +45,7 @@ occursOrdered (Node l x r) y | x == y = True
                       | otherwise = occurs l y
 
 
-data Tree2 a = Leaf2 a | Node2 (Tree2 a) (Tree2 a)
+data Tree2 a = Leaf2 a | Node2 (Tree2 a) (Tree2 a) deriving Show
 
 leaves2 :: Tree2 a -> Int
 leaves2 (Leaf2 _) = 1
@@ -61,6 +61,14 @@ balanced (Node2 l r) = leaves_left - leaves_right <= 1 && leaves_left - leaves_r
 leaves :: Tree a -> [Tree a]
 leaves (Leaf x) = [Leaf x]
 leaves (Node l x r) = (leaves l) ++ (leaves r)
+
+balanced_tree :: [a] -> Tree2 a
+balanced_tree x
+    | length x == 1 = Leaf2 (x !! 0)
+    | otherwise = Node2 left_node right_node
+   where first_half_size = length x `div` 2
+         left_node = balanced_tree (take first_half_size x)
+         right_node = balanced_tree (drop first_half_size x)
 
 class HelloWorld a where
     hello :: a -> String
@@ -78,3 +86,16 @@ instance HelloWorld String where
 mulnat :: Nat -> Nat -> Nat
 mulnat _ Zero = Zero
 mulnat x (Succ y) = addnat (mulnat x y) x
+
+data Expr = Val Int | Add Expr Expr
+
+folde :: (Int -> a) -> (a -> a -> a) -> Expr -> a
+
+folde f g (Val x) = f x
+folde f g (Add x1 x2) = g (folde f g x1) (folde f g x2)
+
+eval :: Expr -> Int
+eval = folde id (\x1 x2 -> x1 + x2)
+
+size :: Expr -> Int
+size = folde (\_ -> 1) (\x1 x2 -> x1 + x2)
