@@ -99,3 +99,10 @@ eval = folde id (\x1 x2 -> x1 + x2)
 
 size :: Expr -> Int
 size = folde (\_ -> 1) (\x1 x2 -> x1 + x2)
+
+
+data Maybe2 a = Nothing2 | Just2 a
+instance Eq a => Eq (Maybe2 a) where
+    (==) (Just2 x) (Just2 y) = x == y
+    (==) Nothing2 Nothing2 = True
+    (==) _ _ = False
