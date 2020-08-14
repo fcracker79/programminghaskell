@@ -47,4 +47,5 @@ main = do {
     ; print $ size (Add (Val 1) (Add (Val 2) (Val 3)))
     ; print $ Appo Addo (Valo 1) (Appo Mulo (Valo 2) (Valo 3))
     ; print $ evalo (Appo Addo (Valo 1) (Appo Mulo (Valo 2) (Valo 3)))
+    ; print $ evalo (Appo Divo (Valo 1) (Valo 0))
 }

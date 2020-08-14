@@ -9,7 +9,7 @@ instance Show Op where
 
 
 valid :: Op -> Int -> Int -> Bool
-valid Divo x y = x `mod` y == 0
+valid Divo x y = y > 0 && x `mod` y == 0
 valid Subo x y = x - y >= 0
 valid _ _ _ = True
 
