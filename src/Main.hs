@@ -5,6 +5,7 @@ import Chapter4
 import Chapter5
 import Chapter7
 import Chapter8
+import Chapter9
 import ChristmasTree
 main :: IO ()
 main = do {
@@ -44,5 +45,6 @@ main = do {
     ; print $ balanced (Node2 (Node2 (Leaf2 3) (Leaf2 4)) (Node2 (Leaf2 5) (Node2 (Leaf2 6) (Node2 (Leaf2 7) (Leaf2 8)))))
     ; print $ balanced (balanced_tree [1,2,3,4,5,6,7,8])
     ; print $ size (Add (Val 1) (Add (Val 2) (Val 3)))
-    ; print $ eval (Add (Val 1) (Add (Val 2) (Val 3)))
+    ; print $ Appo Addo (Valo 1) (Appo Mulo (Valo 2) (Valo 3))
+    ; print $ evalo (Appo Addo (Valo 1) (Appo Mulo (Valo 2) (Valo 3)))
 }
