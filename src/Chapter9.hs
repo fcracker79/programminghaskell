@@ -44,3 +44,13 @@ evalo (Valo x) | x >= 0 = Justo x
 evalo (Appo o l r) = applymaybe o x y
                   where x = evalo l
                         y = evalo r
+
+
+subs :: [a] -> [[a]]
+subs [] =[[]]
+subs (x:xs) = ys ++ map (x:) ys
+              where ys = subs xs
+
+interleave :: a -> [a] -> [[a]]
+interleave x [] = [[x]]
+interleave x (y:ys) = (x:y:ys) : map (y:) (interleave x ys)
