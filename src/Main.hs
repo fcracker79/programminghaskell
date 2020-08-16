@@ -48,6 +48,5 @@ main = do {
     ; print $ Appo Addo (Valo 1) (Appo Mulo (Valo 2) (Valo 3))
     ; print $ evalo (Appo Addo (Valo 1) (Appo Mulo (Valo 2) (Valo 3)))
     ; print $ evalo (Appo Divo (Valo 1) (Valo 0))
-    ; print $ subs [1,2,3]
-    ; print $ interleave 1 [2,3,4]
+    ; print $ solution (Appo Mulo (Appo Addo (Valo 1) (Valo 50)) (Appo Subo (Valo 25) (Valo 10))) [1,3,7,10,25,50] 765
 }

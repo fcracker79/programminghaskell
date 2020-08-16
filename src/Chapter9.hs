@@ -21,7 +21,7 @@ apply Divo x y = x `div` y
 
 data Expro = Valo Int | Appo Op Expro Expro
 
-data Maybeo = Nothingo | Justo Int deriving Show
+data Maybeo = Nothingo | Justo Int deriving (Show, Eq)
 
 
 instance Show Expro where
@@ -54,3 +54,17 @@ subs (x:xs) = ys ++ map (x:) ys
 interleave :: a -> [a] -> [[a]]
 interleave x [] = [[x]]
 interleave x (y:ys) = (x:y:ys) : map (y:) (interleave x ys)
+
+perms :: [a] -> [[a]]
+perms [] = [[]]
+perms (x:xs) = concat (map (interleave x) (perms xs))
+
+choices :: [a] -> [[a]]
+choices = concat . (map perms) . subs
+
+valueso :: Expro -> [Int]
+valueso (Valo x) = [x]
+valueso (Appo _ l r) = (valueso l) ++ (valueso r)
+
+solution :: Expro -> [Int] -> Int -> Bool
+solution expr values exp = elem (valueso expr) (choices values) && evalo expr == Justo exp
