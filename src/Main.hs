@@ -55,11 +55,18 @@ main = do print $ mySum [1,2,3, 4]
           -- line <- getLine2
           -- print $ line
           -- playWord "foo"
-          print $ Board
+          print $ gameOfLife $ Board
             [DeadCell, LivingCell, DeadCell,
              LivingCell, DeadCell, LivingCell,
-             DeadCell, LivingCell, DeadCell
+             LivingCell, LivingCell, DeadCell
             ]
             (3, 3)
+          -- print $ neighbours (Board
+          --                                        [DeadCell, LivingCell, DeadCell,
+          --                                         LivingCell, DeadCell, LivingCell,
+          --                                         LivingCell, LivingCell, DeadCell
+          --                                        ]
+          --                                        (3, 3)) (0, 1)
+
 
 
