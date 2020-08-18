@@ -7,6 +7,7 @@ import Chapter7
 import Chapter8
 import Chapter9
 import Chapter10
+import Chapter12
 import ChristmasTree
 main :: IO ()
 main = do print $ mySum [1,2,3, 4]
