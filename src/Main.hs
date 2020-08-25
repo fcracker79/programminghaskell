@@ -70,6 +70,6 @@ main = do print $ mySum [1,2,3, 4]
           --                                        (3, 3)) (0, 1)
           -- dino <- myGetChars 10
           -- print $ dino
-          myx <- myGetInt 4
-          print $ "The number is " ++ show myx
+          -- myx <- myGetInt 4
+          -- print $ "The number is " ++ show myx
 

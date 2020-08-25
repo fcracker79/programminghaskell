@@ -9,6 +9,11 @@ class MyApplicative f where
     mypure :: a -> f a
     (<**>) :: f (a -> b) -> f a -> f b
 
+class MyApplicative m => MyMonad m where
+    myreturn :: a -> m a
+    (>>==) :: m a -> (a -> m b) -> m b
+    myreturn = mypure
+
 -- This is in the prelude, but if I do the same, as follows...
 -- class MyFunctor2 (f :: * -> *) where
 --    myfmap2 :: (a -> b) -> f a -> f b
@@ -68,3 +73,16 @@ myIOParse x = do {v <- x; return (read v :: Int)}
 
 myGetInt :: Int -> IO Int
 myGetInt = (mypure myIOParse) <**> myGetString
+
+
+myMapM :: (MyMonad m) => (a -> m b) -> [a] -> m [b]
+myMapM _ [] = mypure []
+myMapM f (x:xs) = f x >>== \y -> (myMapM f xs) >>== \ys -> mypure (y:ys)
+
+-- "do" constructor just works with a real monad, not with MyMonad.
+myMapMDo :: (Monad m) => (a -> m b) -> [a] -> m [b]
+myMapMDo _ [] = pure []
+myMapMDo f (x:xs) = do
+              y <- f x
+              ys <- myMapMDo f xs
+              return (y:ys)
