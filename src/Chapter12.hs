@@ -47,3 +47,8 @@ myGetChars :: Int -> IO String
 myGetChars 0 = return []
 -- myGetChars n = ((<**>) ((<**>) (mypure (:)) getChar) (myGetChars (n - 1)))
 myGetChars n = mypure (:) <**> getChar <**> myGetChars (n - 1)
+
+
+instance MyApplicative ((->) r) where
+    mypure x = \r -> x
+    (<**>) g x = \r -> (g r) (x r)

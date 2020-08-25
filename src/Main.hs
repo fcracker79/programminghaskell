@@ -68,6 +68,6 @@ main = do print $ mySum [1,2,3, 4]
           --                                         LivingCell, LivingCell, DeadCell
           --                                        ]
           --                                        (3, 3)) (0, 1)
-          dino <- myGetChars 10
-          print $ dino
+          -- dino <- myGetChars 10
+          -- print $ dino
 
