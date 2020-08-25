@@ -52,3 +52,19 @@ myGetChars n = mypure (:) <**> getChar <**> myGetChars (n - 1)
 instance MyApplicative ((->) r) where
     mypure x = \r -> x
     (<**>) g x = \r -> (g r) (x r)
+
+
+-- In this example r is Int and f is a function that takes Int
+-- a is IO String
+-- b is IO Int
+-- So, given (Int -> IO String), I want a function (Int -> IO Int).
+-- In order to implement it, we use an applicative that applies to a function
+-- that converts a into b, that is, parses the String and "returns" the Int
+myGetString :: Int -> IO String
+myGetString = myGetChars
+
+myIOParse :: (IO String) -> (IO Int)
+myIOParse x = do {v <- x; return (read v :: Int)}
+
+myGetInt :: Int -> IO Int
+myGetInt = (mypure myIOParse) <**> myGetString
