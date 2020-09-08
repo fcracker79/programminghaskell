@@ -86,3 +86,23 @@ myMapMDo f (x:xs) = do
               y <- f x
               ys <- myMapMDo f xs
               return (y:ys)
+
+instance MyApplicative [] where
+    mypure = return
+    (<**>) ff fa = [f a | f <- ff, a <- fa]
+
+instance MyMonad [] where
+    xs >>== f = [y | x <- xs, y <- f x]
+
+
+instance MyMonad ((->) r) where
+    fa >>== f = \r -> (f (fa r)) r
+
+
+newtype ZipList a = Z [a] deriving Show
+instance Functor ZipList where
+    fmap g (Z xs) = Z (fmap g xs)
+
+instance Applicative ZipList where
+    pure x = Z (repeat x)
+    (Z gs) <*> (Z xs) = Z (fmap (\(g,x) -> g x) (zip gs xs))
