@@ -8,7 +8,10 @@ import Chapter8
 import Chapter9
 import Chapter10
 import Chapter12
+import Chapter13
 import ChristmasTree
+
+import Data.Char
 main :: IO ()
 main = do print $ mySum [1,2,3, 4]
           print $ myProd [1, 2, 3, 4]
@@ -73,3 +76,7 @@ main = do print $ mySum [1,2,3, 4]
           -- myx <- myGetInt 4
           -- print $ "The number is " ++ show myx
 
+          print $ parse item "abc"
+          print $ parse item ""
+          print $ parse (fmap toUpper item) "abc"
+          print $ parse (fmap toUpper item) ""
