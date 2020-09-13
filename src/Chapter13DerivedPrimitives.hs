@@ -1,8 +1,8 @@
 module Chapter13DerivedPrimitives where
 
 import Chapter13BasicDefinition
-import Chapter13MonadicDefinition
 import Data.Char
+import Control.Applicative
 
 
 conditionalParser :: (Char -> Bool) -> Parser Char
