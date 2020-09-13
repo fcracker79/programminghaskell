@@ -75,8 +75,3 @@ main = do print $ mySum [1,2,3, 4]
           -- print $ dino
           -- myx <- myGetInt 4
           -- print $ "The number is " ++ show myx
-
-          print $ parse item "abc"
-          print $ parse item ""
-          print $ parse (fmap toUpper item) "abc"
-          print $ parse (fmap toUpper item) ""
