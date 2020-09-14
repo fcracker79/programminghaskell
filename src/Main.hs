@@ -9,6 +9,7 @@ import Chapter9
 import Chapter10
 import Chapter12
 import Chapter13
+import Chapter14
 import ChristmasTree
 
 import Data.Char
@@ -75,3 +76,5 @@ main = do print $ mySum [1,2,3, 4]
           -- print $ dino
           -- myx <- myGetInt 4
           -- print $ "The number is " ++ show myx
+          print $ getMyFunction (mappend (MyFunction (\x -> "1")) (MyFunction (\x -> "2"))) 12345
+          print $ getMyFunction (traverse (\x -> MyFunction (\_ -> x)) [1, 2, 3]) 12345
