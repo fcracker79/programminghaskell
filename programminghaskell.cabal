@@ -1,0 +1,83 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: c1b2531053d7e5da99ebca9260435e78bd44f563220c69fc6fcf3a93bfb82d23
+
+name:           programminghaskell
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/programminghaskell#readme>
+homepage:       https://github.com/githubuser/programminghaskell#readme
+bug-reports:    https://github.com/githubuser/programminghaskell/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2020 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/programminghaskell
+
+library
+  exposed-modules:
+      BookOfMonads.Chapter1
+      Chapter1
+      Chapter10
+      Chapter12
+      Chapter13
+      Chapter13BasicDefinition
+      Chapter13DerivedPrimitives
+      Chapter14
+      Chapter2
+      Chapter4
+      Chapter5
+      Chapter7
+      Chapter8
+      Chapter9
+      ChristmasTree
+      Lib
+  other-modules:
+      Paths_programminghaskell
+  hs-source-dirs:
+      src
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions
+  build-depends:
+      base >=4.7 && <5
+    , monad-loops >=0.4.3
+  default-language: Haskell2010
+
+executable programminghaskell-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_programminghaskell
+  hs-source-dirs:
+      app
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , monad-loops >=0.4.3
+    , programminghaskell
+  default-language: Haskell2010
+
+test-suite programminghaskell-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_programminghaskell
+  hs-source-dirs:
+      test
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , monad-loops >=0.4.3
+    , programminghaskell
+  default-language: Haskell2010
