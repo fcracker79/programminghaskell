@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c1b2531053d7e5da99ebca9260435e78bd44f563220c69fc6fcf3a93bfb82d23
+-- hash: 0f40a4650214f28496a00f9cc89fc85bf0855c1f7d0a461d17ed48567e529b1e
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       BookOfMonads.Chapter1
+      BookOfMonads.Chapter4
       Chapter1
       Chapter10
       Chapter12
