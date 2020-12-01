@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0f40a4650214f28496a00f9cc89fc85bf0855c1f7d0a461d17ed48567e529b1e
+-- hash: 83ae6d794963bb55111fc35d10be75d20ee0ace08ceae0540aedc4c3dfa7c829
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -29,6 +29,7 @@ library
   exposed-modules:
       BookOfMonads.Chapter1
       BookOfMonads.Chapter4
+      BookOfMonads.Chapter5
       Chapter1
       Chapter10
       Chapter12
@@ -48,7 +49,7 @@ library
       Paths_programminghaskell
   hs-source-dirs:
       src
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts
   build-depends:
       base >=4.7 && <5
     , monad-loops >=0.4.3
@@ -60,7 +61,7 @@ executable programminghaskell-exe
       Paths_programminghaskell
   hs-source-dirs:
       app
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
@@ -75,7 +76,7 @@ test-suite programminghaskell-test
       Paths_programminghaskell
   hs-source-dirs:
       test
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
