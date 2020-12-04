@@ -37,5 +37,5 @@ getConf :: MyReader (MyConfig f1 f2 f3) String
 getConf = do
     v1 <- asks f1
     v2 <- show <$> (asks f2)
-    v3 <- show <$> (asks f3)
+    v3 <- withReader (show . f3) ask
     return (v1 ++ v2 ++ v3)
