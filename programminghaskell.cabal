@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c0149451ea78df2ac3e6d147ec16c47b9ead0d0fa3f4a4de4fd235b644987deb
+-- hash: 8811f4d1dda84cd691ce33d024f7a9cc22c019dd11afe04f97009b234c707a3c
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -33,6 +33,7 @@ library
       BookOfMonads.Chapter6.Reader
       BookOfMonads.Chapter6.State
       BookOfMonads.Chapter6.Writer
+      BookOfMonads.Chapter7
       Chapter1
       Chapter10
       Chapter12
@@ -56,6 +57,7 @@ library
   build-depends:
       base >=4.7 && <5
     , monad-loops >=0.4.3
+    , mtl >=2.2.2
   default-language: Haskell2010
 
 executable programminghaskell-exe
@@ -69,6 +71,7 @@ executable programminghaskell-exe
   build-depends:
       base >=4.7 && <5
     , monad-loops >=0.4.3
+    , mtl >=2.2.2
     , programminghaskell
   default-language: Haskell2010
 
@@ -84,5 +87,6 @@ test-suite programminghaskell-test
   build-depends:
       base >=4.7 && <5
     , monad-loops >=0.4.3
+    , mtl >=2.2.2
     , programminghaskell
   default-language: Haskell2010
