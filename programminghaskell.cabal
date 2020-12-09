@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8811f4d1dda84cd691ce33d024f7a9cc22c019dd11afe04f97009b234c707a3c
+-- hash: 6235a34c77b16a31f2ca13788c2f0b84f53f4bc015b0627a3e32afaa04b2c34b
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -34,6 +34,7 @@ library
       BookOfMonads.Chapter6.State
       BookOfMonads.Chapter6.Writer
       BookOfMonads.Chapter7
+      BookOfMonads.Chapter8
       Chapter1
       Chapter10
       Chapter12
