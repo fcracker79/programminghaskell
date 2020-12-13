@@ -1,4 +1,4 @@
-module BookOfMonads.Chapter9 where
+module BookOfMonads.Chapter9.Bracket where
 
 
 import qualified Control.Exception as CE

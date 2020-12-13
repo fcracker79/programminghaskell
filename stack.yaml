@@ -44,6 +44,7 @@ packages:
 extra-deps:
   - monad-loops-0.4.3
   - mtl-2.2.2
+  - managed-1.0.8
 # Override default flag values for local packages and extra-deps
 # flags: {}
 

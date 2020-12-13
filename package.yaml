@@ -23,6 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - monad-loops >= 0.4.3
 - mtl >= 2.2.2
+- managed >= 1.0.8
 library:
   source-dirs: src
 

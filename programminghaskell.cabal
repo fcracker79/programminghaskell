@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 740e900fdd4ff069dabc502c1bb62e948b9ef1f8bb8d61f67780b9b021c9fe37
+-- hash: 0293fbbfe890d99db8cadecc70a9bb82222ab34f241b6ea8057b937c670c93e4
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -35,7 +35,8 @@ library
       BookOfMonads.Chapter6.Writer
       BookOfMonads.Chapter7
       BookOfMonads.Chapter8
-      BookOfMonads.Chapter9
+      BookOfMonads.Chapter9.Bracket
+      BookOfMonads.Chapter9.Continuation
       Chapter1
       Chapter10
       Chapter12
@@ -58,6 +59,7 @@ library
   default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts
   build-depends:
       base >=4.7 && <5
+    , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
   default-language: Haskell2010
@@ -72,6 +74,7 @@ executable programminghaskell-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
@@ -88,6 +91,7 @@ test-suite programminghaskell-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
