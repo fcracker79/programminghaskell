@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0293fbbfe890d99db8cadecc70a9bb82222ab34f241b6ea8057b937c670c93e4
+-- hash: 4f83b01746a78367e71c89f781635adbcd380b8a93a64d391c997b5d96b81b4f
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -56,7 +56,7 @@ library
       Paths_programminghaskell
   hs-source-dirs:
       src
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes
   build-depends:
       base >=4.7 && <5
     , managed >=1.0.8
@@ -70,7 +70,7 @@ executable programminghaskell-exe
       Paths_programminghaskell
   hs-source-dirs:
       app
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
@@ -87,7 +87,7 @@ test-suite programminghaskell-test
       Paths_programminghaskell
   hs-source-dirs:
       test
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5

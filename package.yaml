@@ -54,3 +54,4 @@ default-extensions:
   - FlexibleInstances
   - MonadComprehensions
   - FlexibleContexts
+  - RankNTypes
