@@ -37,7 +37,7 @@ continuationWithIOError :: IO ()
 continuationWithIOError = continuationWithPrint useWithFailure
 
 continuationWithSuccess :: IO Int
-continuationWithSuccess = continuationWithPrint (\x -> return $ length x)
+continuationWithSuccess = continuationWithPrint (return . length)
 
 
 continuationWithThrowError :: IO ()

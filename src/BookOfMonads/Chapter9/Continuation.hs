@@ -1,7 +1,7 @@
 module BookOfMonads.Chapter9.Continuation where
 
 
-data MyCont r a = MyCont { runCont :: (a -> r) -> r}
+newtype MyCont r a = MyCont { runCont :: (a -> r) -> r}
 
 
 instance Functor (MyCont r) where
@@ -14,7 +14,7 @@ instance Applicative (MyCont r) where
 
 
 instance Monad (MyCont r) where
-    (>>=) (MyCont ffa) f = MyCont (\fb -> (ffa (\a -> runCont (f a) fb)))
+    (>>=) (MyCont ffa) f = MyCont (\fb -> ffa (\a -> runCont (f a) fb))
 
 
 toCont :: a (forall r. MyCont r a)
