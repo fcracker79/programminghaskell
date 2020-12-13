@@ -24,8 +24,8 @@ main = do print $ mySum [1,2,3, 4]
           print $ myMap (+ 1) [1,2,3]
           print $ myFilter (> 5) [6,7,8,9, 1, 7, 9]
           print $ dec2int [1,2,3]
-          print $ myUncurry (+) $ (1, 2)
-          print $ (myCurry (myUncurry (+))) 1 2
+          print $ myUncurry (+) (1, 2)
+          print $ myCurry (myUncurry (+)) 1 2
           print $ int2bin 126
           print $ chop8 [1,2,3,4,5,6,7,8,9,0]
           print $ chop8unfold [1,2,3,4,5,6,7,8,9,0]
@@ -36,8 +36,8 @@ main = do print $ mySum [1,2,3, 4]
           print $ luhnaltmap [4,7,8,3]
           print $ distance (3,4)
           print $ move [North, East, East] (3,4)
-          print $ Succ (Succ ( Succ ( Succ (Zero))))
-          print $ Succ (Succ ( Succ ( Succ ( Succ ( Succ(Zero))))))
+          print $ Succ (Succ ( Succ ( Succ Zero)))
+          print $ Succ (Succ ( Succ ( Succ ( Succ ( Succ Zero)))))
           print (addnat (Succ Zero) (Succ Zero))
           print $ Node (Node (Leaf 3) 1 (Leaf 4)) 0 (Node (Leaf 5) 2 (Leaf 6))
           print $ leaves (Node (Node (Leaf 3) 1 (Leaf 4)) 0 (Node (Leaf 5) 2 (Leaf 6)))
@@ -76,9 +76,9 @@ main = do print $ mySum [1,2,3, 4]
           -- print $ dino
           -- myx <- myGetInt 4
           -- print $ "The number is " ++ show myx
-          print $ getMyFunction (mappend (MyFunction (\x -> "1")) (MyFunction (\x -> "2"))) 12345
-          print $ getMyFunction (traverse (\x -> MyFunction (\_ -> x)) [1, 2, 3]) 12345
+          print $ getMyFunction (mappend (MyFunction (const "1")) (MyFunction (const "2"))) 12345
+          print $ getMyFunction (traverse (MyFunction . const) [1, 2, 3]) 12345
           print $ BoM1.MyState "externalState" (BoM1.MyState "internalState" "internalValue")
           print $ BoM1.myunwrap $ BoM1.MyState "externalState" (BoM1.MyState "internalState" "internalValue")
-          print $ BoM1.myarray
-          print $ BoM1.dino
+          print BoM1.myarray
+          print BoM1.dino
