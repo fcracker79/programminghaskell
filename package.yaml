@@ -55,3 +55,4 @@ default-extensions:
   - MonadComprehensions
   - FlexibleContexts
   - RankNTypes
+  - TypeOperators
