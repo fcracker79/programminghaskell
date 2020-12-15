@@ -56,3 +56,4 @@ default-extensions:
   - FlexibleContexts
   - RankNTypes
   - TypeOperators
+  - UndecidableInstances
