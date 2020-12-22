@@ -57,3 +57,5 @@ default-extensions:
   - RankNTypes
   - TypeOperators
   - UndecidableInstances
+  - MultiParamTypeClasses
+  - FunctionalDependencies
