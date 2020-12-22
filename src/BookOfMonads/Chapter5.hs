@@ -13,14 +13,18 @@ instance Show a => Show (RMaybe a) where
     show (RMaybe Nothing) = "RNothing"
 
 -- OR
+instance Semigroup (LMaybe a) where
+    (<>) (LMaybe (Just a)) _ = LMaybe (Just a)
+    (<>) (LMaybe Nothing) a = a
+
 instance Monoid (LMaybe a) where
     mempty = LMaybe Nothing
-    mappend (LMaybe (Just a)) _ = LMaybe (Just a)
-    mappend (LMaybe (Nothing)) a = a
 
 
 -- AND
+instance Semigroup a => Semigroup (RMaybe a) where
+    (<>) (RMaybe (Just _)) b = b
+    (<>) (RMaybe Nothing) _ = RMaybe Nothing
+
 instance Monoid a => Monoid (RMaybe a) where
     mempty = RMaybe $ Just mempty
-    mappend (RMaybe (Just _)) b = b
-    mappend (RMaybe Nothing) _ = RMaybe Nothing

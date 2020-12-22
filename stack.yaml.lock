@@ -3,26 +3,10 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages:
+packages: []
+snapshots:
 - completed:
-    hackage: monad-loops-0.4.3@sha256:ada4f1295ece07f9a7398bc5b40c4532f95a733a8604d2a2f57f05f878766df2,1751
-    pantry-tree:
-      size: 243
-      sha256: c8d919cbf7cda1c8551534cb17844c56cbfcbf1b18667b1a0700b97c87ff5059
-  original:
-    hackage: monad-loops-0.4.3
-- completed:
-    hackage: mtl-2.2.2@sha256:1050fb71acd9f5d67da7d992583f5bd0eb14407b9dc7acc122af1b738b706ca3,2261
-    pantry-tree:
-      size: 1713
-      sha256: b8bdc2259e2f943a7252fb164805666fe108ac959d398e0af27b43ba2ebc241c
-  original:
-    hackage: mtl-2.2.2
-- completed:
-    hackage: managed-1.0.8@sha256:7d2d73f62b9b101a092d793bf890850361fb0f3246f91102ffe393f90a7a60e3,1566
-    pantry-tree:
-      size: 294
-      sha256: 3b6acd9bb77558d410e50b0b647284ef9322e381033e93c173f946bf65e5ffdb
-  original:
-    hackage: managed-1.0.8
-snapshots: []
+    size: 533252
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/16/26.yaml
+    sha256: cdbc5db9c1afe80a5998247939027a0c7db92fa0f20b5cd01596ec3da628b622
+  original: lts-16.26

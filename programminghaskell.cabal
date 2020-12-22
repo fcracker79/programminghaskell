@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 5ca5d240a820460b13b1dc0a72b50f9acfcf3f376f16d57d96b9f0fb614d7359
+-- hash: 59372e10d3b6e5cca4d1c67e65535f9460fcb360a896d6fdaec7d9e4c45dcea0
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -31,6 +31,7 @@ library
       BookOfMonads.Chapter10.Swappiness
       BookOfMonads.Chapter10.TestCompose
       BookOfMonads.Chapter11.MaybeTIdentity
+      BookOfMonads.Chapter11.MonadReaderExample
       BookOfMonads.Chapter4
       BookOfMonads.Chapter5
       BookOfMonads.Chapter6.Reader
@@ -66,6 +67,7 @@ library
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , transformers >=0.5.2.0
   default-language: Haskell2010
 
 executable programminghaskell-exe
@@ -82,6 +84,7 @@ executable programminghaskell-exe
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
+    , transformers >=0.5.2.0
   default-language: Haskell2010
 
 test-suite programminghaskell-test
@@ -99,4 +102,5 @@ test-suite programminghaskell-test
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
+    , transformers >=0.5.2.0
   default-language: Haskell2010

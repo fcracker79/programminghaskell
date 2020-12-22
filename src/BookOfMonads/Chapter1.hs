@@ -2,7 +2,7 @@ module BookOfMonads.Chapter1 where
 
 newtype StuffWithState a = StuffWithState (Int -> (a, Int))
 
-unwrap :: (StuffWithState a) -> (Int -> (a, Int))
+unwrap :: StuffWithState a -> (Int -> (a, Int))
 unwrap (StuffWithState x) = x
 
 
@@ -33,9 +33,11 @@ instance (Monoid s) => Applicative (MyState s) where
 instance (Monoid s) => Monad (MyState s) where
     (>>=) (MyState s a) f = let (MyState sb b) = f a in MyState (mappend s sb) b
 
+instance (Semigroup s, Semigroup a) => Semigroup (MyState s a) where
+    (<>) (MyState sa a) (MyState sb b) = MyState (sa <> sb) (a <> b)
+
 instance (Monoid s, Monoid a) => Monoid (MyState s a) where
     mempty = MyState mempty mempty
-    mappend (MyState sa a) (MyState sb b) = MyState (mappend sa sb) (mappend a b)
 
 -- instance (Monoid s) => Monoid (MyState s Int) where
 --     mempty = MyState mempty 0

@@ -41,9 +41,13 @@ instance Monoid l => MonadPlus (MyEither l) where
 
 
 newtype MySum = MySum Int deriving(Show)
+
+instance Semigroup MySum where
+    (<>) (MySum a) (MySum b) = MySum (a + b)
+
+
 instance Monoid MySum where
     mempty = MySum 0
-    mappend (MySum a) (MySum b) = MySum (a + b)
 
 
 data AgeError = NotANumber | NegativeNumber deriving(Show)

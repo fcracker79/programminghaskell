@@ -3,9 +3,11 @@ import Data.Monoid
 
 newtype MyFunction a b = MyFunction (a -> b)
 
+instance Semigroup b => Semigroup (MyFunction a b) where
+    (<>) (MyFunction fa) (MyFunction fb) = MyFunction(\x -> fa x <> fb x)
+
 instance Monoid b => Monoid (MyFunction a b) where
-    mempty = MyFunction (\_ -> mempty)
-    mappend (MyFunction fa) (MyFunction fb) = MyFunction(\x -> mappend (fa x) (fb x))
+    mempty = MyFunction $ const mempty
 
 getMyFunction (MyFunction f) = f
 
