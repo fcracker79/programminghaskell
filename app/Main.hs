@@ -41,7 +41,7 @@ main = do print $ mySum [1,2,3, 4]
           print (addnat (Succ Zero) (Succ Zero))
           print $ Node (Node (Leaf 3) 1 (Leaf 4)) 0 (Node (Leaf 5) 2 (Leaf 6))
           print $ leaves (Node (Node (Leaf 3) 1 (Leaf 4)) 0 (Node (Leaf 5) 2 (Leaf 6)))
-          print $ hello "This is a normal string"
+          print $ hello ("This is a normal string"::String)
           print $ hello (12345::Int)
           print $ hello True
           print $ nat2int (mulnat (int2nat 3) (int2nat 4))

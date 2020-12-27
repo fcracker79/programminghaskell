@@ -1,4 +1,4 @@
-module BookOfMonads.Chapter11.MonadReaderExample where
+module BookOfMonads.Chapter11.MonadReaderExample () where
 
 import qualified Control.Monad.Trans.Maybe as M
 import qualified Control.Monad.Trans.Reader as R

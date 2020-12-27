@@ -25,6 +25,9 @@ dependencies:
 - mtl >= 2.2.2
 - managed >= 1.0.8
 - transformers >= 0.5.2.0
+- aeson >= 1.4.7.1
+- text >= 1.2.4.0
+- unordered-containers
 library:
   source-dirs: src
 
@@ -60,3 +63,4 @@ default-extensions:
   - UndecidableInstances
   - MultiParamTypeClasses
   - FunctionalDependencies
+  - OverloadedStrings

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 59372e10d3b6e5cca4d1c67e65535f9460fcb360a896d6fdaec7d9e4c45dcea0
+-- hash: 420aef17aa8190c407b635956b919bb1cfd1ca56599645cd4fbea89b01e2d582
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -30,6 +30,7 @@ library
       BookOfMonads.Chapter1
       BookOfMonads.Chapter10.Swappiness
       BookOfMonads.Chapter10.TestCompose
+      BookOfMonads.Chapter11.JSONFileSearch
       BookOfMonads.Chapter11.MaybeTIdentity
       BookOfMonads.Chapter11.MonadReaderExample
       BookOfMonads.Chapter4
@@ -61,13 +62,16 @@ library
       Paths_programminghaskell
   hs-source-dirs:
       src
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings
   build-depends:
-      base >=4.7 && <5
+      aeson >=1.4.7.1
+    , base >=4.7 && <5
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , text >=1.2.4.0
     , transformers >=0.5.2.0
+    , unordered-containers
   default-language: Haskell2010
 
 executable programminghaskell-exe
@@ -76,15 +80,18 @@ executable programminghaskell-exe
       Paths_programminghaskell
   hs-source-dirs:
       app
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson >=1.4.7.1
+    , base >=4.7 && <5
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
+    , text >=1.2.4.0
     , transformers >=0.5.2.0
+    , unordered-containers
   default-language: Haskell2010
 
 test-suite programminghaskell-test
@@ -94,13 +101,16 @@ test-suite programminghaskell-test
       Paths_programminghaskell
   hs-source-dirs:
       test
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson >=1.4.7.1
+    , base >=4.7 && <5
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
+    , text >=1.2.4.0
     , transformers >=0.5.2.0
+    , unordered-containers
   default-language: Haskell2010
