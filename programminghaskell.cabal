@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 420aef17aa8190c407b635956b919bb1cfd1ca56599645cd4fbea89b01e2d582
+-- hash: 29801f8b12b2053c3d491b67524e9ec72ae8b022606fe5d50500ae45a72d593d
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -66,6 +66,7 @@ library
   build-depends:
       aeson >=1.4.7.1
     , base >=4.7 && <5
+    , bytestring
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
@@ -85,6 +86,7 @@ executable programminghaskell-exe
   build-depends:
       aeson >=1.4.7.1
     , base >=4.7 && <5
+    , bytestring
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
@@ -106,6 +108,7 @@ test-suite programminghaskell-test
   build-depends:
       aeson >=1.4.7.1
     , base >=4.7 && <5
+    , bytestring
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
