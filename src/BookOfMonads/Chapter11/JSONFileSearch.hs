@@ -1,7 +1,10 @@
 module BookOfMonads.Chapter11.JSONFileSearch 
-    (searchJSONElement)
+    (
+        searchJSONElement,
+        JSONOrigin(..),
+        JSONSearchCriteria(..)
+    )
     where
-
 
 
 import qualified Control.Monad as CM
@@ -29,7 +32,7 @@ mRecLookup (s : sw) (Just (J.Object v))
 data JSONOrigin = FilePath String | JSONContent L.ByteString
 
 
-data JSONSearchCriteria = JSONSearchCriteria { jsonOrigin :: JSONOrigin, fileName :: String }
+data JSONSearchCriteria = JSONSearchCriteria { jsonOrigin :: JSONOrigin, jsonPath :: String }
 
 split   :: String -> Char -> [String]
 split s c =  case dropWhile (== c) s of
@@ -48,6 +51,6 @@ getJSONContent = do
 searchJSONElement :: R.ReaderT JSONSearchCriteria (M.MaybeT IO) J.Value
 searchJSONElement = do
     searchCriteria <- ask
-    let _jsonPath = (`split` '.') . fileName $ searchCriteria
+    let _jsonPath = (`split` '.') . jsonPath $ searchCriteria
     jsonContents <- J.decode <$> R.withReaderT jsonOrigin getJSONContent
     MTC.lift . M.MaybeT . pure $ mRecLookup _jsonPath jsonContents

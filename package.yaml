@@ -44,15 +44,33 @@ executables:
     - programminghaskell
 
 tests:
-  programminghaskell-test:
-    main:                Spec.hs
-    source-dirs:         test
+  unit-programminghaskell:
+    main: Spec.hs
+    source-dirs: test/unit
     ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
     dependencies:
-    - programminghaskell
+      - HUnit
+      - test-framework
+      - test-framework-hunit
+      - hspec
+      - programminghaskell
+
+  integration-programminghaskell:
+    main: Spec.hs
+    source-dirs: test/integration
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - HUnit
+      - test-framework
+      - test-framework-hunit
+      - hspec
+      - programminghaskell
 
 default-extensions:
   - TypeSynonymInstances

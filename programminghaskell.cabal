@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 29801f8b12b2053c3d491b67524e9ec72ae8b022606fe5d50500ae45a72d593d
+-- hash: 4a83e02dcc97ce58839ed359ff4a05b8b1dbe9f6699077ae5e6a861694888f36
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -96,23 +96,54 @@ executable programminghaskell-exe
     , unordered-containers
   default-language: Haskell2010
 
-test-suite programminghaskell-test
+test-suite integration-programminghaskell
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
       Paths_programminghaskell
   hs-source-dirs:
-      test
+      test/integration
   default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      aeson >=1.4.7.1
+      HUnit
+    , aeson >=1.4.7.1
     , base >=4.7 && <5
     , bytestring
+    , hspec
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
+    , test-framework
+    , test-framework-hunit
+    , text >=1.2.4.0
+    , transformers >=0.5.2.0
+    , unordered-containers
+  default-language: Haskell2010
+
+test-suite unit-programminghaskell
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      JSONFileSearchSpec
+      Paths_programminghaskell
+  hs-source-dirs:
+      test/unit
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , aeson >=1.4.7.1
+    , base >=4.7 && <5
+    , bytestring
+    , hspec
+    , managed >=1.0.8
+    , monad-loops >=0.4.3
+    , mtl >=2.2.2
+    , programminghaskell
+    , test-framework
+    , test-framework-hunit
     , text >=1.2.4.0
     , transformers >=0.5.2.0
     , unordered-containers
