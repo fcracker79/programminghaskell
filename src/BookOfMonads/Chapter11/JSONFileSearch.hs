@@ -3,6 +3,8 @@ module BookOfMonads.Chapter11.JSONFileSearch
     where
 
 
+import qualified Control.Monad as CM
+import qualified Control.Monad.Trans.Class as MTC
 import qualified Control.Monad.Trans.Maybe as M
 import qualified Control.Monad.Trans.Reader as R
 import qualified Control.Monad.IO.Class as MIO
@@ -33,13 +35,10 @@ split s c =  case dropWhile (== c) s of
                             where (w, s'') = break (== c) s'
 
 
-searchJSONElement :: R.ReaderT JSONSearchCriteria (M.MaybeT IO) (Maybe J.Value)
+searchJSONElement :: R.ReaderT JSONSearchCriteria (M.MaybeT IO) J.Value
 searchJSONElement = do
     searchCriteria <- ask
     let _jsonPath = jsonPath searchCriteria
     let _fileName = fileName searchCriteria
     jsonContents <- (MIO.liftIO . L.readFile) _fileName
-    return $ mRecLookup (split _jsonPath '.') (J.decode jsonContents)
-    --case mRecLookup (split _jsonPath '.') (J.decode jsonContents) of
-    --    Just s -> return s
-    --    _ -> return Nothing
+    MTC.lift . M.MaybeT . pure $ mRecLookup (split _jsonPath '.') (J.decode jsonContents)
