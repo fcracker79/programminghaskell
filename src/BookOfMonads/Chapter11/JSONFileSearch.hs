@@ -48,6 +48,6 @@ getJSONContent = do
 searchJSONElement :: R.ReaderT JSONSearchCriteria (M.MaybeT IO) J.Value
 searchJSONElement = do
     searchCriteria <- ask
-    let _jsonPath = fileName searchCriteria
-    jsonContents <- R.withReaderT jsonOrigin getJSONContent
-    MTC.lift . M.MaybeT . pure $ mRecLookup (split _jsonPath '.') (J.decode jsonContents)
+    let _jsonPath = (`split` '.') . fileName $ searchCriteria
+    jsonContents <- J.decode <$> R.withReaderT jsonOrigin getJSONContent
+    MTC.lift . M.MaybeT . pure $ mRecLookup _jsonPath jsonContents
