@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4a83e02dcc97ce58839ed359ff4a05b8b1dbe9f6699077ae5e6a861694888f36
+-- hash: f25de0e1df66cc8ba36d14f7c4d5d62bd2adc30b540cf96e84d666b10b7bae35
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -30,6 +30,7 @@ library
       BookOfMonads.Chapter1
       BookOfMonads.Chapter10.Swappiness
       BookOfMonads.Chapter10.TestCompose
+      BookOfMonads.Chapter11.ChristmasTree
       BookOfMonads.Chapter11.JSONFileSearch
       BookOfMonads.Chapter11.MaybeTIdentity
       BookOfMonads.Chapter11.MonadReaderExample
@@ -127,6 +128,7 @@ test-suite unit-programminghaskell
   main-is: Spec.hs
   other-modules:
       JSONFileSearchSpec
+      NewChristmasTreeSpec
       Paths_programminghaskell
   hs-source-dirs:
       test/unit
