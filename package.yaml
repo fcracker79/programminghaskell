@@ -83,3 +83,4 @@ default-extensions:
   - MultiParamTypeClasses
   - FunctionalDependencies
   - OverloadedStrings
+  - LambdaCase

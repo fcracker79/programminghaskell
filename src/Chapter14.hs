@@ -12,11 +12,11 @@ instance Monoid b => Monoid (MyFunction a b) where
 getMyFunction (MyFunction f) = f
 
 instance Functor (MyFunction a) where
-    fmap g (MyFunction fa) = MyFunction (\x -> g (fa x))
+    fmap g (MyFunction fa) = MyFunction (g . fa)
 
 instance Applicative (MyFunction a) where
-    pure x = MyFunction (\_ -> x)
-    (MyFunction g) <*> (MyFunction a) = MyFunction (\x -> ((g x) (a x)))
+    pure x = MyFunction (const x)
+    (MyFunction g) <*> (MyFunction a) = MyFunction (\x -> g x (a x))
 
 
 instance Show (MyFunction a b) where
