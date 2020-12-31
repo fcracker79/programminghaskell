@@ -10,10 +10,10 @@ treeLayer height layer = [spaces, stars]
 
 tree 0 = []
 tree 1 = []
-tree height = [(treeLayer height layer) | layer <- [0..height - 2]]
+tree height = [treeLayer height layer | layer <- [0..height - 2]]
 
 printLayer layer = do {
-    ; putStr $ replicate (layer !! 0) ' '
+    ; putStr $ replicate (head layer) ' '
     ; putStr $ replicate (layer !! 1) '*'
     ; putStrLn ""
 }

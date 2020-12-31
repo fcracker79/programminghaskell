@@ -16,11 +16,11 @@ spec = do
                 J.jsonOrigin = J.JSONContent "{\"a\": {\"b\": {\"c\": 12345, \"d\": \"a string\"}}}"
             }
             v <- M.runMaybeT (R.runReaderT J.searchJSONElement confNumber)
-            v `shouldBe` (Just (J.Number 12345))
+            v `shouldBe` Just (J.Number 12345)
         it "I must be able to fetch strings" $ do
             let confString = J.JSONSearchCriteria {
                 J.jsonPath = "a.b.d", 
                 J.jsonOrigin = J.JSONContent "{\"a\": {\"b\": {\"c\": 12345, \"d\": \"a string\"}}}"
             }
             v <- M.runMaybeT (R.runReaderT J.searchJSONElement confString)
-            v `shouldBe` (Just (J.String "a string"))
+            v `shouldBe` Just (J.String "a string")
