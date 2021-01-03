@@ -2,7 +2,6 @@ module AdventOfCode.Y2020.AOC3 where
 
 
 import qualified Control.Monad.Trans.State.Lazy as ST
-import Debug.Trace(trace)
 
 data Square = Tree | OpenSquare deriving(Eq)
 instance Show Square where
@@ -51,7 +50,6 @@ moveUntilEnd m = do
     let _area = area currentState
     let _position = position currentState
     let newTrees = trees currentState + (if getSquare (position currentState) _area == Tree then 1 else 0)
-    let sticazzi = trace ("new trees " ++ show newTrees) ()
     ST.put TobogganState { area = _area, trees = newTrees, position = _position }
     moveSuccessful <- move m 
     if moveSuccessful then moveUntilEnd m else return newTrees
