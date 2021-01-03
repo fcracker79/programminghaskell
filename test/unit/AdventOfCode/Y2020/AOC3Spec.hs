@@ -4,7 +4,7 @@ module AdventOfCode.Y2020.AOC3Spec where
 
 import Test.Hspec
 import AdventOfCode.Y2020.AOC3
-import Control.Monad.Trans.State.Lazy(execState)
+import Control.Monad.Trans.State.Lazy(evalState)
 
 
 spec :: Spec
@@ -25,8 +25,7 @@ spec = do
                         ".#..#...#.#"
                     ]
             let Just justArea = area
-            let state = execState (moveUntilEnd (1, 3)) (initialState justArea)
-            trees state `shouldBe` 0
+            evalState (moveUntilEnd (1, 3)) (initialState justArea) `shouldBe` 0
         it "I find the right path" $ do
             let area = parseArea [
                         "..##.......",
@@ -42,5 +41,4 @@ spec = do
                         ".#..#...#.#"
                     ]
             let Just justArea = area
-            let state = execState (moveUntilEnd (3, 1)) (initialState justArea)
-            trees state `shouldBe` 7
+            evalState (moveUntilEnd (3, 1)) (initialState justArea) `shouldBe` 7

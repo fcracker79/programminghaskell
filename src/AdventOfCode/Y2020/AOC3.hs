@@ -1,4 +1,8 @@
-module AdventOfCode.Y2020.AOC3 where
+module AdventOfCode.Y2020.AOC3(
+    initialState,
+    parseArea,
+    moveUntilEnd
+) where
 
 
 import qualified Control.Monad.Trans.State.Lazy as ST
