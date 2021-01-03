@@ -32,22 +32,17 @@ parsePattern = mapM parseSquare
 parseArea :: [String] -> Maybe Area
 parseArea = mapM parsePattern
 
-move :: Movement -> ST.State TobogganState ()
+move :: Movement -> ST.State TobogganState Bool
 move (mx, my) = do
     currentState <- ST.get
     let _area = area currentState
     let (currentX, currentY) = position currentState
     let newPosition = (currentX + mx, currentY + my)
-    ST.put TobogganState { area = _area, trees = trees currentState, position = newPosition }
-    return ()
-
-
-endOfArea :: Movement -> ST.State TobogganState Bool
-endOfArea m = do
-    currentState <- ST.get
-    let (_, my) = m
-    let (_, y) = position currentState
-    return (my + y >= length (area currentState))
+    if my + currentY < length (area currentState)
+        then do
+            ST.put TobogganState { area = _area, trees = trees currentState, position = newPosition }
+            return True
+        else return False
 
 
 moveUntilEnd :: Movement -> ST.State TobogganState Int
@@ -56,12 +51,10 @@ moveUntilEnd m = do
     let _area = area currentState
     let _position = position currentState
     let newTrees = trees currentState + (if getSquare (position currentState) _area == Tree then 1 else 0)
+    let sticazzi = trace ("new trees " ++ show newTrees) ()
     ST.put TobogganState { area = _area, trees = newTrees, position = _position }
-    _endOfArea <- endOfArea m
-    if trace ("end of area?" ++ show _endOfArea)_endOfArea then return (trees currentState) 
-    else do
-         move $ (trace ("moving again, current position" ++ show (position currentState))) m 
-         moveUntilEnd m
+    moveSuccessful <- move m 
+    if moveSuccessful then moveUntilEnd m else return newTrees
 
 
 initialState :: Area -> TobogganState
