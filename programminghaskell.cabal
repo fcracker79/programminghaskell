@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 199a678178680f39a061cf1c3ba617fdb626965ebc15662e43b5bb3d3d2856ef
+-- hash: 8f40783e05c3417f2beb284e3ec315dc6f710716c9e2d57428b276ce9e58c709
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -32,6 +32,7 @@ library
       AdventOfCode.Y2020.AOC2
       AdventOfCode.Y2020.AOC3
       AdventOfCode.Y2020.AOC3Alternative
+      AdventOfCode.Y2020.AOC4
       BookOfMonads.Chapter1
       BookOfMonads.Chapter10.Swappiness
       BookOfMonads.Chapter10.TestCompose
@@ -74,6 +75,7 @@ library
       aeson >=1.4.7.1
     , base >=4.7 && <5
     , bytestring
+    , containers >=0.6.2.1
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
@@ -94,6 +96,7 @@ executable programminghaskell-exe
       aeson >=1.4.7.1
     , base >=4.7 && <5
     , bytestring
+    , containers >=0.6.2.1
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
@@ -117,6 +120,7 @@ test-suite integration-programminghaskell
     , aeson >=1.4.7.1
     , base >=4.7 && <5
     , bytestring
+    , containers >=0.6.2.1
     , hspec
     , managed >=1.0.8
     , monad-loops >=0.4.3
@@ -137,6 +141,7 @@ test-suite unit-programminghaskell
       AdventOfCode.Y2020.AOC2Spec
       AdventOfCode.Y2020.AOC3AlternativeSpec
       AdventOfCode.Y2020.AOC3Spec
+      AdventOfCode.Y2020.AOC4Spec
       JSONFileSearchSpec
       NewChristmasTreeSpec
       Paths_programminghaskell
@@ -149,6 +154,7 @@ test-suite unit-programminghaskell
     , aeson >=1.4.7.1
     , base >=4.7 && <5
     , bytestring
+    , containers >=0.6.2.1
     , hspec
     , managed >=1.0.8
     , monad-loops >=0.4.3

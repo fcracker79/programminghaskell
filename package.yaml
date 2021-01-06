@@ -29,6 +29,7 @@ dependencies:
 - text >= 1.2.4.0
 - unordered-containers
 - bytestring
+- containers >= 0.6.2.1
 library:
   source-dirs: src
 

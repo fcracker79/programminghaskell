@@ -86,14 +86,13 @@ integer = nat APP.<|> do
                       x <- nat
                       return $ -x
 
-space :: MyParser String
-space = APP.many (char ' ')
-
+trimming :: MyParser String
+trimming = APP.many (char ' ' APP.<|> char '\n')
 token :: MyParser a -> MyParser a
 token p = do
-          space
+          trimming
           x <- p
-          space
+          trimming
           return x
 
 
