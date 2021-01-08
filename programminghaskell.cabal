@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c18d6c3e1cdcca0951c2f82fe161a1e58a46ea6bd4d4d28e9418294978224bfb
+-- hash: 62e84fb17ec146b8392bbac2192929739e92d65ab543bcb50cb7348017a4ceef
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -34,6 +34,7 @@ library
       AdventOfCode.Y2020.AOC3Alternative
       AdventOfCode.Y2020.AOC4
       AdventOfCode.Y2020.AOC5
+      AdventOfCode.Y2020.AOC6
       BookOfMonads.Chapter1
       BookOfMonads.Chapter10.Swappiness
       BookOfMonads.Chapter10.TestCompose
@@ -144,6 +145,7 @@ test-suite unit-programminghaskell
       AdventOfCode.Y2020.AOC3Spec
       AdventOfCode.Y2020.AOC4Spec
       AdventOfCode.Y2020.AOC5Spec
+      AdventOfCode.Y2020.AOC6Spec
       JSONFileSearchSpec
       NewChristmasTreeSpec
       Paths_programminghaskell
