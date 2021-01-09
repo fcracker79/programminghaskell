@@ -1,6 +1,7 @@
 module AdventOfCode.Utils(
     qsort,
-    binarySearch
+    binarySearch,
+    split
 ) where
 
 
@@ -26,3 +27,10 @@ recBinarySearch a x p0 p1
     where v0 = a !! p0
           v1 = a !! p1
           nextP = quot p0 p1
+
+
+split   :: String -> Char -> [String]
+split s c =  case dropWhile (== c) s of
+                    "" -> []
+                    s' -> w : split s'' c
+                            where (w, s'') = break (== c) s'

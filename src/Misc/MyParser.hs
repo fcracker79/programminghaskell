@@ -45,6 +45,11 @@ item = MyP (\case
                 (x0:xs) -> Just (x0, xs)
             )
                     
+finished :: MyParser ()
+finished = MyP (\case
+                [] -> Just ((), "")
+                _ -> Nothing
+                )
 
 expected :: String -> MyParser String
 expected prefix = MyP { parse = \s -> if prefix `L.isPrefixOf` s then Just (prefix, drop (length prefix) s) else Nothing }
@@ -85,6 +90,9 @@ integer = nat APP.<|> do
                       char '-'
                       x <- nat
                       return $ -x
+
+space :: MyParser String
+space = APP.many (char ' ')
 
 trimming :: MyParser String
 trimming = APP.many (char ' ' APP.<|> char '\n')

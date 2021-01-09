@@ -18,6 +18,7 @@ import qualified Data.Aeson as J
 import qualified Data.HashMap.Strict as HM
 import qualified Data.Text as T
 import qualified Data.ByteString.Lazy as L
+import AdventOfCode.Utils(split)
 
 mRecLookup :: [String] -> Maybe J.Value -> Maybe J.Value
 mRecLookup [] _ = Nothing
@@ -33,13 +34,6 @@ data JSONOrigin = FilePath String | JSONContent L.ByteString
 
 
 data JSONSearchCriteria = JSONSearchCriteria { jsonOrigin :: JSONOrigin, jsonPath :: String }
-
-split   :: String -> Char -> [String]
-split s c =  case dropWhile (== c) s of
-                      "" -> []
-                      s' -> w : split s'' c
-                            where (w, s'') = break (== c) s'
-
 
 getJSONContent :: R.ReaderT JSONOrigin (M.MaybeT IO) L.ByteString
 getJSONContent = do
