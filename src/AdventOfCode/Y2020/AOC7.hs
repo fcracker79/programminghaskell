@@ -1,11 +1,14 @@
-module AdventOfCode.Y2020.AOC7 where
+module AdventOfCode.Y2020.AOC7(
+    parseBagRules,
+    howManyBagsCanContain,
+    BagType(..)
+) where
 
 import qualified Data.Map as Map
 import qualified Misc.MyParser as P
 import Control.Applicative((<|>), empty, many)
 import AdventOfCode.Utils(split)
 import Control.Monad.Trans.Reader(Reader, ask)
-import Debug.Trace(trace)
 import qualified Data.Set as Set
 
 data BagType = 
@@ -96,26 +99,27 @@ parseBagRulesArray =
         return []
 
 
-foldElement :: BagRule -> Map.Map BagType [BagType]
-foldElement (bag, bags) = Map.fromList $ fmap (\x -> (x, [bag])) bags
+bagRuleToContainedMap :: BagRule -> Map.Map BagType [BagType]
+bagRuleToContainedMap (bag, bags) = Map.fromList $ fmap (\x -> (x, [bag])) bags
 
-parseContainsMap :: P.MyParser [Map.Map BagType [BagType]]
-parseContainsMap = fmap (fmap foldElement) parseBagRulesArray
+parseContainedMap :: P.MyParser [Map.Map BagType [BagType]]
+parseContainedMap = fmap (fmap bagRuleToContainedMap) parseBagRulesArray
+
 mergeMaps :: Map.Map BagType [BagType] -> [Map.Map BagType [BagType]] -> Map.Map BagType [BagType]
 mergeMaps = foldl $ Map.unionWith (++)
 
 parseBagRules :: P.MyParser BagRules
-parseBagRules = fmap BagRules $ mergeMaps Map.empty <$> parseContainsMap
+parseBagRules = fmap BagRules $ mergeMaps Map.empty <$> parseContainedMap
 
 
-_howManyBagsCanContain :: BagType -> Reader BagRules [BagType]
-_howManyBagsCanContain b = do
+containingMaps :: BagType -> Reader BagRules [BagType]
+containingMaps b = do
     rules <- fmap containingMap ask
     let children = Map.lookup b rules
     case children of
         Nothing -> return []
-        Just justChildren -> foldl (++) justChildren <$> mapM _howManyBagsCanContain justChildren
+        Just justChildren -> foldl (++) justChildren <$> mapM containingMaps justChildren
 
 
 howManyBagsCanContain :: BagType -> Reader BagRules Int
-howManyBagsCanContain b = fmap length $ Set.fromList <$> _howManyBagsCanContain b
+howManyBagsCanContain b = fmap length $ Set.fromList <$> containingMaps b

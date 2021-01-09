@@ -6,7 +6,6 @@ import Control.Applicative(empty, many)
 import Control.Monad(guard)
 import qualified Control.Monad.Trans.Maybe as M
 import qualified Misc.MyParser as P
-import Debug.Trace(trace)
 
 data FrontOrBack = F | B deriving(Show, Eq)
 data LeftOrRight = L | R deriving(Show, Eq)
@@ -46,7 +45,7 @@ updateColumns fb = do
         columns = tail $ columns currentState,
         rows = rows currentState
     }
-    put $ trace ("updateColumns " ++ show newState) newState
+    put newState
     return newState 
 
 
@@ -65,7 +64,7 @@ updateRows fb = do
         startCol = startCol currentState,
         endCol = endCol currentState
     }
-    put $ trace ("updateRows " ++ show newState) newState
+    put newState
     return newState 
 
 parseFrontOrBack :: P.MyParser [FrontOrBack]

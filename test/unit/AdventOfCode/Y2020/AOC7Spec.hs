@@ -21,6 +21,5 @@ spec = do
                 \vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.\n\
                 \faded blue bags contain no other bags.\n\
                 \dotted black bags contain no other bags."
-            print bagRules
             runReader (howManyBagsCanContain SHINY_GOLD) bagRules `shouldBe` 4
 

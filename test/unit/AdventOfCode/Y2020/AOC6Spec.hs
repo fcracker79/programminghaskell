@@ -26,5 +26,4 @@ spec = do
                 \a\n\
                 \\n\
                 \b"
-            print allPositiveAnswers
             countAllPositiveAnswers allPositiveAnswers`shouldBe` 11
