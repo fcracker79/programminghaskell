@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9f6c58eacacaee7f8c2fc8dbbbde2c1b5b01bc0cce71f172ae8ea9fe1e18f386
+-- hash: dc5d14f1018c2ccbe5e32bc58e5d0865e2a449b5f848b7088ea7b1b97cacf397
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -73,7 +73,7 @@ library
       Paths_programminghaskell
   hs-source-dirs:
       src
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
   build-depends:
       aeson >=1.4.7.1
     , base >=4.7 && <5
@@ -93,7 +93,7 @@ executable programminghaskell-exe
       Paths_programminghaskell
   hs-source-dirs:
       app
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson >=1.4.7.1
@@ -116,7 +116,7 @@ test-suite integration-programminghaskell
       Paths_programminghaskell
   hs-source-dirs:
       test/integration
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       HUnit
@@ -153,7 +153,7 @@ test-suite unit-programminghaskell
       Paths_programminghaskell
   hs-source-dirs:
       test/unit
-  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       HUnit

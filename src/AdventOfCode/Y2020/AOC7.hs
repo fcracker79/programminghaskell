@@ -1,3 +1,4 @@
+{-# LANGUAGE TupleSections #-}
 module AdventOfCode.Y2020.AOC7(
     parseBagRules,
     howManyBagsCanContain,
@@ -84,23 +85,19 @@ parseNumBagTypes =
 parseBagRulesArray :: P.MyParser [BagRule]
 parseBagRulesArray = 
     do
-        P.sat (== '\n')
+        P.sat (== '\n') <|> return '\n'
         r <- parseBagRule
         rs <- parseBagRulesArray
         return (r: rs)
     <|> 
     do
-        r <- parseBagRule
-        rs <- parseBagRulesArray
-        return (r: rs)
-    <|>
-    do
         P.finished
         return []
 
 
+-- TupleSections 
 bagRuleToContainedMap :: BagRule -> Map.Map BagType [BagType]
-bagRuleToContainedMap (bag, bags) = Map.fromList $ fmap (\x -> (x, [bag])) bags
+bagRuleToContainedMap (bag, bags) = Map.fromList $ fmap (, [bag]) bags
 
 parseContainedMap :: P.MyParser [Map.Map BagType [BagType]]
 parseContainedMap = fmap (fmap bagRuleToContainedMap) parseBagRulesArray
