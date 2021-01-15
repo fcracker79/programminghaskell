@@ -26,6 +26,22 @@ initialState = ExecutionWindow {
         sumsByAddendum = Map.empty
     }
 
+putAndReturn :: [Int] -> Map.Map Int Int -> Map.Map Int (Set.Set Int) -> State ExecutionWindow ExecutionWindow
+putAndReturn newPreamble newAllSumsCounts newSumsByAddendum = do
+    let newState = ExecutionWindow {
+        preamble = newPreamble,
+        allSumsCounts=newAllSumsCounts,
+        sumsByAddendum=newSumsByAddendum
+    }
+    put newState
+    return newState
+
+{-
+Here we intentionally use 'State ExecutionWindow ExecutionWindow' 
+rather than 'MaybeT (State ExecutionWindow) ExecutionWindow, as
+    1. We never get 'Nothing'
+    2. I wanted to see how to operate with partially overlapping monads ('lift' function)
+-}
 insertElementIndiscriminately :: Int -> State ExecutionWindow ExecutionWindow
 insertElementIndiscriminately v = do
     _state <- get
@@ -41,13 +57,7 @@ insertElementIndiscriminately v = do
                            (+)
                            (allSumsCounts _state)
                            deltaNewAllSumsCounts
-    let newState = ExecutionWindow {
-        preamble = newPreamble,
-        allSumsCounts=newAllSumsCounts,
-        sumsByAddendum=newSumsByAddendum
-    }
-    put newState
-    return newState
+    putAndReturn newPreamble newAllSumsCounts newSumsByAddendum
 
 
 decreaseSumCount :: Map.Map Int Int -> [Int] -> Map.Map Int Int
@@ -63,13 +73,7 @@ removeElementIndiscriminately = do
     let curSumByAddendum = Map.findWithDefault Set.empty elementToRemove (sumsByAddendum _state)
     let newSumsByAddendum = Map.delete elementToRemove $ sumsByAddendum _state
     let newAllSumsCounts = decreaseSumCount (allSumsCounts _state) $ Set.elems curSumByAddendum
-    let newState = ExecutionWindow {
-        preamble = newPreamble,
-        allSumsCounts=newAllSumsCounts,
-        sumsByAddendum=newSumsByAddendum
-    }
-    put newState
-    return newState
+    putAndReturn newPreamble newAllSumsCounts newSumsByAddendum
 
 
 addElements :: Int -> [Int] -> MaybeT (State ExecutionWindow) Int
