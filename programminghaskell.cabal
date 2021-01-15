@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: df9be37628cb48c82d3655807909bcfa6e78655654d84337c92d35f84895801c
+-- hash: 16baa42492cb0114405fe68f850c468e482ff367f6b594280b00f8537336650c
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -29,6 +29,7 @@ library
   exposed-modules:
       AdventOfCode.Utils
       AdventOfCode.Y2020.AOC1
+      AdventOfCode.Y2020.AOC10
       AdventOfCode.Y2020.AOC2
       AdventOfCode.Y2020.AOC3
       AdventOfCode.Y2020.AOC3Alternative
@@ -142,6 +143,7 @@ test-suite unit-programminghaskell
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      AdventOfCode.Y2020.AOC10Spec
       AdventOfCode.Y2020.AOC1Spec
       AdventOfCode.Y2020.AOC2Spec
       AdventOfCode.Y2020.AOC3AlternativeSpec
