@@ -1,4 +1,4 @@
-module AdventOfCode.Y2020.AOC9 where
+module AdventOfCode.Y2020.AOC9(findFirstInvalidElement) where
 
 
 import qualified Data.Map as Map
@@ -25,10 +25,6 @@ initialState = ExecutionWindow {
         allSumsCounts = Map.empty,
         sumsByAddendum = Map.empty
     }
-
-lastElement :: Monoid k => [k] -> k
-lastElement [] = mempty
-lastElement m = m !! (length m - 1)
 
 insertElementIndiscriminately :: Int -> State ExecutionWindow ExecutionWindow
 insertElementIndiscriminately v = do
@@ -82,7 +78,7 @@ addElements preambleLength (v:vs) = do
         _state <- get
         guard $ length (preamble _state) < preambleLength
         n <- lift $ insertElementIndiscriminately v
-        traceM ("after insert(0)" ++ show n)
+        -- traceM ("after insert(0)" ++ show n)
         addElements preambleLength vs
     <|>
     do
@@ -90,9 +86,9 @@ addElements preambleLength (v:vs) = do
         sumsCount <- maybe mzero return $ Map.lookup v (allSumsCounts _state)
         guard $ sumsCount > 0
         n <- lift removeElementIndiscriminately
-        traceM ("after remove" ++ show n)
+        -- traceM ("after remove" ++ show n)
         n2 <- lift $ insertElementIndiscriminately v
-        traceM ("after insert" ++ show n2)
+        -- traceM ("after insert" ++ show n2)
         addElements preambleLength vs
     <|> return v
 
