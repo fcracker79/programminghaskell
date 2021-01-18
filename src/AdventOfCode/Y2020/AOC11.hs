@@ -1,9 +1,6 @@
 module AdventOfCode.Y2020.AOC11 where 
 
 
-import Debug.Trace(trace)
-
-
 data Seats = Seats { width :: Int, height :: Int, seats :: String } deriving(Eq)
 
 
@@ -49,7 +46,7 @@ seatsTurn s = Seats {
 turnsCount :: Seats -> Int
 turnsCount s
     | s == newSeats = length $ filter (== '#') (seats s)
-    | otherwise = turnsCount (trace (show newSeats) newSeats)
+    | otherwise = turnsCount newSeats
     where newSeats = seatsTurn s
 
 
