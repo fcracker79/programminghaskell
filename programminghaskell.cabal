@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 687950400eaf74c3686298d25faff784e6031c49a5517e8a198046b6cb819dad
+-- hash: dd5132c3d9d07e22cea5342779bf7fb4598c39fc2e95777129555ae4335f0265
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -73,6 +73,7 @@ library
       ChristmasTree
       Lib
       Misc.MyParser
+      Morra
       UniquelyDeterminedParameter
   other-modules:
       Paths_programminghaskell
@@ -87,6 +88,7 @@ library
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , random >=1.1
     , text >=1.2.4.0
     , transformers >=0.5.2.0
     , unordered-containers
@@ -109,6 +111,7 @@ executable programminghaskell-exe
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
+    , random >=1.1
     , text >=1.2.4.0
     , transformers >=0.5.2.0
     , unordered-containers
@@ -134,6 +137,7 @@ test-suite integration-programminghaskell
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
+    , random >=1.1
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0
@@ -176,6 +180,7 @@ test-suite unit-programminghaskell
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
+    , random >=1.1
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0
