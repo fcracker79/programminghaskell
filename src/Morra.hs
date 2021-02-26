@@ -13,15 +13,17 @@ import Control.Applicative((<|>))
 import Text.Printf ( printf )
 
 data MorraState = MorraState { player1IsEven :: Bool, player1Score :: Int, player2Score :: Int, latestPlayer2Choices :: [Int], recordedPlayer2Choices :: Map (Int, Int) Int }
-data Player = Player1 | Player2
+data Player = Player1 | Player2 deriving(Eq)
 type PlayersNames = (String, String)
 type PlayerAction = StateT MorraState IO Int
+
+rounds :: Int
+rounds = 10
 
 
 initialState :: IO MorraState
 initialState = do
-    g <- newStdGen
-    let (player1Choice, _) = randomR (1, 10) g :: (Int, StdGen)
+    player1Choice <- fmap fst $ randomR (1 :: Int, 2) <$> newStdGen
     return $ MorraState {
         player1IsEven = even player1Choice,
         player1Score = 0,
@@ -37,33 +39,31 @@ getPlayerChoice :: String -> PlayerAction
 getPlayerChoice playerName = do
     msg $ "Take a choice, " ++ playerName
     playerChoiceString <- liftIO getLine
-    let choice = playerChoice playerChoiceString
-    maybe (getPlayerChoice playerName) pure choice 
-    where playerChoice s = (readMaybe s :: (Maybe Int)) >>= \x -> if x >=1 && x <= 10 then Just x else Nothing
+    maybe (getPlayerChoice playerName) pure $ playerChoice playerChoiceString 
+    where playerChoice s = (readMaybe s :: (Maybe Int)) >>= \x -> if x >=1 && x <= 2 then Just x else Nothing
 
 
 getComputerChoice :: PlayerAction
 getComputerChoice = do
     state <- get
-    msg $ recordedPlayer2Choices state
     liftIO $ fromMaybe getRandomComputerChoice $ guessComputerChoice state
     where guessComputerChoice state = do
               let latestChoices = latestPlayer2Choices state
-              guard $ length (latestPlayer2Choices state) >= 2
+              guard $ length latestChoices >= 2
               let key = (latestChoices !! (length latestChoices - 2), latestChoices !! (length latestChoices - 1)) 
-              let maybeWinningValue = (\i -> if player1IsEven state then i else (i + 1) `mod` 10) <$> Map.lookup key (recordedPlayer2Choices state)
+              let maybeWinningValue = (\i -> if player1IsEven state then i else (i + 1) `mod` 2) <$> Map.lookup key (recordedPlayer2Choices state)
               pure <$> maybeWinningValue
-          getRandomComputerChoice = do fmap fst $ randomR (1 :: Int, 10) <$> newStdGen
+          getRandomComputerChoice = do fmap fst $ randomR (1 :: Int, 2) <$> newStdGen
 
-increaseWinner :: Int -> Int -> Int -> String -> StateT MorraState IO ()
-increaseWinner player1Delta player2Delta lastChoice playerName = do
+increaseWinner :: Player -> Int -> String -> StateT MorraState IO ()
+increaseWinner winner lastChoicePlayer2 playerName = do
     msg $ "Player " ++ playerName ++ " wins"
     state <- get
-    let newLatestPlayerChoices = nextPlayerChoices lastChoice $ latestPlayer2Choices state
+    let newLatestPlayerChoices = nextPlayerChoices lastChoicePlayer2 $ latestPlayer2Choices state
     put MorraState { 
         player1IsEven = player1IsEven state,
-        player1Score = player1Score state + player1Delta,
-        player2Score = player2Score state + player2Delta,
+        player1Score = player1Score state + if winner == Player1 then 1 else 0,
+        player2Score = player2Score state + if winner == Player2 then 0 else 1,
         latestPlayer2Choices = newLatestPlayerChoices,
         recordedPlayer2Choices = recordNewPlayerChoices newLatestPlayerChoices $ recordedPlayer2Choices state 
     }
@@ -75,8 +75,8 @@ increaseWinner player1Delta player2Delta lastChoice playerName = do
 findWinner :: StateT MorraState IO (Maybe Player)
 findWinner = do
     state <- get
-    (guard (player1Score state >= 10) >> return (Just Player1)) <|>
-        (guard (player2Score state >= 10) >> return (Just Player2)) <|>
+    (guard (player1Score state >= rounds) >> return (Just Player1)) <|>
+        (guard (player2Score state >= rounds) >> return (Just Player2)) <|>
         return Nothing
 
 playMorraM :: PlayersNames -> PlayerAction -> PlayerAction -> StateT MorraState IO Player
@@ -97,8 +97,8 @@ playMorraM playersNames player1Choice player2Choice = do
         Just Player2 -> do
             msg $ snd playersNames ++ " is the final winner!"
             return Player2
-    where player1Wins = increaseWinner 1 0
-          player2Wins = increaseWinner 0 1
+    where player1Wins = increaseWinner Player1
+          player2Wins = increaseWinner Player2
 
 playMorra :: PlayersNames -> PlayerAction -> PlayerAction -> IO Player
 playMorra playersNames p1Choice p2Choice = do
