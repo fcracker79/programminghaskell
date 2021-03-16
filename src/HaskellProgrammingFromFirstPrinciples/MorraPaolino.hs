@@ -29,10 +29,8 @@ roll :: StdGen -> (StdGen -> Int -> a) -> a
 roll g f = let (a, g') = uniformR (1 :: Int, 2) g in f g' a
 
 -- a player which plays 2
-three_grams_player :: Role -> IO Player
-three_grams_player role = do
-  g <- newStdGen
-  pure $ roll g $ \g' start -> Player start $ f g' mempty 1 1
+three_grams_player :: StdGen -> Role -> Player
+three_grams_player g role = roll g $ \g' start -> Player start $ f g' mempty 1 1
   where
     f g m x y z = case M.lookup (x, y) m of
       Nothing -> roll g h
@@ -59,7 +57,9 @@ main :: IO ()
 main = do
   printf "want [E]ven or [O]dd? > "
   eo <- getLine
+  g <- newStdGen 
   let role = case eo of
         "E" -> even
         "O" -> odd
-  three_grams_player (not . role) >>=  game (not . role)
+  let tgp = three_grams_player g
+  game (not . role) $ tgp (not . role)
