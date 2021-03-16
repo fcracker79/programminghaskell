@@ -30,7 +30,8 @@ dependencies:
 - unordered-containers
 - bytestring
 - containers >= 0.6.2.1
-- random >= 1.1
+- random >= 1.2
+- trifecta
 library:
   source-dirs: src
 

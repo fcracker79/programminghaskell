@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f74328d0dedfb7ddc50ad363cec604b438b3a45d02987bf661147d0a0e166601
+-- hash: 328e37ba10d8e186c4acd3bf56bd9888fc0254903c1d5dc8677dd04f85d6a9d1
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -71,6 +71,10 @@ library
       Chapter8
       Chapter9
       ChristmasTree
+      HaskellProgrammingFromFirstPrinciples.Morra
+      HaskellProgrammingFromFirstPrinciples.MorraAlternative
+      HaskellProgrammingFromFirstPrinciples.MorraPaolino
+      HaskellProgrammingFromFirstPrinciples.PlayWithTrifecta
       Lib
       Misc.MyParser
       Morra
@@ -89,9 +93,10 @@ library
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
-    , random >=1.1
+    , random >=1.2
     , text >=1.2.4.0
     , transformers >=0.5.2.0
+    , trifecta
     , unordered-containers
   default-language: Haskell2010
 
@@ -112,9 +117,10 @@ executable programminghaskell-exe
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
-    , random >=1.1
+    , random >=1.2
     , text >=1.2.4.0
     , transformers >=0.5.2.0
+    , trifecta
     , unordered-containers
   default-language: Haskell2010
 
@@ -138,11 +144,12 @@ test-suite integration-programminghaskell
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
-    , random >=1.1
+    , random >=1.2
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0
     , transformers >=0.5.2.0
+    , trifecta
     , unordered-containers
   default-language: Haskell2010
 
@@ -181,10 +188,11 @@ test-suite unit-programminghaskell
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , programminghaskell
-    , random >=1.1
+    , random >=1.2
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0
     , transformers >=0.5.2.0
+    , trifecta
     , unordered-containers
   default-language: Haskell2010
