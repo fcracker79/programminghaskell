@@ -96,6 +96,6 @@ main = do
   let role = case eo of
         "E" -> even
         "O" -> odd
-  -- let computerRole = threeGramsPlayer g
-  let computerRole = playMostFrequent g
-  game2 (not . role) $ computerRole (not . role)
+  -- let computerStrategy = threeGramsPlayer g
+  let computerStrategy = playMostFrequent g
+  game2 (not . role) $ computerStrategy (not . role)
