@@ -72,7 +72,7 @@ playMostFrequent g role = roll g $ \g' start -> Player start $ f g' mempty
                         prev1 = fromMaybe 0 (M.lookup 1 m)
                         prev2 = fromMaybe 0 (M.lookup 2 m)
                         mostFrequentMove = if prev1 > prev2 then 1 else 2
-                        lastNumMoves = fromMaybe (0::Int) (M.lookup v m)
+                        lastNumMoves = fromMaybe 0 (M.lookup v m)
                         nextMove = if role (mostFrequentMove + 1) then 1 else 2
 
 game2 :: Role -> Player -> IO ()
