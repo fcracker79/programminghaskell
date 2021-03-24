@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 328e37ba10d8e186c4acd3bf56bd9888fc0254903c1d5dc8677dd04f85d6a9d1
+-- hash: 79dea028ebf43dce875760894018254e2135df880d3f7628bc852e0576420c10
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -74,6 +74,7 @@ library
       HaskellProgrammingFromFirstPrinciples.Morra
       HaskellProgrammingFromFirstPrinciples.MorraAlternative
       HaskellProgrammingFromFirstPrinciples.MorraPaolino
+      HaskellProgrammingFromFirstPrinciples.PlayWithCriterion
       HaskellProgrammingFromFirstPrinciples.PlayWithTrifecta
       Lib
       Misc.MyParser
@@ -90,6 +91,7 @@ library
     , base >=4.7 && <5
     , bytestring
     , containers >=0.6.2.1
+    , criterion
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
@@ -107,12 +109,13 @@ executable programminghaskell-exe
   hs-source-dirs:
       app
   default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2
   build-depends:
       aeson >=1.4.7.1
     , base >=4.7 && <5
     , bytestring
     , containers >=0.6.2.1
+    , criterion
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
@@ -139,6 +142,7 @@ test-suite integration-programminghaskell
     , base >=4.7 && <5
     , bytestring
     , containers >=0.6.2.1
+    , criterion
     , hspec
     , managed >=1.0.8
     , monad-loops >=0.4.3
@@ -183,6 +187,7 @@ test-suite unit-programminghaskell
     , base >=4.7 && <5
     , bytestring
     , containers >=0.6.2.1
+    , criterion
     , hspec
     , managed >=1.0.8
     , monad-loops >=0.4.3

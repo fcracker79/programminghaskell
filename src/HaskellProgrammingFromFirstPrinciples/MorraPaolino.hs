@@ -78,15 +78,15 @@ playMostFrequent g role = roll g $ \g' start -> Player start $ f g' mempty
 game2 :: Role -> Player -> IO ()
 game2 winning player = go (player , 0, 0, 0)
     where go (player, iWon :: Int, youWon :: Int, games :: Int) = do
-          printf "\ntoss > "
-          you <- readLn
-          let Player me player' = player
-              won = winning $ you + me
-              [meR, youR] = if won then "! " else " !"
-              (iWon', youWon') = (if won then first else second) succ (iWon, youWon)
-              games' = succ games
-          printf "%cMe: %d, %cYou: %d, I won: %d/%d, You won %d/%d" meR me youR you iWon' games' youWon' games'
-          go (player' you, iWon', youWon', games')
+            printf "\ntoss > "
+            you <- readLn
+            let Player me player' = player
+                won = winning $ you + me
+                [meR, youR] = if won then "! " else " !"
+                (iWon', youWon') = (if won then first else second) succ (iWon, youWon)
+                games' = succ games
+            printf "%cMe: %d, %cYou: %d, I won: %d/%d, You won %d/%d" meR me youR you iWon' games' youWon' games'
+            go (player' you, iWon', youWon', games')
 
 main :: IO ()
 main = do
