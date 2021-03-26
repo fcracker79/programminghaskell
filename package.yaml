@@ -33,6 +33,9 @@ dependencies:
 - random >= 1.2
 - trifecta
 - criterion
+- vector
+- unicode-show
+- primitive
 library:
   source-dirs: src
 

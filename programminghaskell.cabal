@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 79dea028ebf43dce875760894018254e2135df880d3f7628bc852e0576420c10
+-- hash: 78c40e84b2bc80294e18d0c9d1e2f0aa27bdb4022ee8ff3439f5a58b4afa5e71
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -75,6 +75,8 @@ library
       HaskellProgrammingFromFirstPrinciples.MorraAlternative
       HaskellProgrammingFromFirstPrinciples.MorraPaolino
       HaskellProgrammingFromFirstPrinciples.PlayWithCriterion
+      HaskellProgrammingFromFirstPrinciples.PlayWithMaps
+      HaskellProgrammingFromFirstPrinciples.PlayWithMutableVectors
       HaskellProgrammingFromFirstPrinciples.PlayWithTrifecta
       Lib
       Misc.MyParser
@@ -95,11 +97,14 @@ library
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , primitive
     , random >=1.2
     , text >=1.2.4.0
     , transformers >=0.5.2.0
     , trifecta
+    , unicode-show
     , unordered-containers
+    , vector
   default-language: Haskell2010
 
 executable programminghaskell-exe
@@ -119,12 +124,15 @@ executable programminghaskell-exe
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , primitive
     , programminghaskell
     , random >=1.2
     , text >=1.2.4.0
     , transformers >=0.5.2.0
     , trifecta
+    , unicode-show
     , unordered-containers
+    , vector
   default-language: Haskell2010
 
 test-suite integration-programminghaskell
@@ -147,6 +155,7 @@ test-suite integration-programminghaskell
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , primitive
     , programminghaskell
     , random >=1.2
     , test-framework
@@ -154,7 +163,9 @@ test-suite integration-programminghaskell
     , text >=1.2.4.0
     , transformers >=0.5.2.0
     , trifecta
+    , unicode-show
     , unordered-containers
+    , vector
   default-language: Haskell2010
 
 test-suite unit-programminghaskell
@@ -192,6 +203,7 @@ test-suite unit-programminghaskell
     , managed >=1.0.8
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , primitive
     , programminghaskell
     , random >=1.2
     , test-framework
@@ -199,5 +211,7 @@ test-suite unit-programminghaskell
     , text >=1.2.4.0
     , transformers >=0.5.2.0
     , trifecta
+    , unicode-show
     , unordered-containers
+    , vector
   default-language: Haskell2010
