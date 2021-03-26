@@ -36,6 +36,7 @@ dependencies:
 - vector
 - unicode-show
 - primitive
+- zlib
 library:
   source-dirs: src
 
