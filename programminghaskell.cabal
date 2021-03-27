@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ae0e62f235e967d4baffb9aa79cb0a2c1f608798b7b3ef82231ee436bd733305
+-- hash: 60ac7c27f5595a2e30a327734ac256fa9c05ae2a93619e0a11ac6214fa04b16d
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -71,6 +71,7 @@ library
       Chapter8
       Chapter9
       ChristmasTree
+      HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Morra
       HaskellProgrammingFromFirstPrinciples.MorraAlternative
       HaskellProgrammingFromFirstPrinciples.MorraPaolino
@@ -191,6 +192,7 @@ test-suite unit-programminghaskell
       AdventOfCode.Y2020.AOC9Spec
       JSONFileSearchSpec
       NewChristmasTreeSpec
+      TestDifferenceList
       Paths_programminghaskell
   hs-source-dirs:
       test/unit
