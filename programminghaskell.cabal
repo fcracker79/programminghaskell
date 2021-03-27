@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 60ac7c27f5595a2e30a327734ac256fa9c05ae2a93619e0a11ac6214fa04b16d
+-- hash: 97c4b8bd7d838c68007390449e8a02fcacc327d38847e72e631515cb6e207dc7
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -193,6 +193,7 @@ test-suite unit-programminghaskell
       JSONFileSearchSpec
       NewChristmasTreeSpec
       TestDifferenceList
+      TestQueue
       Paths_programminghaskell
   hs-source-dirs:
       test/unit
