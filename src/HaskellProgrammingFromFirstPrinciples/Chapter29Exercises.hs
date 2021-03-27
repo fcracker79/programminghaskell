@@ -44,11 +44,8 @@ constructDlistUsingCons i = toList $ go i empty
         go n xs = go (n-1) (cons n xs)
 
 
-n :: Int
-n = 1234567
-
-main :: IO ()
-main = defaultMain
+main :: Int -> IO ()
+main n = defaultMain
   [ 
     bench "concat list" $ whnf schlemiel n, 
     bench "concat dlist" $ whnf constructDlist n,
