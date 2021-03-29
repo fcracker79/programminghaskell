@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 97c4b8bd7d838c68007390449e8a02fcacc327d38847e72e631515cb6e207dc7
+-- hash: ee071de6fbbf71fe7d725fe5856bbf49f1c71973bd0077b518d8b79ffae78503
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -84,6 +84,7 @@ library
       Misc.MyParser
       Morra
       MorraAlternative
+      TypeFamilyExample
       UniquelyDeterminedParameter
   other-modules:
       Paths_programminghaskell
