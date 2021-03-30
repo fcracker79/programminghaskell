@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: cc203d1aa9a48053a0005a8ad4f7d83da980e5469783894fd6f7fed3e126dc57
+-- hash: 4565884a731d05be1eee53b5b11ec80d3e637397e4452cb689d43e0822147604
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -76,9 +76,11 @@ library
       HaskellProgrammingFromFirstPrinciples.MorraAlternative
       HaskellProgrammingFromFirstPrinciples.MorraPaolino
       HaskellProgrammingFromFirstPrinciples.PlayWithCriterion
+      HaskellProgrammingFromFirstPrinciples.PlayWithInlining
       HaskellProgrammingFromFirstPrinciples.PlayWithIO
       HaskellProgrammingFromFirstPrinciples.PlayWithMaps
       HaskellProgrammingFromFirstPrinciples.PlayWithMutableVectors
+      HaskellProgrammingFromFirstPrinciples.PlayWithSeq
       HaskellProgrammingFromFirstPrinciples.PlayWithStrings
       HaskellProgrammingFromFirstPrinciples.PlayWithTrifecta
       Lib
