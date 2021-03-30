@@ -14,8 +14,10 @@ main = do
     print zero
 
 
+{-# NOINLINE unsafeMyData #-}
 unsafeMyData :: MVar Int
 unsafeMyData = unsafePerformIO newEmptyMVar
+
 
 unsafeMain :: IO ()
 unsafeMain = do
