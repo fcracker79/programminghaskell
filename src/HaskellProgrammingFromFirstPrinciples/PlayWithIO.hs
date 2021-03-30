@@ -10,7 +10,7 @@ main = do
     mv <- myData
     --putMVar mv 0
     mv' <- myData
-    zlaero <- takeMVar mv'
+    zero <- takeMVar mv'
     print zero
 
 
