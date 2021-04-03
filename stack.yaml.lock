@@ -27,7 +27,7 @@ packages:
     hackage: text-format-simple-1.1.0
 snapshots:
 - completed:
-    size: 533252
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/16/26.yaml
-    sha256: cdbc5db9c1afe80a5998247939027a0c7db92fa0f20b5cd01596ec3da628b622
-  original: lts-16.26
+    size: 565720
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/8.yaml
+    sha256: 76bf8992ff8dfe6eda9c02f81866138c2369344d5011ab39ae403457c4448b03
+  original: lts-17.8
