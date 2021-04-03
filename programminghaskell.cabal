@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4565884a731d05be1eee53b5b11ec80d3e637397e4452cb689d43e0822147604
+-- hash: ac972b0092a363e882add2940a7d0efbe6ba7fda4ec061bce30e31791aeb485c
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -87,6 +87,7 @@ library
       Misc.MyParser
       Morra
       MorraAlternative
+      PlayWithPhantomTypes
       TypeFamilyExample
       UniquelyDeterminedParameter
   other-modules:
@@ -106,6 +107,7 @@ library
     , primitive
     , random >=1.2
     , text >=1.2.4.0
+    , text-format-simple
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -135,6 +137,7 @@ executable programminghaskell-exe
     , programminghaskell
     , random >=1.2
     , text >=1.2.4.0
+    , text-format-simple
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -169,6 +172,7 @@ test-suite integration-programminghaskell
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0
+    , text-format-simple
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -220,6 +224,7 @@ test-suite unit-programminghaskell
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0
+    , text-format-simple
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show

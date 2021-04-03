@@ -18,6 +18,13 @@ packages:
       sha256: 8290f921f41c3628a6c9871502e57fd1d25f5954967afbf4ed16717fd8d3656f
   original:
     hackage: splitmix-0.1.0.3
+- completed:
+    hackage: text-format-simple-1.1.0@sha256:5815236396328f556b9896fdcb949d15b485ef05394c9dc846e94b0306cb4036,735
+    pantry-tree:
+      size: 215
+      sha256: 026136165778e83cb04c587b3609d95731ccf35da07249c9eb0f29ceb6946cbb
+  original:
+    hackage: text-format-simple-1.1.0
 snapshots:
 - completed:
     size: 533252
