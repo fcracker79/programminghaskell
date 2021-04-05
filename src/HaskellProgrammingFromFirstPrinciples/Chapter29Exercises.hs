@@ -24,7 +24,7 @@ snoc :: DList a -> a -> DList a
 snoc xs x = DL $ \x0 -> unDL xs x0 ++ [x] 
 
 append :: DList a -> DList a -> DList a
-append a b = DL $ \x -> unDL a x ++ unDL b x 
+append (DL a) (DL b) = DL $ a . b 
 
 instance Show a => Show (DList a) where
     show = show . toList
