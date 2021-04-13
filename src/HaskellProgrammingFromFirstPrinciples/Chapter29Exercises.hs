@@ -32,12 +32,12 @@ instance Show a => Show (DList a) where
 schlemiel :: Int -> [Int]
 schlemiel i = go i []
   where go 0 xs = xs
-        go n xs = go (n-1) ([n] ++ xs)
+        go n xs = go (n-1) (xs ++ [n])
 
 constructDlist :: Int -> [Int]
 constructDlist i = toList $ go i empty
   where go 0 xs = xs
-        go n xs = go (n-1) (singleton n `append` xs)
+        go n xs = go (n-1) (xs `append` singleton n)
 
 constructDlistUsingCons :: Int -> [Int]
 constructDlistUsingCons i = toList $ go i empty

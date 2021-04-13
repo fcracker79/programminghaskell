@@ -13,7 +13,6 @@ inlined = trace "executing inlined" $ print "inline"
 notinlined :: IO()
 notinlined = trace "executing notinlined" print "not inlined"
 
-
 unsafeInlined :: ()
 unsafeInlined = trace "executing UNSAFE inlined" $ unsafePerformIO $ print "UNSAFE inline"
 

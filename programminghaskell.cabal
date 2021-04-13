@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ac972b0092a363e882add2940a7d0efbe6ba7fda4ec061bce30e31791aeb485c
+-- hash: 70a26882801b569c0bda80c0ad492b7f212c5a686b3c6bb0f3e2219e237628f0
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -72,6 +72,7 @@ library
       Chapter9
       ChristmasTree
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
+      HaskellProgrammingFromFirstPrinciples.Chapter30
       HaskellProgrammingFromFirstPrinciples.Morra
       HaskellProgrammingFromFirstPrinciples.MorraAlternative
       HaskellProgrammingFromFirstPrinciples.MorraPaolino
@@ -87,6 +88,7 @@ library
       Misc.MyParser
       Morra
       MorraAlternative
+      PlayWithContinuation
       PlayWithPhantomTypes
       TypeFamilyExample
       UniquelyDeterminedParameter
