@@ -57,24 +57,3 @@ handleFile h = do
 playWithFile :: [Char] -> IO ()
 playWithFile fileName = do
     withFile ("/tmp/" ++ fileName) WriteMode handleFile
-
-
-newtype MyCont r a = MyCont ((a -> r) -> r)
-mycont :: MyCont r a -> (a -> r) -> r
-mycont (MyCont f) = f
-
-
--- mf = ( ( a -> b ) -> r) -> r ) = ff -> r = (fab -> r) -> r
--- ma = ( a -> r ) -> r = fa -> r
--- mb = ( b -> r) -> r = fb -> r
--- ff = ( a -> b ) -> r)
--- fab = a -> b
--- fa = a -> r
-instance Applicative (MyCont r) where
-    (MyCont mf) <*> (MyCont ma) = MyCont (\fb -> mf (\fab -> ma (\a -> fb (fab a)) ))
---                                                   ^       ^  ^                ^
---                                                   |       |  |---- a -> r ----|
---                                                   |       |-------- r --------|
---                                                   |------ (a -> b) -> r ------|
-instance Monad (MyCont r) where
-    MyCont ma >>= f = MyCont $ \fb -> ma (\a -> mycont (f a) fb)
