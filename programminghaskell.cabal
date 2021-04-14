@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ca40ebec712e1b015fca05c2eca483c5dac8387573775ec153c0bd4d14671c19
+-- hash: 9860d8d729be33de194d189a3bf12f571681d2e2cdcd4078b79ca5411e3719ff
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -89,6 +89,7 @@ library
       Morra
       MorraAlternative
       MyContinuationImplementation
+      MyWithResource
       PlayWithContinuation
       PlayWithPhantomTypes
       TypeFamilyExample

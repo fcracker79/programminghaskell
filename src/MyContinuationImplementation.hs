@@ -1,8 +1,8 @@
 module MyContinuationImplementation where
 
 
-
-
+import Control.Exception.Base (SomeException(SomeException), AsyncException (StackOverflow))
+import Control.Exception (finally, catch, throwIO)
 newtype MyCont r a = MyCont ((a -> r) -> r)
 mycont :: MyCont r a -> (a -> r) -> r
 mycont (MyCont f) = f
