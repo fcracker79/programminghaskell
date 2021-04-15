@@ -1,6 +1,7 @@
 module MyWithResource where
 
 import Control.Exception (finally, catch, throwIO)
+import MyContinuationImplementation ( mycont, MyCont(MyCont) )
 
 newtype  MyResource a = MyResource a deriving(Show)
 newtype MyHandle a = MyHandle a deriving(Show)
@@ -31,10 +32,20 @@ failDoingStuff a = do
     return $ "Hopefully unreachable code using " ++ show a
 
 
-main :: IO ()
-main = do
+_main :: IO ()
+_main = do
     result <- withMyResouce (MyResource "This is my resouce") doStuff
     print $ "I received the result " ++ result
 
     result <- withMyResouce (MyResource "This is my resouce which will fail") failDoingStuff
     print $ "I received another result, which I should never have as I expect it to have a failure " ++ result
+
+main :: IO ()
+main = 
+    do
+    let nestedContinuation :: ((MyHandle String, MyHandle String) -> IO r) -> IO r
+        nestedContinuation = mycont $ do
+        c1 <- MyCont $ withMyResouce (MyResource "This is my resouce")
+        c2 <- MyCont $ withMyResouce (MyResource "This is another resouce")
+        return (c1, c2)
+    nestedContinuation (\(h1, h2) -> print $ "Handle 1 is " ++ show h1 ++ "\nHandle 2 is " ++ show h2)

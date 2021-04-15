@@ -3,6 +3,7 @@ module MyContinuationImplementation where
 
 import Control.Exception.Base (SomeException(SomeException), AsyncException (StackOverflow))
 import Control.Exception (finally, catch, throwIO)
+import Control.Monad.IO.Class (MonadIO(..))
 newtype MyCont r a = MyCont ((a -> r) -> r)
 mycont :: MyCont r a -> (a -> r) -> r
 mycont (MyCont f) = f
@@ -30,3 +31,7 @@ instance Applicative (MyCont r) where
 --                                                   |------ (a -> b) -> r ------|
 instance Monad (MyCont r) where
     MyCont ma >>= f = MyCont $ \fb -> ma (\a -> mycont (f a) fb)
+
+
+-- instance MonadIO m => MonadIO (MyCont (m r)) where
+--     liftIO x = undefined
