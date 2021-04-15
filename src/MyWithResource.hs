@@ -45,7 +45,7 @@ main =
     do
     let nestedContinuation :: ((MyHandle String, MyHandle String) -> IO r) -> IO r
         nestedContinuation = mycont $ do
-        c1 <- MyCont $ withMyResouce (MyResource "This is my resouce")
-        c2 <- MyCont $ withMyResouce (MyResource "This is another resouce")
-        return (c1, c2)
+            c1 <- MyCont $ withMyResouce (MyResource "This is my resouce")
+            c2 <- MyCont $ withMyResouce (MyResource "This is another resouce")
+            return (c1, c2)
     nestedContinuation (\(h1, h2) -> print $ "Handle 1 is " ++ show h1 ++ "\nHandle 2 is " ++ show h2)
