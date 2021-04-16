@@ -2,7 +2,7 @@ module MyWithResource where
 
 import Control.Exception (finally, catch, throwIO)
 import Control.Monad.IO.Class ( MonadIO(liftIO) )
-import MyContinuationImplementation ( mycont, MyCont(MyCont) )
+import MyContinuationImplementation ( mycont, MyCont(MyCont), mymanaged, runMyManaged )
 
 newtype  MyResource a = MyResource a deriving(Show)
 newtype MyHandle a = MyHandle a deriving(Show)
@@ -41,8 +41,8 @@ _main = do
     result <- withMyResouce (MyResource "This is my resouce which will fail") failDoingStuff
     print $ "I received another result, which I should never have as I expect it to have a failure " ++ result
 
-main :: IO ()
-main = 
+__main :: IO ()
+__main = 
     do
     let nestedContinuation :: ((MyHandle String, MyHandle String) -> IO r) -> IO r
         nestedContinuation = mycont $ do
@@ -51,3 +51,25 @@ main =
             (liftIO . print) "Let's try using my liftIO"
             return (c1, c2)
     nestedContinuation (\(h1, h2) -> print $ "Handle 1 is " ++ show h1 ++ "\nHandle 2 is " ++ show h2)
+
+
+main :: IO ()
+main = 
+    do
+    let nestedContinuation = do
+            c1 <- mymanaged (withMyResouce (MyResource "This is my resouce"))
+            c2 <- mymanaged (withMyResouce (MyResource "This is another resouce"))
+            (liftIO . print) "Let's try using my liftIO"
+            return (c1, c2)
+    runMyManaged nestedContinuation handler
+    where handler (h1, h2) = print $ "Handle 1 is " ++ show h1 ++ "\nHandle 2 is " ++ show h2
+
+
+main2 :: IO ()
+main2 = runMyManaged nestedContinuation handler
+    where nestedContinuation = do
+            c1 <- mymanaged (withMyResouce (MyResource "This is my resouce"))
+            c2 <- mymanaged (withMyResouce (MyResource "This is another resouce"))
+            (liftIO . print) "Let's try using my liftIO"
+            return (c1, c2)
+          handler (h1, h2) = print $ "Handle 1 is " ++ show h1 ++ "\nHandle 2 is " ++ show h2

@@ -35,3 +35,10 @@ instance Monad (MyCont r) where
 
 instance MonadIO m => MonadIO (MyCont (m r)) where
     liftIO x = MyCont (\f -> liftIO x >>= f)
+
+
+mymanaged :: MonadIO m => ((a -> m r) -> m r) -> MyCont (m r) a
+mymanaged = MyCont
+
+runMyManaged :: MonadIO m => MyCont (m r) a -> (a -> m r) -> m r
+runMyManaged = mycont
