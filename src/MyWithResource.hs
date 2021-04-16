@@ -1,6 +1,7 @@
 module MyWithResource where
 
 import Control.Exception (finally, catch, throwIO)
+import Control.Monad.IO.Class ( MonadIO(liftIO) )
 import MyContinuationImplementation ( mycont, MyCont(MyCont) )
 
 newtype  MyResource a = MyResource a deriving(Show)
@@ -47,5 +48,6 @@ main =
         nestedContinuation = mycont $ do
             c1 <- MyCont $ withMyResouce (MyResource "This is my resouce")
             c2 <- MyCont $ withMyResouce (MyResource "This is another resouce")
+            (liftIO . print) "Let's try using my liftIO"
             return (c1, c2)
     nestedContinuation (\(h1, h2) -> print $ "Handle 1 is " ++ show h1 ++ "\nHandle 2 is " ++ show h2)

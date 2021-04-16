@@ -33,5 +33,5 @@ instance Monad (MyCont r) where
     MyCont ma >>= f = MyCont $ \fb -> ma (\a -> mycont (f a) fb)
 
 
--- instance MonadIO m => MonadIO (MyCont (m r)) where
---     liftIO x = undefined
+instance MonadIO m => MonadIO (MyCont (m r)) where
+    liftIO x = MyCont (\f -> liftIO x >>= f)
