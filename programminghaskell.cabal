@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9860d8d729be33de194d189a3bf12f571681d2e2cdcd4078b79ca5411e3719ff
+-- hash: f4f03359a4d22b88a86a82ab5e49892097d493a2f72d0d060b5d0d4485f81c58
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -91,6 +91,7 @@ library
       MyContinuationImplementation
       MyWithResource
       PlayWithContinuation
+      PlayWithHoist
       PlayWithPhantomTypes
       TypeFamilyExample
       UniquelyDeterminedParameter
@@ -106,6 +107,7 @@ library
     , containers >=0.6.2.1
     , criterion
     , managed >=1.0.8
+    , mmorph
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , primitive
@@ -135,6 +137,7 @@ executable programminghaskell-exe
     , containers >=0.6.2.1
     , criterion
     , managed >=1.0.8
+    , mmorph
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , primitive
@@ -168,6 +171,7 @@ test-suite integration-programminghaskell
     , criterion
     , hspec
     , managed >=1.0.8
+    , mmorph
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , primitive
@@ -220,6 +224,7 @@ test-suite unit-programminghaskell
     , criterion
     , hspec
     , managed >=1.0.8
+    , mmorph
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , primitive

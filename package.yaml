@@ -24,6 +24,7 @@ dependencies:
 - monad-loops >= 0.4.3
 - mtl >= 2.2.2
 - managed >= 1.0.8
+- mmorph
 - transformers >= 0.5.2.0
 - aeson >= 1.4.7.1
 - text >= 1.2.4.0
