@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f4f03359a4d22b88a86a82ab5e49892097d493a2f72d0d060b5d0d4485f81c58
+-- hash: cb8fe75af08473a650ca7d7d334ae8e7305cc9b10445b0d7cea0cfbbcf855db9
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -93,6 +93,7 @@ library
       PlayWithContinuation
       PlayWithHoist
       PlayWithPhantomTypes
+      PlayWithSTM
       TypeFamilyExample
       UniquelyDeterminedParameter
   other-modules:
@@ -112,6 +113,7 @@ library
     , mtl >=2.2.2
     , primitive
     , random >=1.2
+    , stm
     , text >=1.2.4.0
     , text-format-simple
     , transformers >=0.5.2.0
@@ -143,6 +145,7 @@ executable programminghaskell-exe
     , primitive
     , programminghaskell
     , random >=1.2
+    , stm
     , text >=1.2.4.0
     , text-format-simple
     , transformers >=0.5.2.0
@@ -177,6 +180,7 @@ test-suite integration-programminghaskell
     , primitive
     , programminghaskell
     , random >=1.2
+    , stm
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0
@@ -230,6 +234,7 @@ test-suite unit-programminghaskell
     , primitive
     , programminghaskell
     , random >=1.2
+    , stm
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0

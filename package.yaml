@@ -39,6 +39,7 @@ dependencies:
 - unicode-show
 - primitive
 - zlib
+- stm
 library:
   source-dirs: src
 
