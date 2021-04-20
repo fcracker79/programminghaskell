@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: cb8fe75af08473a650ca7d7d334ae8e7305cc9b10445b0d7cea0cfbbcf855db9
+-- hash: 30a626b663644e820477467cf7dd034d62e1335645f48fe24d30d44981d26408
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -71,6 +71,8 @@ library
       Chapter8
       Chapter9
       ChristmasTree
+      HaskellInDepth.CH1.ParseFile
+      HaskellInDepth.CH1.Relevants
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Chapter30
       HaskellProgrammingFromFirstPrinciples.Morra
@@ -107,6 +109,7 @@ library
     , bytestring
     , containers >=0.6.2.1
     , criterion
+    , fmt
     , managed >=1.0.8
     , mmorph
     , monad-loops >=0.4.3
@@ -138,6 +141,7 @@ executable programminghaskell-exe
     , bytestring
     , containers >=0.6.2.1
     , criterion
+    , fmt
     , managed >=1.0.8
     , mmorph
     , monad-loops >=0.4.3
@@ -172,6 +176,7 @@ test-suite integration-programminghaskell
     , bytestring
     , containers >=0.6.2.1
     , criterion
+    , fmt
     , hspec
     , managed >=1.0.8
     , mmorph
@@ -226,6 +231,7 @@ test-suite unit-programminghaskell
     , bytestring
     , containers >=0.6.2.1
     , criterion
+    , fmt
     , hspec
     , managed >=1.0.8
     , mmorph
