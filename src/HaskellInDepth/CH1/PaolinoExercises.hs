@@ -42,7 +42,7 @@ uniqueWithOrderSetState s = evalState (f s) mempty
 
 type Vocabulary = [(Text, Int)]
 extractVocabMap  :: [Text] -> Vocabulary
-extractVocabMap xs = M.assocs $ foldl' f M.empty xs
+extractVocabMap xs = M.assocs $ foldl' f mempty xs
     where 
         f :: M.Map Text Int -> Text -> M.Map Text Int
         f b a = M.unionWith (+) b (M.singleton a 1)
