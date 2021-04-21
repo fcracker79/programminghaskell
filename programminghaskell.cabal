@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 30a626b663644e820477467cf7dd034d62e1335645f48fe24d30d44981d26408
+-- hash: 3cb964b708f05a2c8535b6e337a40fd43daab55ffcdd6eb856989cbf615c8233
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -71,6 +71,7 @@ library
       Chapter8
       Chapter9
       ChristmasTree
+      HaskellInDepth.CH1.PaolinoExercises
       HaskellInDepth.CH1.ParseFile
       HaskellInDepth.CH1.Relevants
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
