@@ -2,6 +2,10 @@ module HaskellInDepth.CH2.RandomStuff where
 
 
 import System.Random
+    ( getStdGen, getStdRandom, uniform, uniformR, UniformRange(..), Uniform(..))
+import System.Random.Internal (UniformRange(uniformRM))
+import System.Random.Stateful (Uniform(uniformM))
+import Control.Monad.IO.Class (MonadIO)
 
 
 main :: IO ()
@@ -29,3 +33,22 @@ main = do
         (m6, g3) = uniform g
     print m6
     
+
+data Direction = North | East | South | West deriving (Eq, Enum, Bounded, Show, Read)
+data Turn = TNone | TLeft | TRight | TAround deriving (Eq, Enum, Bounded, Show, Read)
+
+
+uniformIO :: (MonadIO m, Uniform a) => m a
+uniformIO = getStdRandom uniform
+
+uniformRangeIO :: (MonadIO m, UniformRange a) => (a, a) -> m a
+uniformRangeIO r = getStdRandom $ uniformR r
+
+
+instance {-# OVERLAPS #-} (Enum e) => UniformRange e where
+    uniformRM (lo, hi) rng = do
+        toEnum <$> uniformRM (fromEnum lo :: Int, fromEnum hi) rng
+
+
+instance {-# OVERLAPS #-} (Enum e, Bounded e) => Uniform e where
+    uniformM rng = uniformRM (minBound, maxBound) rng

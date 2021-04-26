@@ -3,6 +3,10 @@ module HaskellInDepth.CH2.Relevants where
 
 import Fmt
 import System.Random
+import GHC.Arr
+import Data.Foldable (maximumBy)
+import Data.Function
+import Data.Ord (comparing)
 data Dino = Dino1 | Dino2 deriving(Show)
 
 
@@ -31,3 +35,17 @@ main = do
     fmt $ "This will be 'D1': "+| Dino1 |+ ", as from Buildable\n"
 
 
+class Max a where
+    max :: a -> Int 
+
+
+newtype L = L [(Int,Int)]
+
+-- \\instance Max L where 
+-- \\  max (L xs) = fst $ maximumBy (comparing `on` snd) xs
+
+
+newtype M = M (Array (Int, Int) Bool)
+
+-- instance Max M where
+--     max (M a) = fst $ maximumBy (comparing `on` snd) $ fmap fst assocs a
