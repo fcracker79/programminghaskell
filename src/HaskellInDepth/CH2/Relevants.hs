@@ -1,3 +1,5 @@
+{-# LANGUAGE StandaloneDeriving #-}
+
 module HaskellInDepth.CH2.Relevants where
 
 
@@ -49,3 +51,10 @@ newtype M = M (Array (Int, Int) Bool)
 
 -- instance Max M where
 --     max (M a) = fst $ maximumBy (comparing `on` snd) $ fmap fst assocs a
+
+
+
+-- This can be done by using StandaloneDeriving extension.
+newtype MyData x = MyData x
+deriving instance Show a => Show (MyData [a])
+deriving instance Show a => Show (MyData (Maybe a))

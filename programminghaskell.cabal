@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ac274f525d25513f8dddbbe3654c29a8b14f4826100212ed9cbfbe8e981af3b5
+-- hash: 0ec9531ed3309b829a7950c5d32c263cb8778e7728b2ff777ca7cb1e4aee359f
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -78,6 +78,7 @@ library
       HaskellInDepth.CH2.Numbers
       HaskellInDepth.CH2.RandomStuff
       HaskellInDepth.CH2.Relevants
+      HaskellInDepth.CH2.ShowAndRead
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Chapter30
       HaskellProgrammingFromFirstPrinciples.Morra
