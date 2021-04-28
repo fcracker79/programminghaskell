@@ -1,4 +1,4 @@
-module HaskellInDepth.CH1.PaolinoExercises where
+module HaskellInDepth.CH1.PaolinoExercises.Vocabulary where
 
 
 import Data.Text(Text)
@@ -47,6 +47,7 @@ extractVocabMapBrutto xs = M.assocs $ foldl' f mempty xs
         f :: M.Map Text Int -> Text -> M.Map Text Int
         f b a = M.unionWith (+) b (M.singleton a 1)
 
+-- TODO understand what I did
 extractVocabMap  :: [Text] -> Vocabulary
 extractVocabMap xs = M.assocs $ foldl' (&) mempty v
     where v = fmap (\x m -> M.unionWith (+) m (M.singleton x 1)) xs

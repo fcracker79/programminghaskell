@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0ec9531ed3309b829a7950c5d32c263cb8778e7728b2ff777ca7cb1e4aee359f
+-- hash: 5cfe45fac106afb8d7bd818c4bd1c39ef2ec17a3f298bd0d2528573faae76479
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -71,7 +71,8 @@ library
       Chapter8
       Chapter9
       ChristmasTree
-      HaskellInDepth.CH1.PaolinoExercises
+      HaskellInDepth.CH1.PaolinoExercises.OrderedList
+      HaskellInDepth.CH1.PaolinoExercises.Vocabulary
       HaskellInDepth.CH1.ParseFile
       HaskellInDepth.CH1.Relevants
       HaskellInDepth.CH2.Antenna
@@ -115,12 +116,14 @@ library
     , bytestring
     , containers >=0.6.2.1
     , criterion
+    , fingertree
     , fmt
     , managed >=1.0.8
     , mmorph
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , primitive
+    , protolude
     , random >=1.2
     , stm
     , text >=1.2.4.0
@@ -147,6 +150,7 @@ executable programminghaskell-exe
     , bytestring
     , containers >=0.6.2.1
     , criterion
+    , fingertree
     , fmt
     , managed >=1.0.8
     , mmorph
@@ -154,6 +158,7 @@ executable programminghaskell-exe
     , mtl >=2.2.2
     , primitive
     , programminghaskell
+    , protolude
     , random >=1.2
     , stm
     , text >=1.2.4.0
@@ -182,6 +187,7 @@ test-suite integration-programminghaskell
     , bytestring
     , containers >=0.6.2.1
     , criterion
+    , fingertree
     , fmt
     , hspec
     , managed >=1.0.8
@@ -190,6 +196,7 @@ test-suite integration-programminghaskell
     , mtl >=2.2.2
     , primitive
     , programminghaskell
+    , protolude
     , random >=1.2
     , stm
     , test-framework
@@ -221,6 +228,7 @@ test-suite unit-programminghaskell
       AdventOfCode.Y2020.AOC7Spec
       AdventOfCode.Y2020.AOC8Spec
       AdventOfCode.Y2020.AOC9Spec
+      HaskellInDepth.CH1.PaolinoExercises.OrderedListSpec
       JSONFileSearchSpec
       NewChristmasTreeSpec
       TestDifferenceList
@@ -237,6 +245,7 @@ test-suite unit-programminghaskell
     , bytestring
     , containers >=0.6.2.1
     , criterion
+    , fingertree
     , fmt
     , hspec
     , managed >=1.0.8
@@ -245,6 +254,7 @@ test-suite unit-programminghaskell
     , mtl >=2.2.2
     , primitive
     , programminghaskell
+    , protolude
     , random >=1.2
     , stm
     , test-framework

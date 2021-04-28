@@ -41,6 +41,9 @@ dependencies:
 - zlib
 - stm
 - fmt
+- fingertree
+- protolude
+
 library:
   source-dirs: src
 
