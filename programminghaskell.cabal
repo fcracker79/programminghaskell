@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 5cfe45fac106afb8d7bd818c4bd1c39ef2ec17a3f298bd0d2528573faae76479
+-- hash: 1fd5143fea2c80a2bd3f508ad5fc39647c67aadbb2598e276c92c40ee5975274
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -74,6 +74,7 @@ library
       HaskellInDepth.CH1.PaolinoExercises.OrderedList
       HaskellInDepth.CH1.PaolinoExercises.Vocabulary
       HaskellInDepth.CH1.ParseFile
+      HaskellInDepth.CH1.PlayWithQuantifiers
       HaskellInDepth.CH1.Relevants
       HaskellInDepth.CH2.Antenna
       HaskellInDepth.CH2.Numbers
