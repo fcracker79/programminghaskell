@@ -6,17 +6,16 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE ViewPatterns #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 module HaskellInDepth.CH1.PaolinoExercises.HitParadeSpec where
 
-
-import Test.Hspec (describe, hspec, it, shouldBe)
+import HaskellInDepth.CH1.PaolinoExercises.HitParade
+import Test.Hspec (describe, hspec, it, shouldBe, Spec)
 
 
 spec :: Spec
-spec = hspec do
+spec = do
   describe "hits" do
     it "handles 1 votes" do
       shouldBe

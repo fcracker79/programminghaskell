@@ -19,7 +19,7 @@ import Protolude
     ( ($),
       Bounded,
       Eq,
-      Num ((+)),
+      Num((+)),
       Ord,
       Show,
       IsString,
@@ -33,10 +33,16 @@ import Protolude
       take,
       Down(..),
       Map,
-      Text, Semigroup ((<>)) )
+      Text,
+      Semigroup((<>)),
+      (<=),
+      Ord((>)),
+      fst,
+      (==) )
 import Protolude.Base (Bool)
 import Prelude (Bool(False))
-import Protolude (Ord((>)))
+import Debug.Trace (trace)
+import Protolude ((<))
 
 -- how many times a song has been voted
 newtype Score = Score Int
@@ -81,11 +87,13 @@ noParade = HitParade mempty mempty
 dropFirst :: (Measured v a, Foldable t) => t a -> FingerTree v a
 dropFirst b = fromList xs where (_:xs) = toList b
 
-splitPoint :: Hit -> Last SortHit -> Bool 
-splitPoint = notImplemented 
+splitPoint :: Hit -> Last SortHit -> Bool
+splitPoint _ (Last Nothing) = False
+splitPoint x (Last (Just y)) = sortHit x < y
 
-splitPointEq :: Hit -> Last SortHit -> Bool 
-splitPointEq = notImplemented 
+splitPointEq :: Hit -> Last SortHit -> Bool
+splitPointEq _ (Last Nothing) = False
+splitPointEq x (Last (Just y)) = (fst . sortHit) x == fst y
 
 insert :: Hit -> Ordered SortHit Hit -> Ordered SortHit Hit
 insert x xs = (left |> x) <> right
@@ -93,10 +101,10 @@ insert x xs = (left |> x) <> right
 
 
 remove :: Hit -> Ordered SortHit Hit -> Ordered SortHit Hit
-remove x xs = leftNonequal <> newLeftEqual <> right
+remove x xs = if null leftEqual then xs else leftNonequal <> dropFirst leftEqual <> right
     where (left, right) = split (splitPoint x) xs
           (leftNonequal, leftEqual) = split (splitPointEq x) left
-          newLeftEqual = dropFirst leftEqual
+
 
 -- here is the plan where  n == number of songs
 -- 1) get the song score , O (log n)
@@ -104,10 +112,8 @@ remove x xs = leftNonequal <> newLeftEqual <> right
 -- 3) update the hit score  and insert it back into the fingertree, O(log n)
 -- 4) update the scores , O (log n)
 addVote :: Song -> HitParade -> HitParade
-addVote song h@HitParade {..}  = case maybeSongScore of
-    Nothing -> h
-    Just songScore -> notImplemented
-    where maybeSongScore = M.lookup song scores
+addVote song h@HitParade {..}  = newHitParade previousSongScore
+    where previousSongScore = M.findWithDefault 0 song scores
           paradeWithoutHit songScore = remove (Hit song songScore) parade
           paradeWithUpdatedHit songScore = insert (Hit song (songScore + 1)) $ paradeWithoutHit songScore
           newScores songScore = M.insert song (songScore + 1) scores
