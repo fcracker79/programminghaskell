@@ -47,7 +47,10 @@ extractVocabMapBrutto xs = M.assocs $ foldl' f mempty xs
         f :: M.Map Text Int -> Text -> M.Map Text Int
         f b a = M.unionWith (+) b (M.singleton a 1)
 
--- TODO understand what I did
+-- As a reminder for the future
+-- foldl takes an 'b' and an array of 'a', where 'a' is a function that "increments" the value in the vocabulary and 'b' is an empty map.
+-- So a function (b -> a -> b) should take an empty map and a function that adds the first entry as a first step. This should 
+-- produce a 'b' but, in order to do that, it has to reverse the order between the argument and the function.
 extractVocabMap  :: [Text] -> Vocabulary
 extractVocabMap xs = M.assocs $ foldl' (&) mempty v
     where v = fmap (\x m -> M.unionWith (+) m (M.singleton x 1)) xs
