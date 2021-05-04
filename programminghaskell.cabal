@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0ea3d99c3250e075372a932706052525e662fb073ef2290920ec758d1792d1c2
+-- hash: 0cb70128173baceb9e03b82e86b135ac96617bed637b9c90121d09c631447578
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -82,6 +82,11 @@ library
       HaskellInDepth.CH2.RandomStuff
       HaskellInDepth.CH2.Relevants
       HaskellInDepth.CH2.ShowAndRead
+      HaskellInDepth.CH3.Charts
+      HaskellInDepth.CH3.HTMLReport
+      HaskellInDepth.CH3.Params
+      HaskellInDepth.CH3.QuoteData
+      HaskellInDepth.CH3.StatReport
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Chapter30
       HaskellProgrammingFromFirstPrinciples.Morra
@@ -113,9 +118,14 @@ library
       src
   default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
   build-depends:
-      aeson >=1.4.7.1
+      Chart
+    , Chart-diagrams
+    , aeson >=1.4.7.1
     , base >=4.7 && <5
+    , blaze-html
     , bytestring
+    , cassava
+    , colonnade
     , containers >=0.6.2.1
     , criterion
     , fingertree
@@ -124,12 +134,56 @@ library
     , mmorph
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , optparse-applicative
     , primitive
     , protolude
     , random >=1.2
     , stm
     , text >=1.2.4.0
     , text-format-simple
+    , time
+    , transformers >=0.5.2.0
+    , trifecta
+    , unicode-show
+    , unordered-containers
+    , vector
+    , zlib
+  default-language: Haskell2010
+
+executable hid-ch3-stockquotes
+  main-is: Main.hs
+  other-modules:
+      Paths_programminghaskell
+  hs-source-dirs:
+      stockquotes
+  default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2
+  build-depends:
+      Chart
+    , Chart-diagrams
+    , aeson >=1.4.7.1
+    , base >=4.7 && <5
+    , blaze-html
+    , bytestring
+    , cassava
+    , colonnade
+    , containers >=0.6.2.1
+    , criterion
+    , fingertree
+    , fmt
+    , managed >=1.0.8
+    , mmorph
+    , monad-loops >=0.4.3
+    , mtl >=2.2.2
+    , optparse-applicative
+    , primitive
+    , programminghaskell
+    , protolude
+    , random >=1.2
+    , stm
+    , text >=1.2.4.0
+    , text-format-simple
+    , time
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -147,9 +201,14 @@ executable programminghaskell-exe
   default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2
   build-depends:
-      aeson >=1.4.7.1
+      Chart
+    , Chart-diagrams
+    , aeson >=1.4.7.1
     , base >=4.7 && <5
+    , blaze-html
     , bytestring
+    , cassava
+    , colonnade
     , containers >=0.6.2.1
     , criterion
     , fingertree
@@ -158,6 +217,7 @@ executable programminghaskell-exe
     , mmorph
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , optparse-applicative
     , primitive
     , programminghaskell
     , protolude
@@ -165,6 +225,7 @@ executable programminghaskell-exe
     , stm
     , text >=1.2.4.0
     , text-format-simple
+    , time
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -183,10 +244,15 @@ test-suite integration-programminghaskell
   default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      HUnit
+      Chart
+    , Chart-diagrams
+    , HUnit
     , aeson >=1.4.7.1
     , base >=4.7 && <5
+    , blaze-html
     , bytestring
+    , cassava
+    , colonnade
     , containers >=0.6.2.1
     , criterion
     , fingertree
@@ -196,6 +262,7 @@ test-suite integration-programminghaskell
     , mmorph
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , optparse-applicative
     , primitive
     , programminghaskell
     , protolude
@@ -205,6 +272,7 @@ test-suite integration-programminghaskell
     , test-framework-hunit
     , text >=1.2.4.0
     , text-format-simple
+    , time
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -242,10 +310,15 @@ test-suite unit-programminghaskell
   default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      HUnit
+      Chart
+    , Chart-diagrams
+    , HUnit
     , aeson >=1.4.7.1
     , base >=4.7 && <5
+    , blaze-html
     , bytestring
+    , cassava
+    , colonnade
     , containers >=0.6.2.1
     , criterion
     , fingertree
@@ -255,6 +328,7 @@ test-suite unit-programminghaskell
     , mmorph
     , monad-loops >=0.4.3
     , mtl >=2.2.2
+    , optparse-applicative
     , primitive
     , programminghaskell
     , protolude
@@ -264,6 +338,7 @@ test-suite unit-programminghaskell
     , test-framework-hunit
     , text >=1.2.4.0
     , text-format-simple
+    , time
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show

@@ -1,2 +1,22 @@
 cradle:
   stack:
+    - path: "./src"
+      component: "programminghaskell:lib"
+
+    - path: "./stockquotes/Main.hs"
+      component: "programminghaskell:exe:hid-ch3-stockquotes"
+
+    - path: "./stockquotes/Paths_programminghaskell.hs"
+      component: "programminghaskell:exe:hid-ch3-stockquotes"
+
+    - path: "./app/Main.hs"
+      component: "programminghaskell:exe:programminghaskell-exe"
+
+    - path: "./app/Paths_programminghaskell.hs"
+      component: "programminghaskell:exe:programminghaskell-exe"
+
+    - path: "./test/integration"
+      component: "programminghaskell:test:integration-programminghaskell"
+
+    - path: "./test/unit"
+      component: "programminghaskell:test:unit-programminghaskell"
