@@ -1,8 +1,13 @@
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+
 module HaskellInDepth.CH3.QuoteData where
 
 
-import Data.Time(Day)
-
+import Data.Time (Day, parseTimeM, defaultTimeLocale)
+import Data.ByteString.Char8 (unpack)
+import GHC.Generics (Generic)
+import Data.Csv (FromNamedRecord, FromField (..))
 
 data QuoteData = QuoteData {
     day :: Day,
@@ -11,4 +16,8 @@ data QuoteData = QuoteData {
     close :: Double,
     high :: Double,
     low :: Double
-}
+} deriving (Generic, FromNamedRecord)
+
+
+instance FromField Day where
+    parseField = parseTimeM True defaultTimeLocale "%Y-%m-%d" . unpack
