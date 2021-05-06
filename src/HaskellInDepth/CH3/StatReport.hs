@@ -1,4 +1,5 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE OverloadedStrings #-}
 module HaskellInDepth.CH3.StatReport where
 
 
@@ -6,7 +7,8 @@ import HaskellInDepth.CH3.QuoteData (QField(..), field2fun, QuoteData, day)
 import Data.Ord (comparing)
 import Data.Foldable (minimumBy, maximumBy)
 import Data.Time (diffDays)
-import Fmt (Buildable(..), fixedF)
+import Fmt (Buildable(..), fixedF, (+||), (+|), Builder, (||+), (|+), pretty)
+import Colonnade
 
 decimalPlacesFloating :: Int
 decimalPlacesFloating = 2
@@ -17,6 +19,7 @@ data StatValue = StatValue {
 }
 instance Buildable StatValue where
     build sv = fixedF (decimalPlaces sv) (value sv)
+
 
 data StatEntry = StatEntry {
     qfield :: QField,
@@ -52,3 +55,29 @@ statInfo quotes = fmap qFieldStatInfo [minBound .. maxBound]
                 minVal = StatValue decPlaces mn
                 maxVal = StatValue decPlaces mx
                 in StatEntry {..}
+
+
+showPrice :: Double -> Builder
+showPrice = fixedF decimalPlacesFloating
+
+
+instance Buildable StatEntry where
+    build StatEntry {..} =
+        "Stats for "+|| qfield ||+": "
+        +| meanVal |+" (mean), "
+        +| minVal |+" (min), "
+        +| maxVal |+" (max), "
+        +| daysBetweenMinMax |+" (days)"
+
+
+textReport :: [StatEntry] -> String
+textReport = ascii colStats
+    where
+        colStats = mconcat
+            [ 
+                headed "Quote Field" (show . qfield)
+                , headed "Mean" (pretty . meanVal)
+                , headed "Min" (pretty . minVal)
+                , headed "Max" (pretty . maxVal)
+                , headed "Days between Min/Max" (pretty . daysBetweenMinMax)
+            ]

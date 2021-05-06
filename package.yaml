@@ -48,8 +48,10 @@ dependencies:
 - cassava  # CSV stuff
 - colonnade  # tabular data, with ASCII and HTML output formats
 - blaze-html  # generates HTML
+- blaze-colonnade  # bridge between colonnade and HTML
 - Chart  # Draws charts
 - Chart-diagrams  # Backend for Chart
+- utf8-string
 library:
   source-dirs: src
 

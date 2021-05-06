@@ -8,6 +8,7 @@ import Data.Time (Day, parseTimeM, defaultTimeLocale)
 import Data.ByteString.Char8 (unpack)
 import GHC.Generics (Generic)
 import Data.Csv (FromNamedRecord, FromField (..))
+import Fmt(Buildable(..))
 
 data QuoteData = QuoteData {
     day :: Day,
@@ -24,6 +25,8 @@ instance FromField Day where
 
 
 data QField = Open | Close | High | Low | Volume deriving (Eq, Ord, Show, Enum, Bounded)
+
+
 field2fun :: QField -> QuoteData -> Double
 field2fun Open = open
 field2fun Close = close
