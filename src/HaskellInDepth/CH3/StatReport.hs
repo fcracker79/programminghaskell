@@ -8,7 +8,7 @@ import Data.Ord (comparing)
 import Data.Foldable (minimumBy, maximumBy)
 import Data.Time (diffDays)
 import Fmt (Buildable(..), fixedF, (+||), (+|), Builder, (||+), (|+), pretty)
-import Colonnade
+import Colonnade ( ascii, headed )
 
 decimalPlacesFloating :: Int
 decimalPlacesFloating = 2

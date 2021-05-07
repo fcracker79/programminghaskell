@@ -3,8 +3,44 @@ module HaskellInDepth.CH3.Charts(plotChart) where
 
 import Data.Foldable (toList)
 import Graphics.Rendering.Chart.Easy
+    ( Candle(Candle),
+      StackedLayout(StackedLayout),
+      Default(def),
+      opaque,
+      line_color,
+      line_width,
+      solidFillStyle,
+      layout_plots,
+      layout_title,
+      slayouts_layouts,
+      plotBars,
+      plot_bars_item_styles,
+      plot_bars_titles,
+      plot_bars_values,
+      plot_candle_fall_fill_style,
+      plot_candle_fill,
+      plot_candle_line_style,
+      plot_candle_rise_fill_style,
+      plot_candle_tick_length,
+      plot_candle_title,
+      plot_candle_values,
+      plot_candle_width,
+      plot_lines_style,
+      plot_lines_title,
+      plot_lines_values,
+      ToPlot(toPlot),
+      ToRenderable(toRenderable),
+      cyan,
+      gray,
+      green,
+      white,
+      (.~) )
 import Graphics.Rendering.Chart.Backend.Diagrams
-import HaskellInDepth.CH3.QuoteData
+    ( loadSansSerifFonts,
+      renderableToFile,
+      FileFormat(SVG),
+      FileOptions(FileOptions) )
+import HaskellInDepth.CH3.QuoteData ( QuoteData(..) )
 
 
 plotChart :: Foldable t => String -> t QuoteData -> FilePath -> IO ()
