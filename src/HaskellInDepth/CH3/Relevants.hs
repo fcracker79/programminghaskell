@@ -2,8 +2,18 @@
 module HaskellInDepth.CH3.Relevants where
 
 
-import Fmt
-import Data.Text
+import qualified Text.Blaze.Html5 as H
+import Fmt ( (+|), fmt, (|+), Buildable(..) )
+import Data.Text ( Text )
+import Data.List (sortBy)
+import Data.Ord (comparing)
+import Data.Foldable (maximumBy, minimumBy, toList)
+import Colonnade ( ascii, headed, Colonnade )
+import Text.Blaze.Html.Renderer.Pretty (renderHtml)
+import Text.Blaze.Html5
+import Text.Blaze.Colonnade
+import Colonnade.Encode
+import Fmt.Internal
 
 -- Great `time` package
 
@@ -26,7 +36,7 @@ Double piped functions take a `Show` as variable `a`.
 Single piped functions taks a `Builder` as variable `a`.
 
 -}
-data Dino = Dino {a:: Int, b:: Int}
+data Dino = Dino {dino1:: Int, dino2:: Int} deriving(Show)
 
 
 instance Buildable Dino where
@@ -43,6 +53,77 @@ yFmt = fmt $ "hello " +| Dino 1 2 |+ "world"
 -- RecordsWildcards can be used to build instances
 xWildCards :: Dino
 xWildCards = 
-    let a = 1
-        b = 2
+    let dino1 = 1
+        dino2 = 2
     in Dino{..}
+
+xWildCardsBEWARE :: Dino
+xWildCardsBEWARE = 
+    let dino1WRONG = 1
+        dino2 = 2
+    in Dino{..}
+
+
+
+-- Sort by
+getSortField :: Dino -> Int 
+getSortField Dino{..} = dino1
+
+compareFunction :: Dino -> Dino -> Ordering
+compareFunction = comparing getSortField
+
+myArrayToBeSorted :: [Dino]
+myArrayToBeSorted = [Dino 10 20, Dino 50 10, Dino (-1) 100]
+mySortedArray :: [Dino]
+mySortedArray = sortBy compareFunction myArrayToBeSorted
+maxDino :: Dino
+maxDino = maximumBy compareFunction myArrayToBeSorted
+minDino :: Dino
+minDino = minimumBy compareFunction myArrayToBeSorted
+
+-- A simple attempt to sort a foldable. Since `Foldable` has no such `fromList`, we have to get it as an input param.
+mySortBy :: Foldable t => ([a] -> t a) -> (a -> a -> Ordering) -> t a -> t a
+mySortBy fromList f = fromList . sortBy f . toList
+
+
+-- Nice tabular data library
+colStats :: Colonnade Headed Dino String
+colStats = mconcat [ 
+                headed "Dino 1" (show . dino1)
+                , headed "Dino 2" (show . dino2)
+            ]
+textTable :: Foldable t => t Dino -> String
+textTable = ascii colStats
+outputTable :: IO ()
+outputTable = putStr $ textTable $ fmap (Dino 1) [1..100]
+
+
+-- Useful functions for monads
+
+--when
+mywhen :: Applicative f => Bool -> f () -> f ()
+mywhen b r = if b then r else pure ()
+
+-- unless
+myunless :: Applicative f => Bool -> f () -> f ()
+myunless b = mywhen (not b)
+
+
+-- HTML generation
+viaFmt :: Buildable a => a -> Html
+viaFmt = text . pretty
+colStatsHtml :: Colonnade Headed Dino Html
+colStatsHtml = mconcat [ 
+                headed "Dino 1" (viaFmt . dino1)
+                , headed "Dino 2" (viaFmt . dino2)
+            ]
+
+myHtml :: String
+myHtml = renderHtml $ H.docTypeHtml $ do
+    H.head $ do
+        title $ string "Test HTML"
+        style tableStyle
+    body $ do
+        h1 "Dini"
+        encodeHtmlTable mempty colStatsHtml $ fmap (Dino 1) [1..10]
+    where tableStyle = "table {border-collapse: collapse}" <> "td, th {border: 1px solid black; padding: 5px}"
