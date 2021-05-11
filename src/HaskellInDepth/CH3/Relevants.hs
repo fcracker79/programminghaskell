@@ -11,9 +11,10 @@ import Data.Foldable (maximumBy, minimumBy, toList)
 import Colonnade ( ascii, headed, Colonnade )
 import Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import Text.Blaze.Html5
-import Text.Blaze.Colonnade
-import Colonnade.Encode
-import Fmt.Internal
+    ( Html, string, text, body, h1, style, title )
+import Text.Blaze.Colonnade ( encodeHtmlTable )
+import Colonnade.Encode ( Colonnade, Headed )
+import Fmt.Internal ( (+|), fmt, pretty, (|+) )
 
 -- Great `time` package
 
@@ -127,3 +128,24 @@ myHtml = renderHtml $ H.docTypeHtml $ do
         h1 "Dini"
         encodeHtmlTable mempty colStatsHtml $ fmap (Dino 1) [1..10]
     where tableStyle = "table {border-collapse: collapse}" <> "td, th {border: 1px solid black; padding: 5px}"
+
+
+-- MonadFail
+
+mysqrt :: (MonadFail m, Floating a, Ord a) => a -> m a
+mysqrt i = do
+    if i >= 0 then return (sqrt i) else fail "Negative value"
+
+
+instance MonadFail (Either String) where
+    fail = Left
+
+
+maybeSqrt :: (Floating a, Ord a) => a -> Maybe a
+maybeSqrt = mysqrt
+
+ioSqrt :: (Floating a, Ord a) => a -> IO a
+ioSqrt = mysqrt
+
+eitherSqrt :: (Floating a, Ord a) => a -> Either String a
+eitherSqrt = mysqrt
