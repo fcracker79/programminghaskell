@@ -1,4 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+
 module HaskellInDepth.CH3.Relevants where
 
 
@@ -15,6 +17,7 @@ import Text.Blaze.Html5
 import Text.Blaze.Colonnade ( encodeHtmlTable )
 import Colonnade.Encode ( Colonnade, Headed )
 import Fmt.Internal ( (+|), fmt, pretty, (|+) )
+import Data.String (IsString)
 
 -- Great `time` package
 
@@ -140,6 +143,17 @@ mysqrt i = do
 instance MonadFail (Either String) where
     fail = Left
 
+newtype LeftFail a = LeftFail (Either String a) deriving (Show, Functor, Applicative, Monad)
+leftFail :: LeftFail a -> Either String a
+leftFail (LeftFail x) = x
+
+instance MonadFail LeftFail where
+    fail = LeftFail . Left
+
+newtype StringError = StringError { stringError :: String} deriving(IsString)
+
+instance MonadFail (Either StringError) where
+    fail = Left . StringError
 
 maybeSqrt :: (Floating a, Ord a) => a -> Maybe a
 maybeSqrt = mysqrt
@@ -149,3 +163,9 @@ ioSqrt = mysqrt
 
 eitherSqrt :: (Floating a, Ord a) => a -> Either String a
 eitherSqrt = mysqrt
+
+leftFailSqrt :: (Floating a, Ord a) => a -> LeftFail a
+leftFailSqrt = mysqrt
+
+stringErrorSqrt :: (Floating a, Ord a) => a -> LeftFail a
+stringErrorSqrt = mysqrt
