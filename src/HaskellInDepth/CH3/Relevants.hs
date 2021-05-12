@@ -158,7 +158,28 @@ mysqrt i = do
 instance MonadFail (Either String) where
     fail = Left
 
-newtype LeftFail a = LeftFail (Either String a) deriving newtype (Show, Functor, Applicative, Monad)
+{-
+There are many deriving strategies:
+1. stock: known as Standard. Used for the following classes:
+   1.1 Eq
+   1.2 Ord
+   1.3 Show
+   1.4 Read
+   1.5 Enum
+   1.6 Bounded
+   1.7 Ix
+2. newtype
+   Just unwraps the type, implementsa using the inner stuff, then wraps the type again
+3. anyclass
+   Based on the default implementation
+4. via
+   Based on another type's implementation.
+
+Source: https://kowainik.github.io/posts/deriving
+-}
+newtype LeftFail a = LeftFail (Either String a) 
+    deriving stock (Show)
+    deriving newtype (Functor, Applicative, Monad)
 leftFail :: LeftFail a -> Either String a
 leftFail (LeftFail x) = x
 
