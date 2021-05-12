@@ -1,5 +1,13 @@
 {-# LANGUAGE RecordWildCards #-}
+-- Required for `deriving(Generic)`
+{-# LANGUAGE DeriveGeneric #-}
+-- Required for `deriving(FromNameRecord)`
+{-# LANGUAGE DeriveAnyClass #-}
+-- Required for `deriving(Functor)`
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+
+-- We need to explicitly specify if I want DeriveAnyClass or GeneralizedNewTypeDeriving
+{-# LANGUAGE DerivingStrategies #-}
 
 module HaskellInDepth.CH3.Relevants where
 
@@ -18,6 +26,13 @@ import Text.Blaze.Colonnade ( encodeHtmlTable )
 import Colonnade.Encode ( Colonnade, Headed )
 import Fmt.Internal ( (+|), fmt, pretty, (|+) )
 import Data.String (IsString)
+import Data.Time ( Day, defaultTimeLocale, parseTimeM )
+import Data.Csv (decodeByName, FromField(..), FromNamedRecord, Header)
+import Data.ByteString.Char8 (unpack)
+import Codec.Binary.UTF8.Generic (toString, UTF8Bytes (pack), fromString)
+import GHC.Generics (Generic)
+import Data.Vector (Vector)
+
 
 -- Great `time` package
 
@@ -143,14 +158,14 @@ mysqrt i = do
 instance MonadFail (Either String) where
     fail = Left
 
-newtype LeftFail a = LeftFail (Either String a) deriving (Show, Functor, Applicative, Monad)
+newtype LeftFail a = LeftFail (Either String a) deriving newtype (Show, Functor, Applicative, Monad)
 leftFail :: LeftFail a -> Either String a
 leftFail (LeftFail x) = x
 
 instance MonadFail LeftFail where
     fail = LeftFail . Left
 
-newtype StringError = StringError { stringError :: String} deriving(IsString)
+newtype StringError = StringError { stringError :: String} deriving newtype (IsString)
 
 instance MonadFail (Either StringError) where
     fail = Left . StringError
@@ -169,3 +184,27 @@ leftFailSqrt = mysqrt
 
 stringErrorSqrt :: (Floating a, Ord a) => a -> LeftFail a
 stringErrorSqrt = mysqrt
+
+-- CSV parsing (cassava)
+
+-- I can parse arbitrary fields
+instance FromField Day where
+    parseField = parseTimeM True defaultTimeLocale "%Y-%m-%d" . toString
+
+data QuoteData = QuoteData {
+    day :: Day,
+    volume :: Int,
+    open :: Double,
+    close :: Double,
+    high :: Double,
+    low :: Double
+} deriving (Generic, FromNamedRecord, Show)
+
+csvData :: Either String (Header, Vector QuoteData)
+csvData = (decodeByName . fromString)
+    "\
+    \day,close,volume,open,high,low\n \
+    \2019-05-01,210.520004,64827300,209.880005,215.309998,209.229996\n \
+    \2019-05-02,209.149994,31996300,209.839996,212.649994,208.130005\n \
+    \2019-05-03,211.75,20892400,210.889999,211.839996,210.229996 \
+    \ "
