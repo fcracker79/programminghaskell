@@ -21,8 +21,8 @@ instance Buildable StatValue where
     build sv = fixedF (decimalPlaces sv) (value sv)
 
 
-data StatEntry = StatEntry {
-    qfield :: QField,
+data StatEntry a = StatEntry a {
+    qfield :: QField a,
     meanVal :: StatValue,
     minVal :: StatValue,
     maxVal :: StatValue,
