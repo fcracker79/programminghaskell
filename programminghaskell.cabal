@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 57239b5b7f29698c9b749118e3d44c2470cd1fbe4a96cb5059e7f85eaba66c96
+-- hash: b8ec94b05290fb79494f369e595f40425f938310c912992fee2a482dd603a11b
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -82,6 +82,7 @@ library
       HaskellInDepth.CH2.RandomStuff
       HaskellInDepth.CH2.Relevants
       HaskellInDepth.CH2.ShowAndRead
+      HaskellInDepth.CH3.AlternativeToAlternativeIO
       HaskellInDepth.CH3.Charts
       HaskellInDepth.CH3.HTMLReport
       HaskellInDepth.CH3.Params
@@ -130,6 +131,7 @@ library
     , colonnade
     , containers >=0.6.2.1
     , criterion
+    , exceptions
     , fingertree
     , fmt
     , managed >=1.0.8
@@ -173,6 +175,7 @@ executable hid-ch3-stockquotes
     , colonnade
     , containers >=0.6.2.1
     , criterion
+    , exceptions
     , fingertree
     , fmt
     , managed >=1.0.8
@@ -217,6 +220,7 @@ executable programminghaskell-exe
     , colonnade
     , containers >=0.6.2.1
     , criterion
+    , exceptions
     , fingertree
     , fmt
     , managed >=1.0.8
@@ -263,6 +267,7 @@ test-suite integration-programminghaskell
     , colonnade
     , containers >=0.6.2.1
     , criterion
+    , exceptions
     , fingertree
     , fmt
     , hspec
@@ -331,6 +336,7 @@ test-suite unit-programminghaskell
     , colonnade
     , containers >=0.6.2.1
     , criterion
+    , exceptions
     , fingertree
     , fmt
     , hspec

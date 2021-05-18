@@ -52,6 +52,7 @@ dependencies:
 - Chart  # Draws charts
 - Chart-diagrams  # Backend for Chart
 - utf8-string
+- exceptions
 library:
   source-dirs: src
 
