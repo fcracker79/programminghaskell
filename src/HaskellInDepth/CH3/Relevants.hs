@@ -145,6 +145,7 @@ myHtml = renderHtml $ H.docTypeHtml $ do
     body $ do
         h1 "Dini"
         encodeHtmlTable mempty colStatsHtml $ fmap (Dino 1) [1..10]
+    string "WHERE AM I?"
     where tableStyle = "table {border-collapse: collapse}" <> "td, th {border: 1px solid black; padding: 5px}"
 
 
