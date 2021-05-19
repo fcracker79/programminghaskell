@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b7e6d996d0cf1b330fb127ceb68910e5bd398adbd539033a9fbcef154f18759d
+-- hash: 740d29303651eaa64455f790cba4609e15ccfdc4bd8369fe7b365b8848fc069a
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -91,6 +91,7 @@ library
       HaskellInDepth.CH3.QuoteData
       HaskellInDepth.CH3.Relevants
       HaskellInDepth.CH3.StatReport
+      HaskellInDepth.CH4.Relevants
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Chapter30
       HaskellProgrammingFromFirstPrinciples.Morra
@@ -151,6 +152,7 @@ library
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
+    , universum
     , unordered-containers
     , utf8-string
     , vector
@@ -196,6 +198,7 @@ executable hid-ch3-stockquotes
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
+    , universum
     , unordered-containers
     , utf8-string
     , vector
@@ -241,6 +244,7 @@ executable programminghaskell-exe
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
+    , universum
     , unordered-containers
     , utf8-string
     , vector
@@ -291,6 +295,7 @@ test-suite integration-programminghaskell
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
+    , universum
     , unordered-containers
     , utf8-string
     , vector
@@ -360,6 +365,7 @@ test-suite unit-programminghaskell
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
+    , universum
     , unordered-containers
     , utf8-string
     , vector

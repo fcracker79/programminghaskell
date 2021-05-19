@@ -55,6 +55,7 @@ dependencies:
 - Chart-diagrams  # Backend for Chart
 - utf8-string
 - exceptions
+- universum
 library:
   source-dirs: src
 
