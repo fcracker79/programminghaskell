@@ -4,11 +4,13 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b8ec94b05290fb79494f369e595f40425f938310c912992fee2a482dd603a11b
+-- hash: b7e6d996d0cf1b330fb127ceb68910e5bd398adbd539033a9fbcef154f18759d
 
 name:           programminghaskell
 version:        0.1.0.0
+synopsis:       My personal sandbox where to play with Haskell safely
 description:    Please see the README on GitHub at <https://github.com/githubuser/programminghaskell#readme>
+category:       educational
 homepage:       https://github.com/githubuser/programminghaskell#readme
 bug-reports:    https://github.com/githubuser/programminghaskell/issues
 author:         Author name here
@@ -162,7 +164,7 @@ executable hid-ch3-stockquotes
   hs-source-dirs:
       stockquotes
   default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Chart
     , Chart-diagrams
@@ -207,7 +209,7 @@ executable programminghaskell-exe
   hs-source-dirs:
       app
   default-extensions: TypeSynonymInstances FlexibleInstances MonadComprehensions FlexibleContexts RankNTypes TypeOperators UndecidableInstances MultiParamTypeClasses FunctionalDependencies OverloadedStrings LambdaCase TupleSections
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Chart
     , Chart-diagrams

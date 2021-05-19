@@ -116,6 +116,13 @@ packages:
       sha256: 98ccdd327916e0ff0ea2fa93ff9a96f5d492ae88258b330e991e6dcc4d332496
   original:
     hackage: colonnade-1.2.0.2
+- completed:
+    hackage: cabal-install-3.4.0.0@sha256:485d70a4d00fce9cfe29bfcf65d5b469ad21528baf2ccaed9410884b66118f56,16490
+    pantry-tree:
+      size: 20495
+      sha256: bff50bfe4142251be51e640e8df349c43d29798b69b39c5578b9e22d2ba15ba2
+  original:
+    hackage: cabal-install-3.4.0.0
 snapshots:
 - completed:
     size: 565720

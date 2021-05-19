@@ -72,3 +72,14 @@ visibility:           public
 ...
 
 ```
+
+Using Cabal via Stack
+---------------------
+
+Stack provides the necessary commands cabal-equivalent.
+
+So, for instance, you can use `stack sdist`, which includes what `cabal check` does. 
+
+Similarily, you can run `stack upload` to run the same task as `cabal upload`.
+
+Finally, you can run `stack ls dependencies` as a replacement for `cabal freeze`. That requires `cabal-install` installed as well.

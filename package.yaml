@@ -5,6 +5,8 @@ license:             BSD3
 author:              "Author name here"
 maintainer:          "example@example.com"
 copyright:           "2020 Author name here"
+synopsis:            "My personal sandbox where to play with Haskell safely"
+category:            "educational"
 
 extra-source-files:
 - README.md
@@ -64,7 +66,6 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
-    - -O2
     dependencies:
     - programminghaskell
   hid-ch3-stockquotes:
@@ -74,7 +75,6 @@ executables:
       - -threaded
       - -rtsopts
       - -with-rtsopts=-N
-      - -O2
     dependencies:
       - programminghaskell
 tests:
