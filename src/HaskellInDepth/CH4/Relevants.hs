@@ -1,3 +1,4 @@
+{-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE OverloadedStrings #-}
 module HaskellInDepth.CH4.Relevants where
 
@@ -63,3 +64,23 @@ myShowDino = U.show MyDino
 -- New features
 mySplitHeadTail :: Maybe ([Char], [[Char]])
 mySplitHeadTail = U.uncons myList
+
+
+-- Not strictly related to the Chapter 4 of the book
+
+newtype Whatever = Whatever Int
+data Dino a = forall b . Monad b => Dino (b a)
+data Dino2 x = forall a . Monad a => Dino2 (a x)
+
+
+x :: Dino2 Int
+x = Dino2 (Just (1::Int))
+x1 :: Dino2 Int
+x1 = Dino2 [2::Int]
+x2 :: Dino2 Int
+x2 = Dino2 (Right 3)
+--x3 = Dino2 (Whatever 4)
+x4 :: Dino2 Int
+x4 = Dino2 (Right (3::Int))
+x5 :: Dino2 Int
+x5 = Dino2 (Right 3)
