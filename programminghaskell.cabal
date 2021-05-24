@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4ce76af91dff3a9b9e19377b13c45c71d93844fefb577ffcda05a682e7673b17
+-- hash: d255714a7049c194b147ebecd8f2220e8bce40b9567c7a5dd327b295ebef20ad
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -143,6 +143,7 @@ library
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
+    , parallel
     , primitive
     , protolude
     , random >=1.2
@@ -188,6 +189,7 @@ executable hid-ch3-stockquotes
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
+    , parallel
     , primitive
     , programminghaskell
     , protolude
@@ -234,6 +236,7 @@ executable programminghaskell-exe
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
+    , parallel
     , primitive
     , programminghaskell
     , protolude
@@ -283,6 +286,7 @@ test-suite integration-programminghaskell
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
+    , parallel
     , primitive
     , programminghaskell
     , protolude
@@ -353,6 +357,7 @@ test-suite unit-programminghaskell
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
+    , parallel
     , primitive
     , programminghaskell
     , protolude

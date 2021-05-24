@@ -7,6 +7,7 @@ import qualified Prelude as P
 import Prelude hiding(sum, product, length)
 import Data.Foldable hiding(sum, fold, product, length)
 import Control.Applicative
+import Control.Parallel.Strategies
 
 
 -- Simplest case
@@ -197,3 +198,12 @@ wat = fold 99 [1..10]
 standardDeviation :: Fold Double Double
 standardDeviation = sqrt (sumOfSquares / length - (sum / length) ^ 2)
     where sumOfSquares = Fold (Sum . (^ 2)) getSum
+
+
+-- Consume in parallel
+foldlParallel :: Fold i o -> [[i]] -> o
+foldlParallel (Fold tally summarize) iss = 
+        summarize ( reduce (map inner iss `using` parList rseq ) )
+    where 
+        reduce = Data.Foldable.foldl' mappend mempty
+        inner is = reduce (map tally is)
