@@ -32,6 +32,7 @@ import Data.ByteString.Char8 (unpack)
 import Codec.Binary.UTF8.Generic (toString, UTF8Bytes (pack), fromString)
 import GHC.Generics (Generic)
 import Data.Vector (Vector)
+import Control.Monad.Except
 
 
 -- Great `time` package
@@ -155,6 +156,12 @@ mysqrt :: (MonadFail m, Floating a, Ord a) => a -> m a
 mysqrt i = do
     if i >= 0 then return (sqrt i) else fail "Negative value"
 
+mysqrtError :: (MonadError String m, Floating a, Ord a) => a -> m a
+mysqrtError i = do
+    if i >= 0 then return (sqrt i) else throwError "Negative value"
+
+mysqrtMaybeError :: (Floating a, Ord a) => a -> Either String a
+mysqrtMaybeError = mysqrtError
 
 instance MonadFail (Either String) where
     fail = Left

@@ -57,6 +57,10 @@ dependencies:
 - exceptions
 - universum
 - parallel
+- foldl
+- streaming
+- profunctors
+- lens
 library:
   source-dirs: src
 

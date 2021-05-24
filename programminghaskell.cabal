@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d255714a7049c194b147ebecd8f2220e8bce40b9567c7a5dd327b295ebef20ad
+-- hash: ad232a271c90eb5a976b3dd57e2ddebaeb7981928413c8dbf27ba31b4c1ccceb
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -92,6 +92,7 @@ library
       HaskellInDepth.CH3.Relevants
       HaskellInDepth.CH3.StatReport
       HaskellInDepth.CH4.NiceFolds
+      HaskellInDepth.CH4.PaoloFolds
       HaskellInDepth.CH4.Relevants
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Chapter30
@@ -138,6 +139,8 @@ library
     , exceptions
     , fingertree
     , fmt
+    , foldl
+    , lens
     , managed >=1.0.8
     , mmorph
     , monad-loops >=0.4.3
@@ -145,9 +148,11 @@ library
     , optparse-applicative
     , parallel
     , primitive
+    , profunctors
     , protolude
     , random >=1.2
     , stm
+    , streaming
     , text >=1.2.4.0
     , text-format-simple
     , time
@@ -184,6 +189,8 @@ executable hid-ch3-stockquotes
     , exceptions
     , fingertree
     , fmt
+    , foldl
+    , lens
     , managed >=1.0.8
     , mmorph
     , monad-loops >=0.4.3
@@ -191,10 +198,12 @@ executable hid-ch3-stockquotes
     , optparse-applicative
     , parallel
     , primitive
+    , profunctors
     , programminghaskell
     , protolude
     , random >=1.2
     , stm
+    , streaming
     , text >=1.2.4.0
     , text-format-simple
     , time
@@ -231,6 +240,8 @@ executable programminghaskell-exe
     , exceptions
     , fingertree
     , fmt
+    , foldl
+    , lens
     , managed >=1.0.8
     , mmorph
     , monad-loops >=0.4.3
@@ -238,10 +249,12 @@ executable programminghaskell-exe
     , optparse-applicative
     , parallel
     , primitive
+    , profunctors
     , programminghaskell
     , protolude
     , random >=1.2
     , stm
+    , streaming
     , text >=1.2.4.0
     , text-format-simple
     , time
@@ -280,7 +293,9 @@ test-suite integration-programminghaskell
     , exceptions
     , fingertree
     , fmt
+    , foldl
     , hspec
+    , lens
     , managed >=1.0.8
     , mmorph
     , monad-loops >=0.4.3
@@ -288,10 +303,12 @@ test-suite integration-programminghaskell
     , optparse-applicative
     , parallel
     , primitive
+    , profunctors
     , programminghaskell
     , protolude
     , random >=1.2
     , stm
+    , streaming
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0
@@ -351,7 +368,9 @@ test-suite unit-programminghaskell
     , exceptions
     , fingertree
     , fmt
+    , foldl
     , hspec
+    , lens
     , managed >=1.0.8
     , mmorph
     , monad-loops >=0.4.3
@@ -359,10 +378,12 @@ test-suite unit-programminghaskell
     , optparse-applicative
     , parallel
     , primitive
+    , profunctors
     , programminghaskell
     , protolude
     , random >=1.2
     , stm
+    , streaming
     , test-framework
     , test-framework-hunit
     , text >=1.2.4.0
