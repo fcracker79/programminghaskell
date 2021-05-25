@@ -3,11 +3,19 @@ module HaskellInDepth.CH4.NiceFolds where
 
 
 import Data.Monoid
+    ( (<>),
+      Monoid(mempty, mappend),
+      Any(Any, getAny),
+      Product(Product, getProduct),
+      Sum(Sum, getSum),
+      All(All, getAll),
+      First(First, getFirst),
+      Last(Last, getLast) )
 import qualified Prelude as P
 import Prelude hiding(sum, product, length)
-import Data.Foldable hiding(sum, fold, product, length)
-import Control.Applicative
-import Control.Parallel.Strategies
+import Data.Foldable ( Foldable(foldl') )
+import Control.Applicative ( Applicative(liftA2) )
+import Control.Parallel.Strategies ( parList, rseq, using )
 
 
 -- Simplest case

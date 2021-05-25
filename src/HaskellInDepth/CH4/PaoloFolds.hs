@@ -23,10 +23,56 @@ import Data.String (String)
 import Data.Time (Day, UTCTime, defaultTimeLocale, diffDays, parseTimeM)
 import Data.Time.Clock (UTCTime (UTCTime))
 import Graphics.Rendering.Chart.Backend.Diagrams (toFile)
-import Graphics.Rendering.Chart.Easy hiding (Fold, close)
+import Graphics.Rendering.Chart.Easy
+    ( plot_lines_title,
+      plot_lines_values,
+      opaque,
+      (.~),
+      line_color,
+      plot_lines_style,
+      (&),
+      gray,
+      red,
+      blue,
+      green,
+      layout_plots,
+      (.=),
+      layout_title,
+      ToPlot(toPlot),
+      PlotLines,
+      Colour,
+      Default(def),
+      Profunctor(lmap, rmap) )
 import Numeric (showFFloat)
-import Protolude hiding (ByteString)
-import Streaming
+import Protolude
+    ( ($),
+      fromIntegral,
+      join,
+      Monad((>>=), (>>)),
+      Functor(fmap),
+      Num(abs),
+      Show,
+      Applicative(pure, (<*>)),
+      Traversable(sequenceA, sequence),
+      Generic,
+      Monoid(mconcat),
+      Bool(True),
+      Double,
+      Integer,
+      Maybe(..),
+      IO,
+      Either,
+      rights,
+      fix,
+      FilePath,
+      maybeToList,
+      (.),
+      (<$>),
+      decodeUtf8,
+      Print(putStrLn),
+      MonadIO(liftIO),
+      ConvertText(toS) )
+import Streaming ( Stream, Of )
 import qualified Streaming.Prelude as S
 
 ------------ logic -------------------------------------
