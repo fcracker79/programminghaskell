@@ -16,6 +16,7 @@ import Prelude hiding(sum, product, length)
 import Data.Foldable ( Foldable(foldl') )
 import Control.Applicative ( Applicative(liftA2) )
 import Control.Parallel.Strategies ( parList, rseq, using )
+import Control.Lens (Profunctor(..))
 
 
 -- Simplest case
@@ -215,3 +216,21 @@ foldlParallel (Fold tally summarize) iss =
     where 
         reduce = Data.Foldable.foldl' mappend mempty
         inner is = reduce (map tally is)
+
+
+-- Profunctor example 
+instance Profunctor Fold where
+    rmap = fmap 
+    lmap f (Fold i o) = Fold (i . f) o
+
+lmapf :: String -> Int
+lmapf = read
+
+rmapf :: Int -> String 
+rmapf = show
+
+sumStringsReturnsInt :: Fold String Int
+sumStringsReturnsInt = lmap lmapf sum
+
+sumStringsReturnsString :: Fold String String
+sumStringsReturnsString = dimap lmapf rmapf sum
