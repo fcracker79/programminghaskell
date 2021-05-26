@@ -3,6 +3,7 @@
 module HaskellInDepth.CH4.Relevants where
 
 import qualified Universum as U
+import Control.Lens (Profunctor(lmap, rmap))
 
 
 myNonEmptyList :: U.NonEmpty [Char]
@@ -84,3 +85,27 @@ x4 :: Dino2 Int
 x4 = Dino2 (Right (3::Int))
 x5 :: Dino2 Int
 x5 = Dino2 (Right 3)
+
+-- Nice functor functions
+
+niceFunctor1 :: Maybe [Char]
+niceFunctor1 = Nothing U.$> "hello"
+
+niceFunctor2 :: Maybe [Char]
+niceFunctor2 = "hello" U.<$ Nothing
+
+-- Profunctors
+fPro :: Int -> String 
+fPro = show
+
+flmap :: () -> Int
+flmap = const 32
+
+lfPro :: () -> String
+lfPro = lmap flmap fPro
+
+frmap :: String -> Int
+frmap x = read x :: Int
+
+rfPro :: () -> Int
+rfPro = rmap frmap lfPro

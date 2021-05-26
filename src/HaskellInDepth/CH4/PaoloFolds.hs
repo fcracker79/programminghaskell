@@ -48,6 +48,8 @@ import Protolude
     ( ($),
       fromIntegral,
       join,
+      Eq((==)),
+      Fractional((/)),
       Monad((>>=), (>>)),
       Functor(fmap),
       Num(abs),
@@ -58,10 +60,12 @@ import Protolude
       Monoid(mconcat),
       Bool(True),
       Double,
+      Int,
       Integer,
       Maybe(..),
       IO,
       Either,
+      (&),
       rights,
       fix,
       FilePath,
@@ -71,9 +75,13 @@ import Protolude
       decodeUtf8,
       Print(putStrLn),
       MonadIO(liftIO),
-      ConvertText(toS) )
+      ConvertText(toS),
+      (>), ($>) )
 import Streaming ( Stream, Of )
 import qualified Streaming.Prelude as S
+import Protolude.Base (Fractional)
+import Control.Monad (guard)
+import Data.Eq ((==))
 
 ------------ logic -------------------------------------
 
@@ -100,22 +108,29 @@ data Feature = Feature
   }
   deriving (Show, Generic, ToRecord)
 
+
+safeMean :: Fractional a => Fold a (Maybe a)
+safeMean = fmap f a 
+  where 
+        f :: Fractional a => (a, Int) -> Maybe a
+        f (n, d) = guard (d > 0) $> (n / fromIntegral d)
+        a = (,) <$> L.sum <*> L.length
+
+
 -- per feature Fold applicative composition
 feature :: String -> (Row -> Double) -> Fold Row (Maybe Feature)
-feature feature_name f = rmap -- fmap
-  do
-    \case
-      (Nothing, _, _) -> Nothing --  *lazy tuple, thank you avoiding me to fix L.mean
-      (Just (feature_min, dmin), Just (feature_max, dmax), feature_mean) -> Just $ Feature {..}
+feature feature_name f = rmap ff a-- fmap
+  where 
+    ff = \case
+      (Nothing, _, _) -> Nothing
+      (Just (feature_min, dmin), Just (feature_max, dmax), Just feature_mean) -> Just $ Feature {..}
         where
           feature_days = abs $ diffDays dmin dmax
-  do
-    (,,)
-      <$> lmap (f &&& day) L.minimum
-      <*> lmap (f &&& day) L.maximum
-      <*> lmap f L.mean -- unsafe for empty input, but see the *lazy tuple
+    a = (,,)
+            <$> lmap (f &&& day) L.minimum
+            <*> lmap (f &&& day) L.maximum
+            <*> lmap f safeMean
 
--- exercise write safeMean :: Fractional a => Fold a (Maybe a)
 
 -- per field applicative composition
 reports :: Fold Row (Maybe [Feature])
@@ -149,7 +164,7 @@ showF :: Double -> String
 showF v = showFFloat (Just 2) v ""
 
 -------- run ---------------------
-streamCSV :: FilePath -> Stream (Of (Either String Row)) IO (Maybe (String, ByteString))
+streamCSV :: FilePath -> Stream (Of (Either String Row)) IO (Maybe (String, BL.ByteString))
 streamCSV dataPath = do
   liftIO (decode HasHeader <$> BL.readFile do dataPath) >>= fix do
     \go -> \case
