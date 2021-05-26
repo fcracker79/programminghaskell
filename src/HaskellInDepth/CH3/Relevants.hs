@@ -33,6 +33,7 @@ import Codec.Binary.UTF8.Generic (toString, UTF8Bytes (pack), fromString)
 import GHC.Generics (Generic)
 import Data.Vector (Vector)
 import Control.Monad.Except
+import Control.Lens.Combinators
 
 
 -- Great `time` package
@@ -237,3 +238,15 @@ csvData = (decodeByName . fromString)
     \2019-05-02,209.149994,31996300,209.839996,212.649994,208.130005\n \
     \2019-05-03,211.75,20892400,210.889999,211.839996,210.229996 \
     \ "
+
+column :: Colonnade Headed Dino Html
+column = headed "Dino 1" (viaFmt . dino1)
+
+lmapf :: () -> Dino
+lmapf = const $ Dino 1 2
+
+lcolumn :: Colonnade Headed () Html
+lcolumn = lmap lmapf column
+
+lcolumn2 :: Colonnade Headed [Dino] Html
+lcolumn2 = lmap (!! 4) column
