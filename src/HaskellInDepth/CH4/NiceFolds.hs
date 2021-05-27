@@ -12,7 +12,7 @@ import Data.Monoid
       First(First, getFirst),
       Last(Last, getLast) )
 import qualified Prelude as P
-import Prelude hiding(sum, product, length)
+import Prelude hiding(sum, product, length, minimum)
 import Data.Foldable ( Foldable(foldl') )
 import Control.Applicative ( Applicative(liftA2) )
 import Control.Parallel.Strategies ( parList, rseq, using )
@@ -234,3 +234,24 @@ sumStringsReturnsInt = lmap lmapf sum
 
 sumStringsReturnsString :: Fold String String
 sumStringsReturnsString = dimap lmapf rmapf sum
+
+
+newtype MyMin a = MyMin {getMin :: a}
+
+instance (Ord a, Bounded a) => Semigroup (MyMin a) where
+    (MyMin a) <> (MyMin b) = MyMin $ min a b
+
+instance (Ord a, Bounded a) => Monoid (MyMin a) where
+    mempty = MyMin maxBound
+
+
+minimum :: (Ord a, Bounded a) => Fold a a
+minimum = Fold MyMin getMin
+
+newtype Dino = Dino {getDino :: Int}
+
+minimumDino :: Fold Dino Int
+minimumDino = lmap getDino minimum
+
+exampleDino :: Int
+exampleDino = fold minimumDino [Dino 10, Dino 5, Dino 0]
