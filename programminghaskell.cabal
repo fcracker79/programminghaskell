@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ad232a271c90eb5a976b3dd57e2ddebaeb7981928413c8dbf27ba31b4c1ccceb
+-- hash: 54ad999a523c24a615e3f99ab378643acec8ffcd352d6c17abb09cf190f27427
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -134,6 +134,7 @@ library
     , bytestring
     , cassava
     , colonnade
+    , comonad
     , containers >=0.6.2.1
     , criterion
     , exceptions
@@ -184,6 +185,7 @@ executable hid-ch3-stockquotes
     , bytestring
     , cassava
     , colonnade
+    , comonad
     , containers >=0.6.2.1
     , criterion
     , exceptions
@@ -235,6 +237,7 @@ executable programminghaskell-exe
     , bytestring
     , cassava
     , colonnade
+    , comonad
     , containers >=0.6.2.1
     , criterion
     , exceptions
@@ -288,6 +291,7 @@ test-suite integration-programminghaskell
     , bytestring
     , cassava
     , colonnade
+    , comonad
     , containers >=0.6.2.1
     , criterion
     , exceptions
@@ -363,6 +367,7 @@ test-suite unit-programminghaskell
     , bytestring
     , cassava
     , colonnade
+    , comonad
     , containers >=0.6.2.1
     , criterion
     , exceptions

@@ -61,6 +61,7 @@ dependencies:
 - streaming
 - profunctors
 - lens
+- comonad
 library:
   source-dirs: src
 

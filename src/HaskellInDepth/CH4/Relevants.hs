@@ -109,3 +109,104 @@ frmap x = read x :: Int
 
 rfPro :: () -> Int
 rfPro = rmap frmap lfPro
+
+{- 
+Comonads
+
+  extract :: w a -> a
+  extract . fmap f = f . extract   -- (1)
+
+  Given 
+    f :: a -> b
+    fmap :: (a -> b) -> w a -> w b
+  
+  we have:
+    fmap f = wa -> wb
+  
+  So `extract` law (1) may be decomposed into the following:
+  (w b -> b) . (wa -> wb) = (a -> b) . (w a -> a)
+
+  The law (1) applies the `extract` function after the `fmap` transformation on the left side, 
+  whereas does that before that transformation on the right side.
+
+  extend :: (w a -> b) -> w a -> w b
+
+  We can say that
+  
+  extend f = fmap f . duplicate
+
+  Given:
+    duplicate :: w a -> w (w a)
+    f :: w a -> b
+    fmap f :: w (w a) -> w b
+  we have:
+    fmap f (w (w a))
+    (w (w a) -> w b) (w (w a))
+    w b
+
+  Just to understand the sense of that
+  
+  Using Tuple (a, b) for our [co]monad, we have:
+  join :: Monoid c => (c, (c, a)) -> (c, a)  -- From Monad
+  duplicate :: (c,a) -> (c, (c, a))          -- From Comonad
+  
+  Using (a -> b) for our [co]monad, we have:
+  join :: (r -> r -> a) -> r -> a
+  duplicate :: Monoid r => (r -> a) -> r -> r -> a
+
+  There is a simmetry between Monad.join and Comonad.duplicate.
+
+  The same applies for the bind operator as follows
+
+  (>>=) :: m a -> (a -> m b) -> m b
+  (=>>) :: m a -> (m a -> b) -> m b
+  
+  (=>>) = flip extend
+
+  Instances
+  Reader is a monad and a CoWriter (a.k.a Tracer) comonad
+  Tuple is a writer as monad and a CoReader (a.k.a Env) comonad
+-}
+
+{-
+extend :: (w a -> b) -> w a -> w b
+
+
+((r -> a) -> b) -> (r -> a) -> (r -> b)
+
+
+import Data.Monoid
+import Control.Comonad
+:{
+data Dino = Dino
+
+f :: String -> Int
+f = read
+
+g :: String -> Dino
+g = extend (const Dino) f
+:}
+
+
+
+:{
+f :: Sum Int -> Int
+f = getSum
+:}
+
+:{
+ff :: Int -> String
+ff = Sum . read
+:}
+
+
+g :: Sum Int -> String -> Int
+g = extend (\rf -> rf . ff) f
+
+
+
+instance             Monad   ((->) r) 
+instance Monoid m => Comonad ((->) m)
+
+
+-}
