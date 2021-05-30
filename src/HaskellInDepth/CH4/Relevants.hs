@@ -4,6 +4,9 @@ module HaskellInDepth.CH4.Relevants where
 
 import qualified Universum as U
 import Control.Lens (Profunctor(lmap, rmap))
+import Data.Monoid (Sum(..))
+import Data.Semigroup (getSum)
+import Control.Comonad (extend)
 
 
 myNonEmptyList :: U.NonEmpty [Char]
@@ -210,3 +213,39 @@ instance Monoid m => Comonad ((->) m)
 
 
 -}
+
+-- Here is an example of comonad usage with reader
+
+
+f :: Sum Int -> Int
+f = getSum
+
+ff :: String -> Sum Int
+ff = Sum . read
+
+g :: Sum Int -> String -> Int
+g = extend ( . ff) f
+
+newtype Dino3 = Dino3 Int
+g' :: Sum Int -> Dino3
+g' = extend (const (Dino3 (42::Int))) f
+
+g'' :: Sum Int -> String
+g'' = extend ff f
+  where ff f' = show $ f (Sum 42)
+
+
+g''' :: Sum Int -> b
+g''' = extend ff f
+  where 
+    ff :: (Sum Int -> Int) -> b
+    ff = undefined
+
+g'''m :: Sum Int -> b
+g'''m = f >>= ff
+  where 
+    ff :: Int -> Sum Int -> b
+    ff = undefined
+
+f2 :: (Int, String) -> Dino3
+f2 = undefined
