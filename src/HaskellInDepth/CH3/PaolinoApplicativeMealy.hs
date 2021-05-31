@@ -20,8 +20,8 @@ import Protolude
       Ord,
       Applicative(pure, (<*>)),
       Maybe(Nothing),
-      notImplemented, undefined )
-import Control.Comonad
+      notImplemented, undefined, fst, const )
+import Control.Comonad ( Functor )
 
 
 {-
@@ -62,9 +62,7 @@ instance Applicative (Mealy a) where
 -- 1 . we loose observability on the first state
 -- 2 . we use the observing function to output 'b' from x at every 'a'
 mealy :: Fold a b -> Mealy a b
-mealy (Fold f x g) = Mealy
-  do notImplemented
-  do x
+mealy (Fold f x g) = Mealy (\x' a' -> (f x' a', g x')) x
 
 -- hard: implement *mealy* function without matching the Fold constructor
 -- moore machines are comonads su we do not need to desctruture them here 
@@ -79,18 +77,20 @@ mealy2 m  = Mealy
 -- then 
 -- > uncurry moore . mealy == identity
 moore :: Mealy a b -> b -> Fold a b
-moore (Mealy f x) b = Fold
-  do notImplemented
-  do notImplemented 
-  do snd
+moore (Mealy f x) b = Fold f' x' g'
+  where 
+    f' (x'', _) a'' = f x'' a''
+    x' = (x, b)
+    g' = do snd
 
 -- vertical composition for mealy, very similar to the applicative but with result threading
 instance Category Mealy where
   (.) :: Mealy b c -> Mealy a b -> Mealy a c
-  Mealy f x . Mealy g y = Mealy
-    do notImplemented
-    do notImplemented
-  id = notImplemented
+  Mealy f x . Mealy g y = Mealy ff (y, x)
+    where ff (x0', x0'') a' = let (x', b) = g x0' a'
+                                  (x'', c) = f x0'' b
+                              in ((x', x''), c)
+  id = Mealy (,) ()
 
 -- and now we can compose Fold vertically buy lifting them to Mealy
 minOf :: Ord b => Fold a b -> Fold a (Maybe b)
@@ -102,12 +102,13 @@ minOf f = moore
 instance Arrow Mealy where
   arr :: (a -> b) -> Mealy a b 
   arr f = Mealy
-    do notImplemented
+    do \x a -> (x, f a)
     do ()
+
   first :: Mealy a b -> Mealy (a,c) (b,c)
-  first (Mealy f x) = Mealy
-    do notImplemented
-    do x
+  first (Mealy f x) = Mealy ff g
+    where ff x (a, c) = let (x', b) = f x a in (x, (b, c))
+          g = do x
 
 -- and now we can use arrows to freely compose Folds after lifting them to Mealys
 -- in this case we want to compute min and max of every step of a fold
