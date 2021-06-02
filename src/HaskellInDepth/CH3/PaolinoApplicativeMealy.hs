@@ -4,24 +4,26 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TupleSections #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE InstanceSigs #-}
 
 module HaskellInDepth.CH3.PaolinoApplicativeMealy where
 
 
-import Control.Arrow (Arrow (arr, first), (&&&))
+import Control.Arrow (Arrow (arr, first), (&&&), (>>>))
 import Control.Category ( Category(..) )
-import Control.Foldl (Fold (Fold))
+import Control.Foldl (Fold (Fold), fold)
 import qualified Control.Foldl as L
 import Protolude
     ( snd,
-      Functor,
+      Functor (fmap),
       Ord,
-      Applicative(pure, (<*>)),
+      Applicative(pure, (<*>), liftA2),
       Maybe(Nothing),
-      notImplemented, undefined, fst, const )
+      notImplemented, undefined, fst, const, Any, uncurry, Semigroup ((<>)), ($), flip )
 import Control.Comonad ( Functor )
+import Control.Applicative ((<$>))
+import Control.Lens (Profunctor(lmap))
 
 
 {-
@@ -114,6 +116,32 @@ instance Arrow Mealy where
 -- in this case we want to compute min and max of every step of a fold
 -- we can write this with applicative or arrow
 minAndMaxOf :: Ord b => Fold a b  -> Fold a (Maybe (b, b))
-minAndMaxOf f  = notImplemented
+minAndMaxOf f  = ff <$> moore (mealy f >>> mealy L.minimum &&& mealy L.maximum ) (Nothing, Nothing)
+  where 
+    c = moore (mealy f >>> mealy L.minimum &&& mealy L.maximum ) (Nothing, Nothing)
+    c1 :: Ord b => Mealy b (Maybe b, Maybe b)
+    c1 = mealy L.minimum &&& mealy L.maximum
+    ff :: Applicative m => (m a, m b) -> m (a, b)
+    ff = uncurry (liftA2 (,))
+
+
+minApplicative :: forall a b. Ord b => Fold a b  -> Fold a (Maybe (b, b))
+minApplicative f = moore q3 Nothing
+  where 
+    q :: Ord b => Fold b (Maybe b, Maybe b)
+    q = (,) <$> L.minimum <*> L.maximum
+    q2 :: Fold b (Maybe (b, b))
+    q2 = uncurry (liftA2 (,)) <$> q
+    q3 :: Mealy a (Maybe (b, b))
+    q3 = mealy f >>> mealy q2
+    q4 :: Mealy a (Maybe (b, b))
+    q4 = mealy q2 . mealy f 
+
+
+
+-- profunctor + applicative = arrow
+myArrow :: forall a b a' b'. Fold a b -> Fold a' b' -> Fold (a, a') (b, b') 
+myArrow x y = (,) <$> lmap fst x <*> lmap snd y
 
 -- final: make an example of something you cannot do with applicative but you can with arrow
+-- (***) operates on b as well, whereas applicative can only operate on c
