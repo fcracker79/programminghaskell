@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9f7801215cd64e36c2656575917aa2af2b8cc2e6705a4b951bd3be09ab659253
+-- hash: b3cd715c1c898500fefd86c6df1094d21785a166b94175748a7c19e7ca9ddbd9
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -98,6 +98,7 @@ library
       HaskellInDepth.CH4.PaoloFolds
       HaskellInDepth.CH4.PlayWithComonad
       HaskellInDepth.CH4.Relevants
+      HaskellInDepth.CH5.IORefExample
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Chapter30
       HaskellProgrammingFromFirstPrinciples.Morra
@@ -142,6 +143,7 @@ library
     , containers >=0.6.2.1
     , criterion
     , exceptions
+    , extra
     , fingertree
     , fmt
     , foldl
@@ -193,6 +195,7 @@ executable hid-ch3-stockquotes
     , containers >=0.6.2.1
     , criterion
     , exceptions
+    , extra
     , fingertree
     , fmt
     , foldl
@@ -245,6 +248,7 @@ executable programminghaskell-exe
     , containers >=0.6.2.1
     , criterion
     , exceptions
+    , extra
     , fingertree
     , fmt
     , foldl
@@ -299,6 +303,7 @@ test-suite integration-programminghaskell
     , containers >=0.6.2.1
     , criterion
     , exceptions
+    , extra
     , fingertree
     , fmt
     , foldl
@@ -375,6 +380,7 @@ test-suite unit-programminghaskell
     , containers >=0.6.2.1
     , criterion
     , exceptions
+    , extra
     , fingertree
     , fmt
     , foldl
