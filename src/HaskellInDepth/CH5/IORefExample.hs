@@ -6,7 +6,7 @@ import Text.Read (readMaybe)
 
 import Data.Foldable (traverse_)
 import System.Environment (getArgs)
-import System.Directory.Extra (listContents, doesDirectoryExist)
+import System.Directory.Extra (listContents, doesDirectoryExist, doesFileExist)
 import Control.Monad.Extra (whenM, ifM, zipWithM_)
 
 
@@ -40,3 +40,19 @@ fileCount fpath = do
         processEntry cnt fp = ifM (doesDirectoryExist fp) (go cnt fp) (inc cnt)
         inc :: IORef Int -> IO ()
         inc cnt = modifyIORef' cnt (+ 1)
+
+
+fileCountMirko :: FilePath -> IO Int
+fileCountMirko fpath = do
+    ifM (doesDirectoryExist fpath) (recurse fpath)
+        (ifM (doesFileExist fpath) (return 1) (return 0))
+    where recurse _fpath = do
+                                subpaths <- listContents _fpath
+                                let counts = fmap fileCountMirko subpaths
+                                mcounts <- sequence counts
+                                return $ sum mcounts
+
+fileCountMirko2 :: FilePath -> IO Int
+fileCountMirko2 fpath = do
+    ifM (doesDirectoryExist fpath) (sum <$> (listContents fpath >>= traverse fileCountMirko2))
+        (ifM (doesFileExist fpath) (return 1) (return 0))
