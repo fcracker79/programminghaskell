@@ -20,47 +20,17 @@ blend xs ys zs = (L.fold s zs, L.fold m zs)
           m  = C.extend (\w -> L.fold w ys) L.mean
 
 
-sample :: forall a b. Int -> L.Fold a b -> [a] -> [b]
-sample i f xs = L.fold newf xs 
-    where 
-          newf :: L.Fold a [b]
-          newf = C.extend (f2 xs) f
-          f2 :: [a] -> L.Fold a b -> [b]
-          f2 arr _f | length arr <= i = [L.fold _f arr]
-          f2 arr _f = L.fold f (take i arr): f2 (drop i arr) _f
+sampleMirkoWithReset :: forall a b. Int -> L.Fold a b -> [a] -> [b]
+sampleMirkoWithReset _ f [] = []
+sampleMirkoWithReset i f xs = let (x0,x1) = splitAt i xs 
+                                  newf = C.extend (\w -> L.fold w x0) f
+                                  in extract newf : sampleMirkoWithReset i f x1
 
-sample2 :: forall a b. Int -> L.Fold a b -> [a] -> [b]
-sample2 i f xs = L.fold newf xs 
-    where 
-          newf :: L.Fold a [b]
-          newf = C.extend (f2 xs) f
-          f2 :: [a] -> L.Fold a b -> [b]
-          f2 [] _ = []
-          f2 arr _f = L.fold f (take i arr): f2 (drop i arr) _f
-
-sample3 :: forall a b. Int -> L.Fold a b -> [a] -> [b]
-sample3 i f xs = L.fold newf xs 
-    where 
-          newf :: L.Fold a [b]
-          newf = C.extend (f2 xs) f
-          f2 :: [a] -> L.Fold a b -> [b]
-          f2 [] _f = [L.fold _f []]
-          f2 arr _f = L.fold _f (take i arr): f2 (drop i arr) _f
-
-sample4 :: forall a b. Int -> L.Fold a b -> [a] -> [b]
-sample4 i f xs = L.fold newf xs 
-    where 
-          newf :: L.Fold a [b]
-          newf = sequenceA (f2 xs f)
-          f2 [] _f = [_f]
-          f2 arr _f = C.extend (\__f -> L.fold __f (take i arr)) _f: f2 (drop i arr) _f
-
-
-sample5 :: forall a b. Int -> L.Fold a b -> [a] -> [b]
-sample5 _ f [] = []
-sample5 i f xs = let (x0,x1) = splitAt i xs 
-                     newf = C.extend (\w -> L.fold w x0) f
-                     in extract newf : sample5 i newf x1
+sampleMirko :: forall a b. Int -> L.Fold a b -> [a] -> [b]
+sampleMirko _ f [] = []
+sampleMirko i f xs = let (x0,x1) = splitAt i xs 
+                         newf = C.extend (\w -> L.fold w x0) f
+                         in extract newf : sampleMirko i newf x1
 
 -- sampleT :: Int -> L.Fold a b -> L.Fold a [b]
 -- sampleT i f = newf 
@@ -86,26 +56,14 @@ main = do
     let arr = [1,2,3,4,5,6]
     putStrLn $ "Array: " ++ show arr
 
-    let result1 = sample 2 L.sum arr
-    putStrLn $ "Using sample: " ++ show result1
+    let result = sampleMirko 2 L.sum arr
+    putStrLn $ "Using sampleMirko: " ++ show result
 
-    let result2 = sample2 2 L.sum arr
-    putStrLn $ "Using sample2: " ++ show result2
+    let result = sampleMirkoWithReset 2 L.sum arr
+    putStrLn $ "Using sampleMirkoWithReset: " ++ show result
 
-    let result3 = sample3 2 L.sum arr
-    putStrLn $ "Using sample3: " ++ show result3
-
-    let result2_bis = sample2 4 L.sum arr
-    putStrLn $ "Using sample2 with 4: " ++ show result2_bis
-    
-    let result4 = sample4 2 L.sum arr
-    putStrLn $ "Using sample4: " ++ show result4
-    
-    let result5 = sample5 2 L.sum arr
-    putStrLn $ "Using sample5: " ++ show result5
-
-    let resultPaolino = samplePaolino 2 L.sum arr
-    putStrLn $ "Using samplePaolino: " ++ show resultPaolino
+    let result = samplePaolino 2 L.sum arr
+    putStrLn $ "Using samplePaolino: " ++ show result
     return ()
 
 
