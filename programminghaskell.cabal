@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 93d7077e49829f713c9e731af744526c702000d094724da9fe00ed509fad86b8
+-- hash: 9a844c3bc4a1d4681ea0a6481d3ba8d859797beb2e1a7937b355415b8ccae880
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -97,6 +97,7 @@ library
       HaskellInDepth.CH4.ExerciseComonadGuessPaolino
       HaskellInDepth.CH4.NiceFolds
       HaskellInDepth.CH4.PaoloFolds
+      HaskellInDepth.CH4.PaoloMooreComonad
       HaskellInDepth.CH4.PlayWithComonad
       HaskellInDepth.CH4.Relevants
       HaskellInDepth.CH5.IORefExample
@@ -150,6 +151,7 @@ library
     , fingertree
     , fmt
     , foldl
+    , hspec
     , lens
     , managed >=1.0.8
     , mmorph
@@ -202,6 +204,7 @@ executable hid-ch3-stockquotes
     , fingertree
     , fmt
     , foldl
+    , hspec
     , lens
     , managed >=1.0.8
     , mmorph
@@ -255,6 +258,7 @@ executable programminghaskell-exe
     , fingertree
     , fmt
     , foldl
+    , hspec
     , lens
     , managed >=1.0.8
     , mmorph

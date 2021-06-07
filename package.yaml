@@ -63,6 +63,7 @@ dependencies:
 - lens
 - comonad
 - extra
+- hspec
 library:
   source-dirs: src
 

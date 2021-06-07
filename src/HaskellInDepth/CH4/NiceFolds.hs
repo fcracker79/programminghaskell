@@ -17,10 +17,16 @@ import Data.Foldable ( Foldable(foldl') )
 import Control.Applicative ( Applicative(liftA2) )
 import Control.Parallel.Strategies ( parList, rseq, using )
 import Control.Lens (Profunctor(..))
+import Control.Comonad
 
 
 -- Simplest case
 data Fold i o = forall m . Monoid m => Fold (i -> m) (m -> o)
+
+
+instance Comonad (Fold i) where
+    extract (Fold tally summarize) = summarize mempty
+    duplicate (Fold tally summarize) = Fold tally (\m -> Fold tally (\m' -> summarize (m <> m') ))
 
 
 fold :: (Foldable f, Functor f) => Fold i o -> f i -> o
@@ -125,7 +131,6 @@ instance Functor (Fold i) where
 -- Pair
 
 data Pair a b = P !a !b
-
 
 instance (Semigroup a, Semigroup b) => Semigroup (Pair a b) where
     (<>) (P a1 b1) (P a2 b2) = P (a1 <> a2) (b1 <> b2)
