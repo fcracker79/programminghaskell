@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f29b24894ef741d14fca2413cf2a28df85a6e7b9f8db9181d17f008cc3881a93
+-- hash: 93d7077e49829f713c9e731af744526c702000d094724da9fe00ed509fad86b8
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -94,6 +94,7 @@ library
       HaskellInDepth.CH3.StatReport
       HaskellInDepth.CH4.ChrisPennerComonads
       HaskellInDepth.CH4.ExerciseComonadFoldPaolino
+      HaskellInDepth.CH4.ExerciseComonadGuessPaolino
       HaskellInDepth.CH4.NiceFolds
       HaskellInDepth.CH4.PaoloFolds
       HaskellInDepth.CH4.PlayWithComonad

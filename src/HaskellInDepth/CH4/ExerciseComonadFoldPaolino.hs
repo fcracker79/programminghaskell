@@ -32,14 +32,9 @@ sampleMirko i f xs = let (x0,x1) = splitAt i xs
                          newf = C.extend (\w -> L.fold w x0) f
                          in extract newf : sampleMirko i newf x1
 
--- sampleT :: Int -> L.Fold a b -> L.Fold a [b]
--- sampleT i f = newf 
---     where 
---           newf :: L.Fold a [b]
---           newf = C.extend (f2 xs) f
---           f2 :: [a] -> L.Fold a b -> [b]
---           f2 arr _f | length arr < i = [L.fold _f arr]
---           f2 arr _f = L.fold f (take i arr): f2 (drop i arr) _f
+-- rsampleT :: Int -> Int-> L.Fold a b -> L.Fold a [b]
+-- rsampleT 0 n f = (extend (\w -> [extract w]) f: sampleT n n f
+-- rsampleT n n f = qualcosa che ha a che fare con rsample n - 1 n f
 
 
 samplePaolino :: Int -> L.Fold a b -> [a] -> [b]
