@@ -7,6 +7,7 @@ module HaskellInDepth.CH4.PaoloMooreComonad where
 import Control.Comonad ( Comonad(duplicate, extract, extend) )
 import Control.Monad ( guard )
 import Test.Hspec ( hspec, it, shouldBe )
+import Debug.Trace
 
 data Moore a b = Moore b (a -> Moore a b) deriving(Functor)
 
@@ -40,15 +41,17 @@ slidingWindow i = Moore Nothing $ f []
 step :: a -> Moore a b -> b
 step a (Moore _ f) = extract $ f a
 
-run :: [a] -> Moore a b -> Moore a b
-run xs m = foldl (\m x -> extend (step x) m) m xs
+-- foldr: extend (step x1) (extend (step x2) (extend (step x3) m))
+-- foldl: extend (step x3) (extend (step x2) (extend (step x1) m))
+run :: Show a => [a] -> Moore a b -> Moore a b
+run xs m = foldr (\x m' -> trace ("Extending " ++ show x) extend (step x) m') m xs
 
 test :: IO ()
 test = hspec $ do
     it "TEST" $
         extract (slidingWindow 10) `shouldBe` Nothing
     it "Feed 9" $
-        extract (run [1..9] $ slidingWindow 10) `shouldBe` Nothing
+        extract ( run [1..9] $ slidingWindow 10) `shouldBe` Nothing
     it "Feed 10" $
         extract (run [1..10] $ slidingWindow 10) `shouldBe` Just (10 * 11 / 20)
     it "Feed 11" $
