@@ -4,6 +4,7 @@ module HaskellInDepth.CH4.ExerciseComonadFoldPaolino where
 import qualified Control.Foldl as L
 import qualified Control.Comonad as C
 import Control.Comonad.Traced
+import Control.Monad
 
 
 -- blend xs ys zs =  (somma (xs <> zs), media (ys <> zs)) consumando zs una sola volta
@@ -32,10 +33,14 @@ sampleMirko i f xs = let (x0,x1) = splitAt i xs
                          newf = C.extend (\w -> L.fold w x0) f
                          in extract newf : sampleMirko i newf x1
 
--- rsampleT :: Int -> Int-> L.Fold a b -> L.Fold a [b]
--- rsampleT 0 n f = (extend (\w -> [extract w]) f: sampleT n n f
--- rsampleT n n f = qualcosa che ha a che fare con rsample n - 1 n f
-
+sampleT :: forall a b. Int -> L.Fold a b -> L.Fold a [b]
+sampleT n (L.Fold step begin end) = L.Fold newstep (0, [begin]) newend
+  where newstep (count, x:xs) a
+          | count == n - 1 = (0, begin : step x a : xs)
+          | otherwise = (count + 1, step x a : xs)
+        newstep (_, []) _ = (0, [])
+        newend (0, x:xs) = reverse $ fmap end xs
+        newend (_, statuses) = reverse $ fmap end statuses
 
 samplePaolino :: Int -> L.Fold a b -> [a] -> [b]
 samplePaolino n = go
@@ -59,6 +64,10 @@ main = do
 
     let result = samplePaolino 2 L.sum arr
     putStrLn $ "Using samplePaolino: " ++ show result
+
+    let sample = sampleT 3 L.sum
+    let sampled = L.fold sample arr
+    putStrLn $ "Trying sampleT: " ++ show sampled
     return ()
 
 
