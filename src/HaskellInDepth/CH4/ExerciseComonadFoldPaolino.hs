@@ -4,7 +4,7 @@ module HaskellInDepth.CH4.ExerciseComonadFoldPaolino where
 import qualified Control.Foldl as L
 import qualified Control.Comonad as C
 import Control.Comonad.Traced
-import Control.Monad
+    ( traced, (=>>), Traced, Sum(Sum), Comonad(extract) )
 
 
 -- blend xs ys zs =  (somma (xs <> zs), media (ys <> zs)) consumando zs una sola volta
@@ -16,7 +16,7 @@ blendWithoutComonadIamSoSorry xs ys zs = (sumzs + L.fold L.sum xs, (sumys + sumz
           sumAndLength = (,) <$> L.sum <*> L.length
 
 blend :: [Double]-> [Double] -> [Double] -> (Double, Double)
-blend xs ys zs = (L.fold s zs, L.fold m zs)
+blend xs ys = L.fold $ (,) <$> s <*> m
     where s = C.extend (\w -> L.fold w xs) L.sum
           m  = C.extend (\w -> L.fold w ys) L.mean
 
