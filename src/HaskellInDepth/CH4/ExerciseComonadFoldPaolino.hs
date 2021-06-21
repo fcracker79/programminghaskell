@@ -34,13 +34,13 @@ sampleMirko i f xs = let (x0,x1) = splitAt i xs
                          in extract newf : sampleMirko i newf x1
 
 sampleT :: forall a b. Int -> L.Fold a b -> L.Fold a [b]
-sampleT n (L.Fold step begin end) = L.Fold newstep (0, [begin]) newend
-  where newstep (count, x:xs) a
-          | count == n - 1 = (0, begin : step x a : xs)
-          | otherwise = (count + 1, step x a : xs)
-        newstep (_, []) _ = (0, [])
-        newend (0, x:xs) = reverse $ fmap end xs
-        newend (_, statuses) = reverse $ fmap end statuses
+sampleT n fld = L.Fold step begin done
+  where 
+        step (f, bs, k) a = let f' = C.extend (flip L.fold [a]) f 
+                            in (f', if k `mod` n == 0 then (++ [C.extract f']) . bs else bs, k + 1)
+        begin = (fld, id, 1)
+        done (_, bs, _) = bs []
+
 
 samplePaolino :: Int -> L.Fold a b -> [a] -> [b]
 samplePaolino n = go
