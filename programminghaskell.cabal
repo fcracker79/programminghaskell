@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9a844c3bc4a1d4681ea0a6481d3ba8d859797beb2e1a7937b355415b8ccae880
+-- hash: 3ecff2706089a44f54500885355067dbb67000e4f30f5a52c9ce6ee1fca92a5b
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -103,6 +103,7 @@ library
       HaskellInDepth.CH5.IORefExample
       HaskellInDepth.CH5.Relevants
       HaskellInDepth.CH5.STRefExample
+      HaskellInDepth.CH6.EvalRPN
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Chapter30
       HaskellProgrammingFromFirstPrinciples.Morra
