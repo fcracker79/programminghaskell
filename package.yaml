@@ -64,6 +64,9 @@ dependencies:
 - comonad
 - extra
 - hspec
+- unliftio-core
+- rio
+- lifted-async
 library:
   source-dirs: src
 
