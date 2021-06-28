@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ee8aa74309ebeeedbffcda55c474f54a208a24096ab11a6912d098e91d25e826
+-- hash: 2941377c624b60bcc8df9bd070ba860d75f22fd8b9ed95bf3f5aa29e0d17694a
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -127,7 +127,7 @@ library
       PlayWithHoist
       PlayWithPhantomTypes
       PlayWithRIO.ReaderTWithIOExample
-      PlayWithRIO.Relevants
+      PlayWithRIO.RelevantsRIO
       PlayWithSTM
       PlayWithUnliftIO
       TypeFamilyExample
