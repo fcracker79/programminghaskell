@@ -90,7 +90,7 @@ class Monad m => MonadCheers m where
     goodbye :: String -> m ()
     askForName :: m String
 
-instance MonadCheers (RIO m) where
+instance MonadCheers (RIO env) where
     hello s = liftIO $ putStrLn $ "Hello, " ++ s
     goodbye s = liftIO $ putStrLn $ "Goodbye, " ++ s
     askForName = do
