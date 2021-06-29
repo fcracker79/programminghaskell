@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2941377c624b60bcc8df9bd070ba860d75f22fd8b9ed95bf3f5aa29e0d17694a
+-- hash: b29752a2cb77953ab70289125d11f13aafec8347dfbff372ea2ec05e062a7ef3
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -178,6 +178,7 @@ library
     , trifecta
     , unicode-show
     , universum
+    , unliftio
     , unliftio-core
     , unordered-containers
     , utf8-string
@@ -235,6 +236,7 @@ executable hid-ch3-stockquotes
     , trifecta
     , unicode-show
     , universum
+    , unliftio
     , unliftio-core
     , unordered-containers
     , utf8-string
@@ -292,6 +294,7 @@ executable programminghaskell-exe
     , trifecta
     , unicode-show
     , universum
+    , unliftio
     , unliftio-core
     , unordered-containers
     , utf8-string
@@ -353,6 +356,7 @@ test-suite integration-programminghaskell
     , trifecta
     , unicode-show
     , universum
+    , unliftio
     , unliftio-core
     , unordered-containers
     , utf8-string
@@ -433,6 +437,7 @@ test-suite unit-programminghaskell
     , trifecta
     , unicode-show
     , universum
+    , unliftio
     , unliftio-core
     , unordered-containers
     , utf8-string

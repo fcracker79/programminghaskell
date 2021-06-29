@@ -65,6 +65,7 @@ dependencies:
 - extra
 - hspec
 - unliftio-core
+- unliftio
 - rio
 - lifted-async
 library:

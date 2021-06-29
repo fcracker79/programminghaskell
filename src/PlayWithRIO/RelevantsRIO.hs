@@ -127,5 +127,29 @@ sayHelloLiftIO :: (MonadReader env m, MonadIO m, HasLogFunc env) => m ()
 sayHelloLiftIO = liftRIO sayHelloRIOLiftIO
 
 
-class Dino where
-    methdDino :: String
+class Dino m where
+    methodDino :: m -> String
+
+
+class Dino2 m where
+    methodDino2 :: m -> String
+
+
+instance (Dino m) => Dino2 m where
+    methodDino2 = undefined
+
+
+newtype ConcreteDino a = ConcreteDino a
+
+
+instance Dino (ConcreteDino a) where
+    methodDino _ = "hello"
+
+
+-- Without this...
+instance Dino2 (ConcreteDino a) where
+    methodDino2 _ = "hello"
+
+-- here we would get "This makes type inference for inner bindings fragile"
+ciao2 :: (Dino2 m) => m -> String
+ciao2 = undefined
