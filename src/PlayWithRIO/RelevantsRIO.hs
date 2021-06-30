@@ -30,10 +30,12 @@ import RIO
       MonadIO(..),
       TVar,
       Handle,
-      RIO, logInfo, HasLogFunc, runSimpleApp, liftRIO )
-import System.IO(stdout)
-
-import Prelude (putStrLn, getLine, userError, undefined, Monad (return, (>>=))) -- we'll explain why we need this in logging
+      RIO, logInfo, HasLogFunc, runSimpleApp, liftRIO, ByteString, IsString (fromString) )
+import System.IO(stdout, openFile, IOMode (ReadMode), hGetContents)
+import qualified Control.Concurrent.Async.Lifted as A
+import qualified UnliftIO.Async as B
+import qualified Control.Concurrent.Async as C
+import Prelude (putStrLn, getLine, userError, undefined, Monad (return, (>>=)), Int, drop) -- we'll explain why we need this in logging
 
 data Env = Env {
     name1 :: TVar String,
@@ -62,6 +64,37 @@ instance SetNames (RIO Env) where
         atomically $ modifyTVar' (name2 env) $ const newName2
 
 -- newtype RIO env a = RIO {unRIO :: ReaderT env IO a}
+{-
+GHCi> :info RIO
+type role RIO representational nominal
+type RIO :: * -> * -> *
+newtype RIO env a = RIO {unRIO :: ReaderT env IO a}
+  	-- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance Applicative (RIO env)
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance Functor (RIO env)
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance Monad (RIO env)
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance Monoid a => Monoid (RIO env a)
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance Semigroup a => Semigroup (RIO env a)
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance MonadIO (RIO env)
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance MonadReader env (RIO env)
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance MonadThrow (RIO env)
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance PrimMonad (RIO env)
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+instance MonadUnliftIO (RIO env)                   <-----------------
+  -- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+type instance PrimState (RIO env) = PrimState IO
+  	-- Defined in ‘rio-0.1.20.0:RIO.Prelude.RIO’
+-}
+
+
 -- https://www.fpcomplete.com/blog/2017/06/readert-design-pattern/
 readerPatternApplied :: IO ()
 readerPatternApplied = do
@@ -127,29 +160,37 @@ sayHelloLiftIO :: (MonadReader env m, MonadIO m, HasLogFunc env) => m ()
 sayHelloLiftIO = liftRIO sayHelloRIOLiftIO
 
 
-class Dino m where
-    methodDino :: m -> String
+myReadFile :: Int -> RIO String ByteString
+myReadFile i = do
+    filename <- ask
+    handle <- liftIO $ openFile filename ReadMode
+    contents <- liftIO $ hGetContents handle
+    return $ fromString $ drop i contents
+
+-- concurrently :: forall a b. IO a -> IO b -> IO (a, b)
+{-
+Couldn't match expected type ‘IO a’
+              with actual type ‘RIO String ByteString’
+
+runConcurrentlyUsingAsync = C.concurrently 
+    (myReadFile 1)
+    (myReadFile 2)
+-}
 
 
-class Dino2 m where
-    methodDino2 :: m -> String
+-- MonadBaseControl IO m => m a -> m b -> m (a, b)
+{-
+No instance for (monad-control-1.0.2.3:Control.Monad.Trans.Control.MonadBaseControl
+                     IO (RIO String))
+    arising from a use of ‘A.concurrently’
 
+runConcurrentlyUsingLiftedAsync2 = A.concurrently 
+    (myReadFile 1)
+    (myReadFile 2)
+-}
 
-instance (Dino m) => Dino2 m where
-    methodDino2 = undefined
-
-
-newtype ConcreteDino a = ConcreteDino a
-
-
-instance Dino (ConcreteDino a) where
-    methodDino _ = "hello"
-
-
--- Without this...
-instance Dino2 (ConcreteDino a) where
-    methodDino2 _ = "hello"
-
--- here we would get "This makes type inference for inner bindings fragile"
-ciao2 :: (Dino2 m) => m -> String
-ciao2 = undefined
+-- concurrently :: forall (m :: * -> *) a b. MonadUnliftIO m => m a -> m b -> m (a, b)
+runConcurrentlyUsingUnliftIO2 :: RIO String (ByteString, ByteString)
+runConcurrentlyUsingUnliftIO2 = B.concurrently 
+    (myReadFile 1)
+    (myReadFile 2)

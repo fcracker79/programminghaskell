@@ -68,6 +68,7 @@ dependencies:
 - unliftio
 - rio
 - lifted-async
+- async
 library:
   source-dirs: src
 

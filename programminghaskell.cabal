@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b29752a2cb77953ab70289125d11f13aafec8347dfbff372ea2ec05e062a7ef3
+-- hash: cb6fa013677db8fae1411af9d518bd80979f56f44528a563a09a9d8be9fe7989
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -130,6 +130,7 @@ library
       PlayWithRIO.RelevantsRIO
       PlayWithSTM
       PlayWithUnliftIO
+      PlayWithUnliftIO.RelevantsUnliftIO
       TypeFamilyExample
       UniquelyDeterminedParameter
   other-modules:
@@ -141,6 +142,7 @@ library
       Chart
     , Chart-diagrams
     , aeson >=1.4.7.1
+    , async
     , base >=4.7 && <5
     , blaze-colonnade
     , blaze-html
@@ -198,6 +200,7 @@ executable hid-ch3-stockquotes
       Chart
     , Chart-diagrams
     , aeson >=1.4.7.1
+    , async
     , base >=4.7 && <5
     , blaze-colonnade
     , blaze-html
@@ -256,6 +259,7 @@ executable programminghaskell-exe
       Chart
     , Chart-diagrams
     , aeson >=1.4.7.1
+    , async
     , base >=4.7 && <5
     , blaze-colonnade
     , blaze-html
@@ -316,6 +320,7 @@ test-suite integration-programminghaskell
     , Chart-diagrams
     , HUnit
     , aeson >=1.4.7.1
+    , async
     , base >=4.7 && <5
     , blaze-colonnade
     , blaze-html
@@ -397,6 +402,7 @@ test-suite unit-programminghaskell
     , Chart-diagrams
     , HUnit
     , aeson >=1.4.7.1
+    , async
     , base >=4.7 && <5
     , blaze-colonnade
     , blaze-html
