@@ -10,7 +10,25 @@ import System.IO ( withBinaryFile )
 import qualified Control.Concurrent.Async.Lifted as A
 import qualified UnliftIO.Async as B
 import qualified Control.Concurrent.Async as C
+import Control.Applicative ( Alternative(empty, (<|>)) )
 data Env
+
+-- monad-control A.concurrently :: forall (m :: * -> *) a b. MonadBaseControl IO m => m a -> m b -> m (a, b)
+-- unliftio      B.concurrently :: forall (m :: * -> *) a b. MonadUnliftIO m => m a -> m b -> m (a, b)
+-- async         C.concurrently :: forall a b. IO a -> IO b -> IO (a, b)
+
+{-
+class transformers-base-0.4.5.2:Control.Monad.Base.MonadBase b m =>
+      MonadBaseControl b m | m -> b where
+  type StM :: (* -> *) -> * -> *
+  type family StM m a
+  liftBaseWith :: (RunInBase m b -> b a) -> m a
+  restoreM :: StM m a -> m a
+  {-# MINIMAL liftBaseWith, restoreM #-}
+-}
+
+-- class MonadIO m => MonadUnliftIO m where
+--     withRunInIO :: ((forall a. m a -> IO a) -> IO b) -> m b
 
 
 myReadFile :: FilePath -> IO ByteString
@@ -114,3 +132,40 @@ instance [safe] MonadUnliftIO m => MonadUnliftIO (ReaderT r m)    <-------------
 instance [safe] MonadUnliftIO IO                                  <----------------
   -- Defined in ‘Control.Monad.IO.Unlift’
 -}
+
+
+class Dino1 a where
+  dino1 :: a -> Int
+
+
+class Dino2 a where
+  dino2 :: a -> Int
+
+
+newtype Dino = Dino Int
+
+instance Dino1 Dino where
+  dino1 (Dino x) = x
+
+
+instance Dino2 Dino where
+  dino2 (Dino x) = x
+
+
+fdino1 :: Dino1 m => m
+fdino1 = undefined
+
+
+fdino2 :: Dino2 m => m -> (m, String)
+fdino2 = undefined
+
+
+fdino :: (Dino, String)
+fdino = fdino2 fdino1
+
+
+instance Alternative f => Semigroup (f a) where
+  (<>) = (<|>)
+
+instance Alternative f => Monoid (f a) where
+  mempty = empty 
