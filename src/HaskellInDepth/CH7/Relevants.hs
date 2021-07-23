@@ -161,5 +161,11 @@ bracketUnliftIO filename = bracket
   bracketUseUnliftIO
 
 
-mybracket :: MonadUnliftIO m => forall a b c. m a -> (a -> m b) -> (a -> m c) -> m c
-mybracket acquire release use = withRunInIO (\runInIO -> bracket (runInIO acquire) (runInIO . release) (runInIO . use))
+liftbracket :: MonadUnliftIO m => forall a b c. m a -> (a -> m b) -> (a -> m c) -> m c
+liftbracket acquire release use = withRunInIO (\runInIO -> bracket (runInIO acquire) (runInIO . release) (runInIO . use))
+
+lifttry :: (Exception e, MonadUnliftIO m) => m a -> m (Either e a)
+lifttry ma = withRunInIO (\runInIO -> try (runInIO ma))
+
+lifttryJust :: (Exception e, MonadUnliftIO m) => (e -> Maybe b) -> m a -> m (Either b a)
+lifttryJust f ma = withRunInIO (\runInIO -> tryJust f (runInIO ma))
