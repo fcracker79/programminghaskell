@@ -69,6 +69,8 @@ dependencies:
 - rio
 - lifted-async
 - async
+- text-show
+- monad-control
 library:
   source-dirs: src
 

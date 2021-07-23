@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 6af5dd29b16b173b180dd4d57ce7b703ee2d9d90426ef05f1f348e2d30fbce89
+-- hash: 1f227185fd9e9e03406cbdab62f1fc2ad7a78a6f20fe6bfe5a761283000df233
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -105,6 +105,7 @@ library
       HaskellInDepth.CH5.STRefExample
       HaskellInDepth.CH6.EvalRPN
       HaskellInDepth.CH6.Examples
+      HaskellInDepth.CH7.Relevants
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Chapter30
       HaskellProgrammingFromFirstPrinciples.Morra
@@ -163,6 +164,7 @@ library
     , lifted-async
     , managed >=1.0.8
     , mmorph
+    , monad-control
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -176,6 +178,7 @@ library
     , streaming
     , text >=1.2.4.0
     , text-format-simple
+    , text-show
     , time
     , transformers >=0.5.2.0
     , trifecta
@@ -221,6 +224,7 @@ executable hid-ch3-stockquotes
     , lifted-async
     , managed >=1.0.8
     , mmorph
+    , monad-control
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -235,6 +239,7 @@ executable hid-ch3-stockquotes
     , streaming
     , text >=1.2.4.0
     , text-format-simple
+    , text-show
     , time
     , transformers >=0.5.2.0
     , trifecta
@@ -280,6 +285,7 @@ executable programminghaskell-exe
     , lifted-async
     , managed >=1.0.8
     , mmorph
+    , monad-control
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -294,6 +300,7 @@ executable programminghaskell-exe
     , streaming
     , text >=1.2.4.0
     , text-format-simple
+    , text-show
     , time
     , transformers >=0.5.2.0
     , trifecta
@@ -341,6 +348,7 @@ test-suite integration-programminghaskell
     , lifted-async
     , managed >=1.0.8
     , mmorph
+    , monad-control
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -357,6 +365,7 @@ test-suite integration-programminghaskell
     , test-framework-hunit
     , text >=1.2.4.0
     , text-format-simple
+    , text-show
     , time
     , transformers >=0.5.2.0
     , trifecta
@@ -423,6 +432,7 @@ test-suite unit-programminghaskell
     , lifted-async
     , managed >=1.0.8
     , mmorph
+    , monad-control
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -439,6 +449,7 @@ test-suite unit-programminghaskell
     , test-framework-hunit
     , text >=1.2.4.0
     , text-format-simple
+    , text-show
     , time
     , transformers >=0.5.2.0
     , trifecta

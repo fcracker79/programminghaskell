@@ -11,6 +11,8 @@ import qualified Control.Concurrent.Async.Lifted as A
 import qualified UnliftIO.Async as B
 import qualified Control.Concurrent.Async as C
 import Control.Applicative ( Alternative(empty, (<|>)) )
+import Control.Monad.Trans.Control
+import GHC.Base
 data Env
 
 -- monad-control A.concurrently :: forall (m :: * -> *) a b. MonadBaseControl IO m => m a -> m b -> m (a, b)
@@ -134,38 +136,8 @@ instance [safe] MonadUnliftIO IO                                  <-------------
 -}
 
 
-class Dino1 a where
-  dino1 :: a -> Int
-
-
-class Dino2 a where
-  dino2 :: a -> Int
-
 
 newtype Dino = Dino Int
 
-instance Dino1 Dino where
-  dino1 (Dino x) = x
-
-
-instance Dino2 Dino where
-  dino2 (Dino x) = x
-
-
-fdino1 :: Dino1 m => m
-fdino1 = undefined
-
-
-fdino2 :: Dino2 m => m -> (m, String)
-fdino2 = undefined
-
-
-fdino :: (Dino, String)
-fdino = fdino2 fdino1
-
-
-instance Alternative f => Semigroup (f a) where
-  (<>) = (<|>)
-
-instance Alternative f => Monoid (f a) where
-  mempty = empty 
+x :: Dino 
+x = coerce (32::Int)
