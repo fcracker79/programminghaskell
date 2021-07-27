@@ -71,6 +71,8 @@ dependencies:
 - async
 - text-show
 - monad-control
+- req
+- monad-logger
 library:
   source-dirs: src
 

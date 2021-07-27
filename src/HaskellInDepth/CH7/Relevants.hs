@@ -1,9 +1,11 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module HaskellInDepth.CH7.Relevants where
 
 import Control.Monad.Except ( when, MonadError(throwError, catchError), ExceptT, runExceptT )
 import TextShow ( fromText, TextShow(showb, showt), Builder, toText, unlinesB )
 import Data.Text ( Text, unpack, words )
-import Control.Monad.State ( when, MonadState(get, put), gets, modify, State, evalState )
+import Control.Monad.State ( when, MonadState(get, put), gets, modify, State, evalState, StateT (StateT) )
 import Control.Monad.Reader ( ReaderT (runReaderT), asks )
 import Text.Read (readMaybe)
 import Data.Foldable (traverse_)
@@ -13,6 +15,9 @@ import GHC.IO.IOMode
 import System.IO
 import Control.Monad.IO.Unlift
 import Control.Monad.Trans.Control
+import Control.Monad.Logger
+import Control.Monad.Trans
+import Data.ByteString(pack)
 
 -- newtype ExceptT e m a = ExceptT (m (Either e a))
 

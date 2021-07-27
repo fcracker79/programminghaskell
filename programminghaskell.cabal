@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1f227185fd9e9e03406cbdab62f1fc2ad7a78a6f20fe6bfe5a761283000df233
+-- hash: 1264c6e55d5796ea608427b07d86d292aa75781ae708b259481f84b9a10fcc5e
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -106,6 +106,7 @@ library
       HaskellInDepth.CH6.EvalRPN
       HaskellInDepth.CH6.Examples
       HaskellInDepth.CH7.Relevants
+      HaskellInDepth.CH7.RelevantsLogging
       HaskellProgrammingFromFirstPrinciples.Chapter29Exercises
       HaskellProgrammingFromFirstPrinciples.Chapter30
       HaskellProgrammingFromFirstPrinciples.Morra
@@ -165,6 +166,7 @@ library
     , managed >=1.0.8
     , mmorph
     , monad-control
+    , monad-logger
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -173,6 +175,7 @@ library
     , profunctors
     , protolude
     , random >=1.2
+    , req
     , rio
     , stm
     , streaming
@@ -225,6 +228,7 @@ executable hid-ch3-stockquotes
     , managed >=1.0.8
     , mmorph
     , monad-control
+    , monad-logger
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -234,6 +238,7 @@ executable hid-ch3-stockquotes
     , programminghaskell
     , protolude
     , random >=1.2
+    , req
     , rio
     , stm
     , streaming
@@ -286,6 +291,7 @@ executable programminghaskell-exe
     , managed >=1.0.8
     , mmorph
     , monad-control
+    , monad-logger
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -295,6 +301,7 @@ executable programminghaskell-exe
     , programminghaskell
     , protolude
     , random >=1.2
+    , req
     , rio
     , stm
     , streaming
@@ -349,6 +356,7 @@ test-suite integration-programminghaskell
     , managed >=1.0.8
     , mmorph
     , monad-control
+    , monad-logger
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -358,6 +366,7 @@ test-suite integration-programminghaskell
     , programminghaskell
     , protolude
     , random >=1.2
+    , req
     , rio
     , stm
     , streaming
@@ -433,6 +442,7 @@ test-suite unit-programminghaskell
     , managed >=1.0.8
     , mmorph
     , monad-control
+    , monad-logger
     , monad-loops >=0.4.3
     , mtl >=2.2.2
     , optparse-applicative
@@ -442,6 +452,7 @@ test-suite unit-programminghaskell
     , programminghaskell
     , protolude
     , random >=1.2
+    , req
     , rio
     , stm
     , streaming
