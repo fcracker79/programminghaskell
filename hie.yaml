@@ -9,6 +9,12 @@ cradle:
     - path: "./stockquotes/Paths_programminghaskell.hs"
       component: "programminghaskell:exe:hid-ch3-stockquotes"
 
+    - path: "./ipfiltering/Main.hs"
+      component: "programminghaskell:exe:ip-filtering"
+
+    - path: "./ipfiltering/Paths_programminghaskell.hs"
+      component: "programminghaskell:exe:ip-filtering"
+
     - path: "./app/Main.hs"
       component: "programminghaskell:exe:programminghaskell-exe"
 
@@ -20,3 +26,6 @@ cradle:
 
     - path: "./test/unit"
       component: "programminghaskell:test:unit-programminghaskell"
+
+    - path: "./test/tasty"
+      component: "programminghaskell:test:unit-programminghaskell-tasty"

@@ -117,8 +117,22 @@ tests:
       - test-framework
       - test-framework-hunit
       - hspec
+      - tasty >=0.11 && <1.4
       - programminghaskell
-
+  unit-programminghaskell-tasty:
+    main: HaskellInDepth/IPFiltering/Test.hs
+    source-dirs: test/tasty
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - HUnit
+      - test-framework
+      - test-framework-hunit
+      - hspec
+      - tasty >=0.11 && <1.4
+      - programminghaskell
   integration-programminghaskell:
     main: Spec.hs
     source-dirs: test/integration
@@ -131,6 +145,7 @@ tests:
       - test-framework
       - test-framework-hunit
       - hspec
+      - tasty >=0.11 && <1.4
       - programminghaskell
 
 default-extensions:
