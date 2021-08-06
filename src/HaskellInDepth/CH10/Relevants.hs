@@ -40,5 +40,5 @@ main = defaultMain [
             bench "isPrime (declarative)" $ nf  (fmap isPrimeRewritten) [0..1000]
             , bench "isPrime many" $ nf  (fmap isPrimeRewritten) [0..1000]
         ],
-        bgroup "env" $ fmap (\i -> env (pure (i * 10)) (bench "dino" . nf isPrimeRewritten)) [0..100]
+        bgroup "env" $ fmap (\i -> env (pure (i * 10)) (bench "dino" . nf isPrimeRewritten)) [0..10]
     ]
