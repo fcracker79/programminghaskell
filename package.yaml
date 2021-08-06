@@ -73,6 +73,8 @@ dependencies:
 - monad-control
 - req
 - monad-logger
+- ghc-prim
+- timeit
 library:
   source-dirs: src
 

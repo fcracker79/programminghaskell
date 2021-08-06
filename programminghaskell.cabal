@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7293c8cd00336eba2be86e847d935663e28d043ac06dbdc5bf557b76d2d4871c
+-- hash: c04b7795c2688697896781dd36be0c6533b9196009460a45df216eedf56386d9
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -79,6 +79,7 @@ library
       HaskellInDepth.CH1.ParseFile
       HaskellInDepth.CH1.PlayWithQuantifiers
       HaskellInDepth.CH1.Relevants
+      HaskellInDepth.CH10.Relevants
       HaskellInDepth.CH2.Antenna
       HaskellInDepth.CH2.Numbers
       HaskellInDepth.CH2.RandomStuff
@@ -107,6 +108,7 @@ library
       HaskellInDepth.CH6.Examples
       HaskellInDepth.CH7.Relevants
       HaskellInDepth.CH7.RelevantsLogging
+      HaskellInDepth.CH9.Relevants
       HaskellInDepth.IPFiltering.IPTypes
       HaskellInDepth.IPFiltering.LookupIP
       HaskellInDepth.IPFiltering.ParseIP
@@ -163,6 +165,7 @@ library
     , fingertree
     , fmt
     , foldl
+    , ghc-prim
     , hspec
     , lens
     , lifted-async
@@ -186,6 +189,7 @@ library
     , text-format-simple
     , text-show
     , time
+    , timeit
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -225,6 +229,7 @@ executable hid-ch3-stockquotes
     , fingertree
     , fmt
     , foldl
+    , ghc-prim
     , hspec
     , lens
     , lifted-async
@@ -249,6 +254,7 @@ executable hid-ch3-stockquotes
     , text-format-simple
     , text-show
     , time
+    , timeit
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -288,6 +294,7 @@ executable programminghaskell-exe
     , fingertree
     , fmt
     , foldl
+    , ghc-prim
     , hspec
     , lens
     , lifted-async
@@ -312,6 +319,7 @@ executable programminghaskell-exe
     , text-format-simple
     , text-show
     , time
+    , timeit
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -353,6 +361,7 @@ test-suite integration-programminghaskell
     , fingertree
     , fmt
     , foldl
+    , ghc-prim
     , hspec
     , lens
     , lifted-async
@@ -379,6 +388,7 @@ test-suite integration-programminghaskell
     , text-format-simple
     , text-show
     , time
+    , timeit
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -439,6 +449,7 @@ test-suite unit-programminghaskell
     , fingertree
     , fmt
     , foldl
+    , ghc-prim
     , hspec
     , lens
     , lifted-async
@@ -465,6 +476,7 @@ test-suite unit-programminghaskell
     , text-format-simple
     , text-show
     , time
+    , timeit
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
@@ -507,6 +519,7 @@ test-suite unit-programminghaskell-tasty
     , fingertree
     , fmt
     , foldl
+    , ghc-prim
     , hspec
     , lens
     , lifted-async
@@ -535,6 +548,7 @@ test-suite unit-programminghaskell-tasty
     , text-format-simple
     , text-show
     , time
+    , timeit
     , transformers >=0.5.2.0
     , trifecta
     , unicode-show
