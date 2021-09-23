@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d7f576d852b469cd9c39ea48307dbb9b77c9d1eecd2b25fad181e0b79114d133
+-- hash: 7d416988f2cc627228352b11f8add0a413aa0198e267f3e1727086cfab19eb09
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -80,6 +80,7 @@ library
       HaskellInDepth.CH1.PlayWithQuantifiers
       HaskellInDepth.CH1.Relevants
       HaskellInDepth.CH10.Relevants
+      HaskellInDepth.CH11.Types101
       HaskellInDepth.CH2.Antenna
       HaskellInDepth.CH2.Numbers
       HaskellInDepth.CH2.RandomStuff
@@ -131,6 +132,7 @@ library
       MorraAlternative
       MyContinuationImplementation
       MyWithResource
+      PaolinoExercisesBeforeHolidays.Months
       PaolinoPatternMatchExercise
       PlayWithContinuation
       PlayWithHoist
