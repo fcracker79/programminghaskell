@@ -14,6 +14,7 @@ import qualified Data.Map as M
 import qualified Data.Set as S
 import Data.Ord (comparing)
 import Data.List (sortBy)
+import qualified Data.Text.Internal.Fusion.Size as S
 -- states that what is alive from day start until day end or forever in case of Nothing
 data Row d a = Row
   { -- | first day the 'a' was in 
@@ -29,7 +30,7 @@ type MonthOf d t = d -> t
 
 
 
-data Direction = In | Out
+data Direction = In | Out deriving(Show)
 type ElementWithDirection d a = (d, a, Direction)
 dayOf :: ElementWithDirection d a -> d
 dayOf (d, _, _) = d
@@ -41,14 +42,14 @@ directionOf :: ElementWithDirection d a -> Direction
 directionOf (_, _, d) = d
 
 
-elementWithDirection :: d -> Row d a -> (ElementWithDirection d a, ElementWithDirection d a)
+elementWithDirection :: Enum d => d -> Row d a -> (ElementWithDirection d a, ElementWithDirection d a)
 elementWithDirection lastDay r = (start, end)
   where 
     start = (enter r, element, In)
-    end = (fromMaybe lastDay (exit r), element, Out)
+    end = (succ (fromMaybe lastDay (exit r)), element, Out)
     element = what r
 
-elementsWithDirection :: d -> [Row d a] -> [ElementWithDirection d a]
+elementsWithDirection :: Enum d => d -> [Row d a] -> [ElementWithDirection d a]
 elementsWithDirection _ [] = []
 elementsWithDirection lastDay (h:t) = fst he:snd he:elementsWithDirection lastDay t
   where he = elementWithDirection lastDay h
@@ -83,15 +84,23 @@ updateAccumulationState s (_, a, Out) = AccumulationState {
 newAccumulationState :: MonthOf d t -> AccumulationState t d a -> ElementWithDirection d a -> AccumulationState t d a
 newAccumulationState monthOf oldState (d, _, _) = AccumulationState {
   currentMonth = monthOf d,
-  curSet = S.empty,
+  curSet = curSet oldState,
   instancesCount = instancesCount oldState
 }
 
 months2 :: (Eq t, Ord a) => MonthOf d t -> AccumulationState t d a -> [ElementWithDirection d a] -> [(t, Set a)]
-months2 _ s [] = [(currentMonth s, curSet s)]
+months2 _ s [] 
+  | S.null lastSet = []
+  | otherwise = [(currentMonth s, curSet s)]
+       where lastSet = curSet s
+
 months2 monthOf s (h:t)
   | monthOf (dayOf h) == currentMonth s = months2 monthOf (updateAccumulationState s h) t
-  | otherwise = (currentMonth s, curSet s):months2 monthOf (newAccumulationState monthOf s h) t
+  | S.null lastSet = remainingStuff
+  | otherwise = (currentMonth s, lastSet):remainingStuff
+  where 
+    lastSet = curSet s
+    remainingStuff = months2 monthOf (updateAccumulationState (newAccumulationState monthOf s h) h) t
 
 myWhatWasThere
   :: (Eq t, Ord a, Ord d, Enum d, Enum t)
@@ -107,7 +116,7 @@ myWhatWasThere monthOf lastDay (h:t) = months2 monthOf s es
       curSet = S.empty,
       instancesCount = M.empty
     }
-    es = elementsWithDirection lastDay (h:t)
+    es = sortElementsWithDirection $ elementsWithDirection lastDay (h:t)
 
 
 -- compute the presence of the 'a' in every month,
@@ -125,4 +134,13 @@ whatWasThere monthOf lastDay = notImplemented
 newtype Month = Month Int deriving (Eq, Ord, Show, Enum, Num)
 dumbMonthOf :: Int -> Month
 dumbMonthOf = succ . Month . (`div` 2) . pred
-dino = myWhatWasThere dumbMonthOf 7 [ Row 1 (Just 8) 1, Row 2 (Just 4) 2, Row 4 (Just 12) 4]
+
+
+dinodata :: [Row Int Int]
+dinodata = [ Row 1 (Just 8) 1, Row 2 (Just 4) 2, Row 4 (Just 12) 4]
+dino :: [(Month, Set Int)]
+dino = myWhatWasThere dumbMonthOf 7 dinodata
+
+main :: IO ()
+main = do
+  print $ sortElementsWithDirection $ elementsWithDirection 7 dinodata
