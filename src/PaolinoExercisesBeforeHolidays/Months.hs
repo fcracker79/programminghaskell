@@ -8,13 +8,30 @@ module PaolinoExercisesBeforeHolidays.Months where
 
 
 import Protolude
-import Prelude(id)
-import Control.Foldl (Fold(..))
+    ( fst,
+      snd,
+      otherwise,
+      ($),
+      Enum(pred, succ),
+      Eq((==)),
+      Integral(div),
+      Num((-), (+)),
+      Ord(compare, min),
+      Show,
+      Int,
+      Maybe(..),
+      IO,
+      fromMaybe,
+      maybe,
+      sortBy,
+      (.),
+      print,
+      notImplemented,
+      Map,
+      Set )
 import qualified Data.Map as M
 import qualified Data.Set as S
-import Data.Ord (comparing)
-import Data.List (sortBy)
-import qualified Data.Text.Internal.Fusion.Size as S
+
 -- states that what is alive from day start until day end or forever in case of Nothing
 data Row d a = Row
   { -- | first day the 'a' was in 
@@ -42,14 +59,14 @@ directionOf :: ElementWithDirection d a -> Direction
 directionOf (_, _, d) = d
 
 
-elementWithDirection :: Enum d => d -> Row d a -> (ElementWithDirection d a, ElementWithDirection d a)
+elementWithDirection :: (Enum d, Ord d) => d -> Row d a -> (ElementWithDirection d a, ElementWithDirection d a)
 elementWithDirection lastDay r = (start, end)
   where 
     start = (enter r, element, In)
-    end = (succ (fromMaybe lastDay (exit r)), element, Out)
+    end = (succ (maybe lastDay (min lastDay) (exit r)), element, Out)
     element = what r
 
-elementsWithDirection :: Enum d => d -> [Row d a] -> [ElementWithDirection d a]
+elementsWithDirection :: (Ord d, Enum d) => d -> [Row d a] -> [ElementWithDirection d a]
 elementsWithDirection _ [] = []
 elementsWithDirection lastDay (h:t) = fst he:snd he:elementsWithDirection lastDay t
   where he = elementWithDirection lastDay h
@@ -89,14 +106,10 @@ newAccumulationState monthOf oldState (d, _, _) = AccumulationState {
 }
 
 months2 :: (Eq t, Ord a) => MonthOf d t -> AccumulationState t d a -> [ElementWithDirection d a] -> [(t, Set a)]
-months2 _ s [] 
-  | S.null lastSet = []
-  | otherwise = [(currentMonth s, curSet s)]
-       where lastSet = curSet s
-
+months2 _ s [] = [(currentMonth s, curSet s)]
 months2 monthOf s (h:t)
   | monthOf (dayOf h) == currentMonth s = months2 monthOf (updateAccumulationState s h) t
-  | S.null lastSet = remainingStuff
+  | S.null lastSet = (currentMonth s, curSet s):remainingStuff
   | otherwise = (currentMonth s, lastSet):remainingStuff
   where 
     lastSet = curSet s
