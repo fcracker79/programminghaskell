@@ -8,27 +8,6 @@ module PaolinoExercisesBeforeHolidays.Months where
 
 
 import Protolude
-    ( fst,
-      snd,
-      otherwise,
-      ($),
-      Enum(pred, succ),
-      Eq((==)),
-      Integral(div),
-      Num((-), (+)),
-      Ord(compare, min),
-      Show,
-      Int,
-      Maybe(..),
-      IO,
-      fromMaybe,
-      maybe,
-      sortBy,
-      (.),
-      print,
-      notImplemented,
-      Map,
-      Set )
 import qualified Data.Map as M
 import qualified Data.Set as S
 
@@ -105,15 +84,17 @@ newAccumulationState monthOf oldState (d, _, _) = AccumulationState {
   instancesCount = instancesCount oldState
 }
 
-months2 :: (Eq t, Ord a) => MonthOf d t -> AccumulationState t d a -> [ElementWithDirection d a] -> [(t, Set a)]
+months2 :: (Eq t, Enum t, Ord a) => MonthOf d t -> AccumulationState t d a -> [ElementWithDirection d a] -> [(t, Set a)]
 months2 _ s [] = [(currentMonth s, curSet s)]
 months2 monthOf s (h:t)
   | monthOf (dayOf h) == currentMonth s = months2 monthOf (updateAccumulationState s h) t
-  | S.null lastSet = (currentMonth s, curSet s):remainingStuff
-  | otherwise = (currentMonth s, lastSet):remainingStuff
+  | otherwise = fmap (, lastSet) (ord2array (currentMonth s) (monthOf (dayOf h))) ++ remainingStuff
   where 
     lastSet = curSet s
     remainingStuff = months2 monthOf (updateAccumulationState (newAccumulationState monthOf s h) h) t
+
+ord2array :: (Enum a, Eq a) => a -> a -> [a]
+ord2array a b = if a == b then [] else a:ord2array (succ a) b
 
 myWhatWasThere
   :: (Eq t, Ord a, Ord d, Enum d, Enum t)
@@ -149,11 +130,7 @@ dumbMonthOf :: Int -> Month
 dumbMonthOf = succ . Month . (`div` 2) . pred
 
 
-dinodata :: [Row Int Int]
-dinodata = [ Row 1 (Just 8) 1, Row 2 (Just 4) 2, Row 4 (Just 12) 4]
-dino :: [(Month, Set Int)]
-dino = myWhatWasThere dumbMonthOf 7 dinodata
-
 main :: IO ()
 main = do
-  print $ sortElementsWithDirection $ elementsWithDirection 7 dinodata
+  print $ myWhatWasThere dumbMonthOf 7 [ Row 1 (Just 8) 1, Row 2 (Just 4) 2, Row 4 (Just 12) 4]
+  print $ myWhatWasThere dumbMonthOf 20 [ Row 1 (Just 8) 1, Row 2 (Just 4) 2, Row 4 (Just 12) 4]
