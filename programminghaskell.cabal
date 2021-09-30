@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7d416988f2cc627228352b11f8add0a413aa0198e267f3e1727086cfab19eb09
+-- hash: a80121fee977e4250aaa2b11b0ef0c4de8bb5f360fb6a4716b7d43ef0b902146
 
 name:           programminghaskell
 version:        0.1.0.0
@@ -81,6 +81,9 @@ library
       HaskellInDepth.CH1.Relevants
       HaskellInDepth.CH10.Relevants
       HaskellInDepth.CH11.Types101
+      HaskellInDepth.CH11.Types101_2
+      HaskellInDepth.CH11.Types101_3
+      HaskellInDepth.CH11.Types101_4
       HaskellInDepth.CH2.Antenna
       HaskellInDepth.CH2.Numbers
       HaskellInDepth.CH2.RandomStuff
