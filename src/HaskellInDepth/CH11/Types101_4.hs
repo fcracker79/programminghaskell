@@ -15,8 +15,10 @@ newtype Temp (u :: TempUnits) = Temp Double deriving (Num, Fractional)
 instance Show (Temp F) where
     show (Temp d) = show d ++ " Farenheit"
 
-instance Show F where
-    show _ = "Farenheits"
+
+-- Expected a type, but ‘F’ has kind ‘TempUnits’
+-- instance Show F where
+--     show _ = "Farenheits"
 
 
 -- Since F is now a type, I can use it in signatures
@@ -28,3 +30,8 @@ absoluteZero = -273.15
 
 f2c :: Temp F -> Temp C
 f2c (Temp f) = Temp ((f-32)*5/9)
+
+
+gino :: TempUnits -> String 
+gino F = "F"
+gino C = "C"
